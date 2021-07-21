@@ -1,18 +1,22 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link>|
-    <router-link to="/about">About</router-link>
-  </div>
-  <router-view />
+  <a-config-provider :locale="locale">
+  </a-config-provider>
 </template>
 
 <script>
-import { defineComponent } from 'vue';
-import { RouterLink, RouterView } from 'vue-router';
-import './style/main.less'
+import { defineComponent, ref } from 'vue';
+import zhCN from 'ant-design-vue/es/locale/zh_CN';
+import enUS from 'ant-design-vue/lib/locale-provider/en_US'
+import storage from '@/utils/Storage'
 
 export default defineComponent({
   name: 'App',
+  setup() {
+    const lang = ref('zhCN')
+    return {
+      lang
+    }
+  }
 });
 </script>
 
