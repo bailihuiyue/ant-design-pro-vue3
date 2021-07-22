@@ -1,4 +1,5 @@
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
+import commonRoutes from '@/router/commonRoutes'
 
 const routes: RouteRecordRaw[] = [
   {
@@ -11,6 +12,7 @@ const routes: RouteRecordRaw[] = [
     name: 'About',
     component: () => import('../views/About'),
   },
+  ...commonRoutes,
 ];
 
 const router = createRouter({
