@@ -2,7 +2,7 @@
   <div id="app">
     <a-config-provider :locale="lang">
       <router-view />
-      {{t('test1.b')}}
+      {{t('user.test.a')}}
     </a-config-provider>
   </div>
 </template>
@@ -20,9 +20,9 @@ export default defineComponent({
   setup() {
     const { t } = useI18n();
     const { proxy } = getCurrentInstance();
-    setTimeout(() => {
-      proxy.$i18n.locale = 'en'
-    }, 2000)
+    // setTimeout(() => {
+    //   proxy.$i18n.locale = 'en'
+    // }, 2000)
     const lang = ref(cn)
     return {
       lang,

@@ -14,7 +14,6 @@ let enV = import.meta.globEager('../views/**/lang/en.ts');
 let cnV = import.meta.globEager('../views/**/lang/cn.ts');
 enV = genLangs(enV, 'views')
 cnV = genLangs(cnV, 'views')
-
 // 组件类的
 let enC = import.meta.globEager('../components/**/lang/en.ts');
 let cnC = import.meta.globEager('../components/**/lang/cn.ts');
