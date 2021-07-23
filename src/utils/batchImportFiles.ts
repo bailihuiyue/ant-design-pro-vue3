@@ -14,10 +14,9 @@ export function genLangs(module: Record<string, any>, exclude: string) {
     let path = item.replace(/^\.\.\//, '').replace(/^\.\//, '').replace(`${exclude}/`, '').replace(/\/lang/,'');
     path = path.split('.')[0];
     const names = path.split('/')
-    const langType = names.pop() as string;
+    names.pop() as string;
     const objKey = names.join('.');
     obj[objKey] = content
   });
-  console.log(obj)
   return obj;
 }

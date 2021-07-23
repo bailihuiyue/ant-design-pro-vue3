@@ -24,11 +24,18 @@ cnC = genLangs(cnC, 'components')
 const en = { ...enU, ...enV, ...enC }
 const cn = { ...cnU, ...cnV, ...cnC }
 
-export default createI18n({
+const i18n = createI18n({
   locale: storage.get('lang') || 'cn',
+  legacy: false,
+  globalInjection: true,
   messages: {
     cn,
     en
   }
 })
-// useBatchImport()
+
+export default i18n
+
+export const getLocale = () => {
+  return i18n.global.locale
+}
