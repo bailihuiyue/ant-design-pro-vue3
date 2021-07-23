@@ -1,0 +1,1 @@
+export type cryptType = (key: string, iv: string, data: string) => string

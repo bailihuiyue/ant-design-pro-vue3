@@ -1,8 +1,20 @@
-// 默认缓存期限为7天
-const options: any = {
+import { AesEncryption } from './encrypt'
+import { encryptKeys } from './util'
+
+interface storageOptType {
+  namespace?: string
+  storage?: string
+  default_cache_time?: number
+  isEncrypt?: boolean
+}
+
+const encryption = new AesEncryption({ key: encryptKeys.key, iv: encryptKeys.iv });
+
+const options = {
   namespace: 'ls_', // key prefix
   storage: 'localStorage', // storage name session, local, memory
-  default_cache_time: 60 * 60 * 24 * 7
+  default_cache_time: 60 * 60 * 24 * 7,
+  isEncrypt: false
 }
 let hasSetStorage = false
 
@@ -10,9 +22,9 @@ export const storage = {
   getKey: (key: string) => {
     return options.namespace + key
   },
-  setOptions: (opt: any) => {
+  setOptions: (opt: storageOptType) => {
     if (hasSetStorage) {
-      console.error('Has set storage:',options)
+      console.error('Has set storage:', options)
       return
     }
     Object.assign(options, opt)
@@ -23,17 +35,20 @@ export const storage = {
       value,
       expire: expire !== null ? new Date().getTime() + expire * 1000 : null
     })
-    window[options.storage].setItem(storage.getKey(key), stringData)
+    window[options.storage].setItem(storage.getKey(key), options.isEncrypt ? encryption.encryptByAES(stringData) : stringData)
   },
   /**
    * 读取缓存
    * @param {string} key 缓存键
    * @param {*=} def 默认值
    */
-  get: (key: string, def: any = null) => {
-    const item = window[options.storage].getItem(storage.getKey(key))
+  get: (key: string) => {
+    let item = window[options.storage].getItem(storage.getKey(key))
     if (item) {
       try {
+        if (options.isEncrypt) {
+          item = encryption.decryptByAES(item)
+        }
         const data = JSON.parse(item)
         const { value, expire } = data
         // 在有效期内直接返回
@@ -42,10 +57,10 @@ export const storage = {
         }
         storage.remove(storage.getKey(key))
       } catch (e) {
-        return def
+        console.error(e)
       }
     }
-    return def
+    return null
   },
   remove: (key: string) => {
     window[options.storage].removeItem(storage.getKey(key))
