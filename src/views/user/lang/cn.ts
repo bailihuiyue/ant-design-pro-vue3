@@ -1,4 +1,5 @@
 export default {
+  'test.a':'123213',
   'login.userName': '用户名',
   'login.password': '密码',
   'login.username.placeholder': '账户: admin',

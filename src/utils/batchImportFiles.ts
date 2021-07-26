@@ -16,23 +16,26 @@ export function genLangs(module: Record<string, any>, exclude: string) {
     const names = path.split('/')
     names.pop() as string;
     const objKey = names.join('.');
-    obj[objKey] = content
-    gen(content)
+    // 修复i18n 9.0版本无法识别$t('a.b.c')的问题,(当key为a.b.c:"1"时无法识别,必须写成a:{b:{c:1}})
+    obj[objKey] = replaceDot(content)
   });
   return obj;
 }
 
-function gen(c: any) {
-  let obj: any = {}
+function replaceDot(c: any) {
+  let o: any = {}
   for (var k in c) {
     if (k.includes('.')) {
       var arr = k.split('.')
-      let temp={}
-      arr.reduce((item,index) => {
-        obj[item] = c[k]
-      })
+      arr.reduce((total, val, index) => {
+        if (index === arr.length - 1) {
+          return total[val] = c[k]
+        }
+        return total[val] = {}
+      }, o)
+    }else{
+      return c
     }
   }
-  console.log(obj)
-  return obj
+  return o
 }
