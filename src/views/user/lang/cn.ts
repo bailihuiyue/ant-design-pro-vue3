@@ -1,7 +1,6 @@
 export default {
-  'test.a':'123213',
   'login.userName': '用户名',
-  'login.password': '密码',
+  'login.passWord': '密码',
   'login.username.placeholder': '账户: admin',
   'login.password.placeholder': '密码: admin or ant.design',
   'login.message-invalid-credentials': '账户或密码错误（admin/ant.design）',

@@ -5,6 +5,7 @@ import store from './store';
 import '@/style/global.less';
 import storage from '@/utils/Storage'
 import i18n from '@/locales/setupI18n'
+import '@/utils/components_use'
 storage.setOptions({ namespace: 'v3_' })
 
 // storage.set('asd', 'zxcxzcxzcxzcxzcxzxcxzcxzcxz')

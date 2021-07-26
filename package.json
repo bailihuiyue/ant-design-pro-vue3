@@ -6,11 +6,14 @@
     "build": "vite build"
   },
   "dependencies": {
+    "@ant-design/icons-vue": "^6.0.1",
     "ant-design-vue": "^2.2.2",
     "axios": "^0.21.1",
     "crypto-js": "^4.1.0",
+    "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
     "vite-plugin-components": "^0.13.0",
+    "vite-plugin-mock": "^2.9.3",
     "vue": "^3.0.11",
     "vue-i18n": "^9.1.7",
     "vue-ls": "^3.2.2",
@@ -19,7 +22,7 @@
   },
   "devDependencies": {
     "@types/crypto-js": "^4.0.2",
-    "@types/node": "^14.14.41",
+    "@types/node": "^16.4.3",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "@vitejs/plugin-vue": "^1.2.5",

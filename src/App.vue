@@ -2,7 +2,6 @@
   <div id="app">
     <a-config-provider :locale="lang">
       <router-view />
-      {{t('user.test.a')}}
     </a-config-provider>
   </div>
 </template>

@@ -1,8 +1,3 @@
-export function useBatchImport(path: string): void {
-  // const modules = import.meta.globEager(path);
-  debugger
-}
-
 export function genLangs(module: Record<string, any>, exclude: string) {
   const obj: Indexable = {};
 
@@ -16,12 +11,12 @@ export function genLangs(module: Record<string, any>, exclude: string) {
     const names = path.split('/')
     names.pop() as string;
     const objKey = names.join('.');
-    // 修复i18n 9.0版本无法识别$t('a.b.c')的问题,(当key为a.b.c:"1"时无法识别,必须写成a:{b:{c:1}})
     obj[objKey] = replaceDot(content)
   });
   return obj;
 }
 
+// 修复i18n 9.0版本无法识别$t('a.b.c')的问题,(当key为a.b.c:"1"时无法识别,必须写成a:{b:{c:1}})
 function replaceDot(c: any) {
   let o: any = {}
   for (var k in c) {
@@ -29,11 +24,12 @@ function replaceDot(c: any) {
       var arr = k.split('.')
       arr.reduce((total, val, index) => {
         if (index === arr.length - 1) {
-          return total[val] = c[k]
+          total[val] = c[k]
+          return total[val]
         }
-        return total[val] = {}
+        return (total[val] || (total[val] = {}))
       }, o)
-    }else{
+    } else {
       return c
     }
   }

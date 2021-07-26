@@ -19,11 +19,21 @@ export default [
   //     },
   //   ]
   // },
-      {
-        path: '/login',
-        name: 'login',
-        component: () => import(/* webpackChunkName: "user" */ '@/views/user/Login.vue')
-      },
+  // {
+  //   path: '/register',
+  //   name: 'register',
+  //   component: () => import(/* webpackChunkName: "user" */ '@/views/user/Register.vue')
+  // },
+  {
+    path: '/login',
+    name: 'login',
+    component: () => import(/* webpackChunkName: "user" */ '@/views/user/Login.vue')
+  },
+  {
+    path: '/recover',
+    name: 'recover',
+    component: undefined
+  },
   {
     path: '/404',
     component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404.vue')

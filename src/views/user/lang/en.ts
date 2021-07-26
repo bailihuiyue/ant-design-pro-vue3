@@ -1,6 +1,6 @@
 export default {
   'login.userName': 'userName',
-  'login.password': 'password',
+  'login.passWord': 'password',
   'login.username.placeholder': 'Account: admin',
   'login.password.placeholder': 'password: admin or ant.design',
   'login.message-invalid-credentials':
