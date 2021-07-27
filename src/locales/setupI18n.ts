@@ -2,7 +2,7 @@ import { createI18n } from 'vue-i18n'
 import storage from '@/utils/Storage'
 import { genLangs } from '@/utils/batchImportFiles'
 
-// TODO:底下这三大块没有封装是因为import.meta.globEager只让传字符串,不让传变量
+// info:todo:底下这三大块没有封装是因为import.meta.globEager只让传字符串,不让传变量
 // 通用国际化的写在locales/lang/里(比如路由,菜单之类的)
 let enU = import.meta.globEager('./**/en.ts');
 let cnU = import.meta.globEager('./**/cn.ts');

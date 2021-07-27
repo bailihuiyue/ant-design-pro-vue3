@@ -144,7 +144,7 @@
   // ===========================================
   "vetur.experimental.templateInterpolationService": true,
   "vetur.format.options.tabSize": 2,
-  "vetur.format.defaultFormatter.html":"prettyhtml",
+  "vetur.format.defaultFormatter.html": "prettyhtml",
   "vetur.format.defaultFormatter.scss": "prettier",
   "vetur.format.defaultFormatter.css": "prettier",
   "vetur.format.defaultFormatter.ts": "prettier-tslint",
@@ -216,5 +216,62 @@
   "i18n-ally.enabledFrameworks": [
     "vue",
     "react"
-  ]
+  ],
+  "better-comments.tags": [
+    {
+      "tag": "todo",
+      "color": "#FF8C00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "bug",
+      "color": "#FF2D00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "warn",
+      "color": "#3498DB",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "//",
+      "color": "#474747",
+      "strikethrough": true,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "*",
+      "color": "#98C379",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "info",
+      "color": "#35A0FF",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+  ],
+  // "better-comments.highlightPlainText": true
 }

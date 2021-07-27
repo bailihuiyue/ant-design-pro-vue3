@@ -1,5 +1,4 @@
 <template>
-
   <div id="userLayout" :class="['user-layout-wrapper', isMobile && 'mobile']">
     <div class="container">
       <div class="user-layout-lang">
@@ -9,13 +8,11 @@
         <div class="top">
           <div class="header">
             <a href="/">
-              <img src="~@/assets/logo.svg" class="logo" alt="logo">
+              <img src="~@/assets/logo.svg" class="logo" alt="logo" />
               <span class="title">Ant Design</span>
             </a>
           </div>
-          <div class="desc">
-            {{ $t('layouts.userLayout.title') }}
-          </div>
+          <div class="desc">{{ $t('layouts.userLayout.title') }}</div>
         </div>
 
         <router-view />
@@ -26,9 +23,7 @@
             <a href="_self">隐私</a>
             <a href="_self">条款</a>
           </div>
-          <div class="copyright">
-            Copyright &copy; 2018 vueComponent
-          </div>
+          <div class="copyright">Copyright &copy; 2018 vueComponent</div>
         </div>
       </div>
     </div>
@@ -44,15 +39,15 @@ export default {
   components: {
     // SelectLang
   },
-  // todo:经测试原版 vue-antd-pro 3.0.2版本deviceMixin在登录页面并没有效果,isMobile永远是false并且mobile这个class对布局没效果
+  // info:todo:经测试原版 vue-antd-pro 3.0.2版本deviceMixin在登录页面并没有效果,isMobile永远是false并且mobile这个class对布局没效果
   // mixins: [deviceMixin],
-  mounted () {
-    document.body.classList.add('userLayout')
+  mounted() {
+    document.body.classList.add('userLayout');
   },
-  beforeDestroy () {
-    document.body.classList.remove('userLayout')
-  }
-}
+  beforeDestroy() {
+    document.body.classList.remove('userLayout');
+  },
+};
 </script>
 
 <style lang="less" scoped>
@@ -123,7 +118,7 @@ export default {
 
           .title {
             font-size: 33px;
-            color: rgba(0, 0, 0, .85);
+            color: rgba(0, 0, 0, 0.85);
             font-family: Avenir, 'Helvetica Neue', Arial, Helvetica, sans-serif;
             font-weight: 600;
             position: relative;
@@ -173,7 +168,6 @@ export default {
     a {
       text-decoration: none;
     }
-
   }
 }
 </style>

@@ -113,6 +113,7 @@
 import { defineComponent, ref, reactive, computed, onMounted } from 'vue';
 import { Form, message, notification } from 'ant-design-vue';
 import { useI18n } from 'vue-i18n';
+// TODO:完成deviceMixin的配置
 // import { deviceMixin } from '@/store/device-mixin'
 import { scorePassword } from '@/utils/util';
 import { MailOutlined } from '@ant-design/icons-vue';
