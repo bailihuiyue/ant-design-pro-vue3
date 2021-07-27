@@ -30,6 +30,7 @@
     "noImplicitReturns": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
+    "noImplicitAny":false,
     "plugins": [
       {
         "name": "@vuedx/typescript-plugin-vue"

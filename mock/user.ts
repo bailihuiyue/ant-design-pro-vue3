@@ -1,10 +1,10 @@
+import Mock from 'mockjs'
+import { builder, getBody } from '../src/utils/util'
+
 const userApi = {
-  Login: '/auth/login',
   Logout: '/auth/logout',
   ForgePassword: '/auth/forge-password',
   Register: '/auth/register',
-  twoStepCode: '/auth/2step-code',
-  SendSms: '/account/sms',
   SendSmsErr: '/account/sms_err',
   // get my info
   UserInfo: '/user/info',
@@ -33,6 +33,27 @@ export default [
         roleId: 'admin',
         role: ['admin']
       }
+    },
+  },
+  {
+    url: '/auth/2step-code',
+    method: 'get',
+    response: ({ query }) => {
+      return builder({ stepCode: Mock.mock('@integer(0, 1)') })
+    },
+  },
+  {
+    url: '/account/sms',
+    method: 'post',
+    response: () => {
+      return builder({ captcha: Mock.mock('@integer(10000, 99999)') })
+    },
+  },
+  {
+    url: '/auth/logout',
+    method: 'post',
+    response: () => {
+      return builder({}, '[测试接口] 注销成功')
     },
   }
 ]

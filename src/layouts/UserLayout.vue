@@ -44,6 +44,7 @@ export default {
   components: {
     // SelectLang
   },
+  // todo:经测试原版 vue-antd-pro 3.0.2版本deviceMixin在登录页面并没有效果,isMobile永远是false并且mobile这个class对布局没效果
   // mixins: [deviceMixin],
   mounted () {
     document.body.classList.add('userLayout')

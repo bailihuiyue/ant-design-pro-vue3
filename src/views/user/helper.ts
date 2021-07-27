@@ -1,10 +1,10 @@
 import { timeFix } from '@/utils/util';
 import { storage } from '@/utils/Storage';
 import { ACCESS_TOKEN, PERMISSION, USER_INFO } from '@/store/mutation-types';
-import { notification } from 'ant-design-vue';
+import { notification ,message} from 'ant-design-vue';
 import { Router } from 'vue-router'
 
-export const loginSuccess = (res: any, router: Router) => {
+export const loginSuccess = (res?: any, router?: Router) => {
   // 延迟 1 秒显示欢迎信息
   setTimeout(() => {
     notification.success({
@@ -13,9 +13,12 @@ export const loginSuccess = (res: any, router: Router) => {
     });
   });
 
-  storage.set(ACCESS_TOKEN, res.token, 7 * 24 * 60 * 60 * 1000);
-  storage.set(PERMISSION, Array.isArray(res.role) ? res.role : res.role.split(','));
-  storage.set(USER_INFO, res);
+  if(res.token){
+    storage.set(ACCESS_TOKEN, res.token, 7 * 24 * 60 * 60 * 1000);
+    storage.set(PERMISSION, Array.isArray(res.role) ? res.role : res.role.split(','));
+    storage.set(USER_INFO, res);
+  }
+
   // router.push({ path: '/' });
 };
 

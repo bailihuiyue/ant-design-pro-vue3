@@ -1,13 +1,15 @@
 <template>
   <div class="main user-layout-register">
-    <h3><span>{{ $t('user.register.register') }}</span></h3>
-    <a-form ref="formRegister" :form="form" id="formRegister">
-      <a-form-item>
+    <h3>
+      <span>{{ $t('user.register.register') }}</span>
+    </h3>
+    <a-form ref="formRegister" :model="form" id="formRegister" :rules="rules">
+      <a-form-item v-bind="validateInfos.email">
         <a-input
           size="large"
           type="text"
           :placeholder="$t('user.register.email.placeholder')"
-          v-decorator="['email', {rules: [{ required: true, type: 'email', message: $t('user.email.required') }], validateTrigger: ['change', 'blur']}]"
+          v-model:value="form.email"
         ></a-input>
       </a-form-item>
 
@@ -15,37 +17,45 @@
         placement="rightTop"
         :trigger="['focus']"
         :getPopupContainer="(trigger) => trigger.parentElement"
-        v-model="state.passwordLevelChecked">
+        v-model:value="state.passwordLevelChecked"
+      >
         <template slot="content">
-          <div :style="{ width: '240px' }" >
+          <div :style="{ width: '240px' }">
             <div :class="['user-register', passwordLevelClass]">{{ $t(passwordLevelName) }}</div>
-            <a-progress :percent="state.percent" :showInfo="false" :strokeColor=" passwordLevelColor " />
+            <a-progress
+              :percent="state.percent"
+              :showInfo="false"
+              :strokeColor=" passwordLevelColor "
+            />
             <div style="margin-top: 10px;">
-              <span>{{ $t('user.register.password.popover-message') }}
-              </span>
+              <span>{{ $t('user.register.password.popover-message') }}</span>
             </div>
           </div>
         </template>
-        <a-form-item>
+        <a-form-item v-bind="validateInfos.password">
           <a-input-password
             size="large"
             @click="handlePasswordInputClick"
             :placeholder="$t('user.register.password.placeholder')"
-            v-decorator="['password', {rules: [{ required: true, message: $t('user.password.required') }, { validator: this.handlePasswordLevel }], validateTrigger: ['change', 'blur']}]"
+            v-model:value="form.password"
           ></a-input-password>
         </a-form-item>
       </a-popover>
 
-      <a-form-item>
+      <a-form-item v-bind="validateInfos.password2">
         <a-input-password
           size="large"
           :placeholder="$t('user.register.confirm-password.placeholder')"
-          v-decorator="['password2', {rules: [{ required: true, message: $t('user.password.required') }, { validator: this.handlePasswordCheck }], validateTrigger: ['change', 'blur']}]"
+          v-model:value="form.password2"
         ></a-input-password>
       </a-form-item>
 
-      <a-form-item>
-        <a-input size="large" :placeholder="$t('user.login.mobile.placeholder')" v-decorator="['mobile', {rules: [{ required: true, message: $t('user.phone-number.required'), pattern: /^1[3456789]\d{9}$/ }, { validator: this.handlePhoneCheck } ], validateTrigger: ['change', 'blur'] }]">
+      <a-form-item v-bind="validateInfos.mobile">
+        <a-input
+          size="large"
+          :placeholder="$t('user.login.mobile.placeholder')"
+          v-model:value="form.mobile"
+        >
           <a-select slot="addonBefore" size="large" defaultValue="+86">
             <a-select-option value="+86">+86</a-select-option>
             <a-select-option value="+87">+87</a-select-option>
@@ -58,13 +68,18 @@
               <a-select-option value="+87">+87</a-select-option>
             </a-select>
             <a-input style="width: 80%" size="large" placeholder="11 位手机号"></a-input>
-          </a-input-group>-->
+      </a-input-group>-->
 
       <a-row :gutter="16">
         <a-col class="gutter-row" :span="16">
-          <a-form-item>
-            <a-input size="large" type="text" :placeholder="$t('user.login.mobile.verification-code.placeholder')" v-decorator="['captcha', {rules: [{ required: true, message: '请输入验证码' }], validateTrigger: 'blur'}]">
-              <a-icon slot="prefix" type="mail" :style="{ color: 'rgba(0,0,0,.25)' }"/>
+          <a-form-item v-bind="validateInfos.captcha">
+            <a-input
+              size="large"
+              type="text"
+              :placeholder="$t('user.login.mobile.verification-code.placeholder')"
+              v-model:value="form.captcha"
+            >
+              <MailOutlined :style="{ color: 'rgba(0,0,0,.25)' }" />
             </a-input>
           </a-form-item>
         </a-col>
@@ -74,7 +89,7 @@
             size="large"
             :disabled="state.smsSendBtn"
             @click.stop.prevent="getCaptcha"
-            v-text="!state.smsSendBtn && $t('user.register.get-verification-code')||(state.time+' s')"></a-button>
+          >{{!state.smsSendBtn && $t('user.register.get-verification-code')||(state.time+' s')}}</a-button>
         </a-col>
       </a-row>
 
@@ -86,231 +101,255 @@
           class="register-button"
           :loading="registerBtn"
           @click.stop.prevent="handleSubmit"
-          :disabled="registerBtn">{{ $t('user.register.register') }}
-        </a-button>
+          :disabled="registerBtn"
+        >{{ $t('user.register.register') }}</a-button>
         <router-link class="login" :to="{ name: 'login' }">{{ $t('user.register.sign-in') }}</router-link>
       </a-form-item>
-
     </a-form>
   </div>
 </template>
 
-<script>
-import { getSmsCaptcha } from '@/api/login'
-import { deviceMixin } from '@/store/device-mixin'
-import { scorePassword } from '@/utils/util'
+<script lang="ts">
+import { defineComponent, ref, reactive, computed, onMounted } from 'vue';
+import { Form, message, notification } from 'ant-design-vue';
+import { useI18n } from 'vue-i18n';
+// import { deviceMixin } from '@/store/device-mixin'
+import { scorePassword } from '@/utils/util';
+import { MailOutlined } from '@ant-design/icons-vue';
+import { useRouter } from 'vue-router';
+import { requestFailed, getCaptcha } from './helper';
+import { promises } from 'dns';
+import * as api from './service';
 
 const levelNames = {
   0: 'user.password.strength.short',
   1: 'user.password.strength.low',
   2: 'user.password.strength.medium',
-  3: 'user.password.strength.strong'
-}
+  3: 'user.password.strength.strong',
+};
 const levelClass = {
   0: 'error',
   1: 'error',
   2: 'warning',
-  3: 'success'
-}
+  3: 'success',
+};
 const levelColor = {
   0: '#ff0000',
   1: '#ff0000',
   2: '#ff7e05',
-  3: '#52c41a'
-}
-export default {
+  3: '#52c41a',
+};
+export default defineComponent({
   name: 'Register',
   components: {
+    MailOutlined,
   },
-  mixins: [deviceMixin],
-  data () {
-    return {
-      form: this.$form.createForm(this),
+  setup() {
+    const { t } = useI18n();
+    const router = useRouter();
+    const useForm = Form.useForm;
 
-      state: {
-        time: 60,
-        level: 0,
-        smsSendBtn: false,
-        passwordLevel: 0,
-        passwordLevelChecked: false,
-        percent: 10,
-        progressColor: '#FF0000'
-      },
-      registerBtn: false
-    }
-  },
-  computed: {
-    passwordLevelClass () {
-      return levelClass[this.state.passwordLevel]
-    },
-    passwordLevelName () {
-      return levelNames[this.state.passwordLevel]
-    },
-    passwordLevelColor () {
-      return levelColor[this.state.passwordLevel]
-    }
-  },
-  methods: {
-    handlePasswordLevel (rule, value, callback) {
+    // 表单相关
+    const form = reactive({
+      email: '2@qq.com',
+      password: '111111',
+      password2: '111111',
+      mobile: '15822222222',
+    });
+    const handlePasswordLevel = (rule, value) => {
       if (value === '') {
-       return callback()
+        return Promise.resolve();
       }
-      console.log('scorePassword ; ', scorePassword(value))
+      console.log('scorePassword ; ', scorePassword(value));
       if (value.length >= 6) {
         if (scorePassword(value) >= 30) {
-          this.state.level = 1
+          state.level = 1;
         }
         if (scorePassword(value) >= 60) {
-        this.state.level = 2
+          state.level = 2;
         }
         if (scorePassword(value) >= 80) {
-        this.state.level = 3
+          state.level = 3;
         }
       } else {
-        this.state.level = 0
-        callback(new Error(this.$t('user.password.strength.msg')))
+        state.level = 0;
+        return Promise.reject(new Error(t('user.password.strength.msg')));
       }
-      this.state.passwordLevel = this.state.level
-      this.state.percent = this.state.level * 33
+      state.passwordLevel = state.level;
+      state.percent = state.level * 33;
 
-      callback()
-    },
+      return Promise.resolve();
+    };
+    const handlePhoneCheck = (rule, value) => {
+      return Promise.resolve();
+    };
+    const rules = reactive({
+      email: [
+        { required: true, type: 'email', message: t('user.email.required') },
+        { validateTrigger: ['change', 'blur'] },
+      ],
+      password: [
+        { required: true, message: t('user.password.required') },
+        { validator: handlePasswordLevel },
+        { validateTrigger: ['change', 'blur'] },
+      ],
+      password2: [
+        { required: true, message: t('user.password.required') },
+        { validator: handlePasswordLevel },
+        { validateTrigger: ['change', 'blur'] },
+      ],
+      mobile: [
+        { required: true, message: t('user.phone-number.required'), pattern: /^1[3456789]\d{9}$/ },
+        { validator: handlePhoneCheck },
+        { validateTrigger: ['change', 'blur'] },
+      ],
+      captcha: [{ required: true, message: '请输入验证码' }, { validateTrigger: 'blur' }],
+    });
+    const { validate, validateInfos } = useForm(form, rules);
+    const handleSubmit = () => {
+      validate().then((res) => {
+        state.passwordLevelChecked = false;
+        router.push({ name: 'registerResult', params: { ...form } });
+      });
+    };
 
-    handlePasswordCheck (rule, value, callback) {
-      const password = this.form.getFieldValue('password')
-      // console.log('value', value)
+    const state = reactive({
+      time: 60,
+      level: 0,
+      smsSendBtn: false,
+      passwordLevel: 0,
+      passwordLevelChecked: false,
+      percent: 10,
+      progressColor: '#FF0000',
+    });
+
+    // 密码检查相关
+    const registerBtn = ref(false);
+    const passwordLevelClass = computed(() => {
+      return levelClass[state.passwordLevel];
+    });
+    const passwordLevelName = computed(() => {
+      return levelNames[state.passwordLevel];
+    });
+    const passwordLevelColor = computed(() => {
+      return levelColor[state.passwordLevel];
+    });
+    const handlePasswordCheck = (rule, value) => {
+      const password = form.password;
       if (value === undefined) {
-        callback(new Error(this.$t('user.password.required')))
+        return Promise.reject(new Error(t('user.password.required')));
       }
       if (value && password && value.trim() !== password.trim()) {
-        callback(new Error(this.$t('user.password.twice.msg')))
+        return Promise.reject(new Error(t('user.password.twice.msg')));
       }
-      callback()
-    },
-
-    handlePhoneCheck (rule, value, callback) {
-      console.log('handlePhoneCheck, rule:', rule)
-      console.log('handlePhoneCheck, value', value)
-      console.log('handlePhoneCheck, callback', callback)
-
-      callback()
-    },
-
-    handlePasswordInputClick () {
-      if (!this.isMobile) {
-        this.state.passwordLevelChecked = true
-        return
+      return Promise.resolve();
+    };
+    const handlePasswordInputClick = () => {
+      // TODO:!this.isMobile
+      if (false) {
+        state.passwordLevelChecked = true;
+        return;
       }
-      this.state.passwordLevelChecked = false
-    },
+      state.passwordLevelChecked = false;
+    };
 
-    handleSubmit () {
-      const { form: { validateFields }, state, $router } = this
-      validateFields({ force: true }, (err, values) => {
-        if (!err) {
-          state.passwordLevelChecked = false
-          $router.push({ name: 'registerResult', params: { ...values } })
-        }
-      })
-    },
-
-    getCaptcha (e) {
-      e.preventDefault()
-      const { form: { validateFields }, state, $message, $notification } = this
-
-      validateFields(['mobile'], { force: true },
-        (err, values) => {
-          if (!err) {
-            state.smsSendBtn = true
-
-            const interval = window.setInterval(() => {
-              if (state.time-- <= 0) {
-                state.time = 60
-                state.smsSendBtn = false
-                window.clearInterval(interval)
-              }
-            }, 1000)
-
-            const hide = $message.loading('验证码发送中..', 0)
-
-            getSmsCaptcha({ mobile: values.mobile }).then(res => {
-              setTimeout(hide, 2500)
-              $notification['success']({
-                message: '提示',
-                description: '验证码获取成功，您的验证码为：' + res.result.captcha,
-                duration: 8
-              })
-            }).catch(err => {
-              setTimeout(hide, 1)
-              clearInterval(interval)
-              state.time = 60
-              state.smsSendBtn = false
-              this.requestFailed(err)
-            })
+    // todo:优化:获取验证码(Login相同)
+    const getCaptcha = (e) => {
+      e.preventDefault();
+      validate(['mobile']).then((res) => {
+        state.smsSendBtn = true;
+        const interval = window.setInterval(() => {
+          if (state.time-- <= 0) {
+            state.time = 60;
+            state.smsSendBtn = false;
+            window.clearInterval(interval);
           }
-        }
-      )
-    },
-    requestFailed (err) {
-      this.$notification['error']({
-        message: '错误',
-        description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',
-        duration: 4
-      })
-      this.registerBtn = false
-    }
+        }, 1000);
+
+        const hide = message.loading('验证码发送中..', 1);
+
+        api
+          .getSmsCaptcha({ mobile: form.mobile })
+          .then((res: any) => {
+            setTimeout(hide, 2500);
+            notification['success']({
+              message: '提示',
+              description: '验证码获取成功，您的验证码为：' + res.result.captcha,
+              duration: 8,
+            });
+          })
+          .catch((err) => {
+            setTimeout(hide, 1);
+            clearInterval(interval);
+            state.time = 60;
+            state.smsSendBtn = false;
+            requestFailed(err);
+            registerBtn.value = false;
+          });
+      });
+    };
+
+    return {
+      t,
+      state,
+      registerBtn,
+      validateInfos,
+      form,
+      passwordLevelClass,
+      passwordLevelName,
+      passwordLevelColor,
+      handlePasswordCheck,
+      handlePasswordInputClick,
+      handleSubmit,
+      getCaptcha,
+      rules,
+    };
   },
-  watch: {
-    'state.passwordLevel' (val) {
-      console.log(val)
-    }
-  }
-}
+  // TODO:判断设备
+  // mixins: [deviceMixin],
+});
 </script>
 <style lang="less">
-  .user-register {
-
-    &.error {
-      color: #ff0000;
-    }
-
-    &.warning {
-      color: #ff7e05;
-    }
-
-    &.success {
-      color: #52c41a;
-    }
-
+.user-register {
+  &.error {
+    color: #ff0000;
   }
 
-  .user-layout-register {
-    .ant-input-group-addon:first-child {
-      background-color: #fff;
-    }
+  &.warning {
+    color: #ff7e05;
   }
+
+  &.success {
+    color: #52c41a;
+  }
+}
+
+.user-layout-register {
+  .ant-input-group-addon:first-child {
+    background-color: #fff;
+  }
+}
 </style>
 <style lang="less" scoped>
-  .user-layout-register {
-
-    & > h3 {
-      font-size: 16px;
-      margin-bottom: 20px;
-    }
-
-    .getCaptcha {
-      display: block;
-      width: 100%;
-      height: 40px;
-    }
-
-    .register-button {
-      width: 50%;
-    }
-
-    .login {
-      float: right;
-      line-height: 40px;
-    }
+.user-layout-register {
+  & > h3 {
+    font-size: 16px;
+    margin-bottom: 20px;
   }
+
+  .getCaptcha {
+    display: block;
+    width: 100%;
+    height: 40px;
+  }
+
+  .register-button {
+    width: 50%;
+  }
+
+  .login {
+    float: right;
+    line-height: 40px;
+  }
+}
 </style>

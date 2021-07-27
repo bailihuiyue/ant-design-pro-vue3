@@ -19,11 +19,16 @@ export default [
   //     },
   //   ]
   // },
-  // {
-  //   path: '/register',
-  //   name: 'register',
-  //   component: () => import(/* webpackChunkName: "user" */ '@/views/user/Register.vue')
-  // },
+  {
+    path: '/register',
+    name: 'register',
+    component: () => import(/* webpackChunkName: "user" */ '@/views/user/Register.vue')
+  },
+  {
+    path: '/registerResult',
+    name: 'registerResult',
+    component: () => import(/* webpackChunkName: "user" */ '@/views/user/RegisterResult.vue')
+  },
   {
     path: '/login',
     name: 'login',

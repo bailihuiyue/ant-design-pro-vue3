@@ -10,7 +10,7 @@ const pathResolve = (pathStr: string) => {
 };
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
-  return {
+  return { 
     plugins: [
       vue(),
       vueJsx(),

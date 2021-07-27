@@ -13,12 +13,13 @@
         :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }"
         @change="handleTabClick"
       >
+        <!-- 账户密码登录 -->
         <a-tab-pane key="tab1" :tab="$t('user.login.tab-login-credentials')">
           <a-alert
             v-if="isLoginError"
             type="error"
             showIcon
-            style="margin-bottom: 24px;"
+            style="margin-bottom: 24px"
             :message="$t('user.login.message-invalid-credentials')"
           />
           <a-form-item v-bind="validateInfos.username">
@@ -46,13 +47,14 @@
             </a-input-password>
           </a-form-item>
         </a-tab-pane>
+        <!-- 手机号登录 -->
         <a-tab-pane key="tab2" :tab="$t('user.login.tab-login-mobile')">
           <a-form-item v-bind="validateInfos.mobile">
             <a-input
               size="large"
               type="text"
               :placeholder="$t('user.login.mobile.placeholder')"
-              v-model:value="mobile"
+              v-model:value="form.mobile"
             >
               <MobileOutlined :style="{ color: 'rgba(0,0,0,.25)' }" />
             </a-input>
@@ -65,7 +67,7 @@
                   size="large"
                   type="text"
                   :placeholder="$t('user.login.mobile.verification-code.placeholder')"
-                  v-model:value="captcha"
+                  v-model:value="form.captcha"
                 >
                   <MailOutlined :style="{ color: 'rgba(0,0,0,.25)' }" />
                 </a-input>
@@ -77,23 +79,31 @@
                 tabindex="-1"
                 :disabled="state.smsSendBtn"
                 @click.stop.prevent="getCaptcha"
-                v-text="!state.smsSendBtn && $t('user.register.get-verification-code') || (state.time+' s')"
-              ></a-button>
+              >
+                {{
+                (!state.smsSendBtn && $t("user.register.get-verification-code")) ||
+                state.time + " s"
+                }}
+              </a-button>
             </a-col>
           </a-row>
         </a-tab-pane>
       </a-tabs>
 
       <a-form-item v-bind="validateInfos.rememberMe">
-        <a-checkbox v-model:checked="form.rememberMe">{{ $t('user.login.remember-me') }}</a-checkbox>
+        <a-checkbox v-model:checked="form.rememberMe">
+          {{
+          $t("user.login.remember-me")
+          }}
+        </a-checkbox>
         <router-link
-          :to="{ name: 'recover', params: { user: 'aaa'} }"
+          :to="{ name: 'recover', params: { user: 'aaa' } }"
           class="forge-password"
-          style="float: right;"
-        >{{ $t('user.login.forgot-password') }}</router-link>
+          style="float: right"
+        >{{ $t("user.login.forgot-password") }}</router-link>
       </a-form-item>
 
-      <a-form-item style="margin-top:24px">
+      <a-form-item style="margin-top: 24px">
         <a-button
           size="large"
           type="primary"
@@ -101,11 +111,11 @@
           class="login-button"
           :loading="state.loginBtn"
           :disabled="state.loginBtn"
-        >{{ $t('user.login.login') }}</a-button>
+        >{{ $t("user.login.login") }}</a-button>
       </a-form-item>
 
       <div class="user-login-other">
-        <span>{{ $t('user.login.sign-in-with') }}</span>
+        <span>{{ $t("user.login.sign-in-with") }}</span>
         <a>
           <AlipayCircleOutlined />
         </a>
@@ -115,7 +125,11 @@
         <a>
           <WeiboCircleOutlined />
         </a>
-        <!-- <router-link class="register" :to="{ name: 'register' }">{{ $t('user.login.signup') }}</router-link> -->
+        <router-link class="register" :to="{ name: 'register' }">
+          {{
+          $t("user.login.signup")
+          }}
+        </router-link>
       </div>
     </a-form>
 
@@ -129,13 +143,11 @@
 </template>
 
 <script lang="ts">
-// import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha'
-import { mapActions } from 'vuex';
+import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha.vue';
 import { encryptByMd5 } from '@/utils/encrypt';
-import { defineComponent, ref, reactive, UnwrapRef } from 'vue';
-import { Moment } from 'moment';
+import { defineComponent, ref, reactive, UnwrapRef, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
-import { Form } from 'ant-design-vue';
+import { Form, message, notification } from 'ant-design-vue';
 import { loginSuccess, requestFailed } from './helper';
 import { useRouter } from 'vue-router';
 import {
@@ -147,7 +159,6 @@ import {
   UserOutlined,
   LockOutlined,
 } from '@ant-design/icons-vue';
-// import { getSmsCaptcha, get2step } from '@/api/login'
 import * as api from './service';
 
 interface FormState {
@@ -161,7 +172,7 @@ const useForm = Form.useForm;
 
 export default defineComponent({
   components: {
-    // TwoStepCaptcha
+    TwoStepCaptcha,
     MobileOutlined,
     UserOutlined,
     MailOutlined,
@@ -173,19 +184,33 @@ export default defineComponent({
   setup() {
     const { t } = useI18n();
     const router = useRouter();
-    const form: UnwrapRef<FormState> = reactive({
-      rememberMe: false,
-      username: '',
-      password: '',
-      mobile: '',
-      captcha: '',
+    onMounted(() => {
+      api
+        .get2step({})
+        .then((res: any) => {
+          requiredTwoStepCaptcha.value = res.result.stepCode;
+        })
+        .catch(() => {
+          requiredTwoStepCaptcha.value = false;
+        });
+      requiredTwoStepCaptcha.value = true;
     });
+
     const state = reactive({
       time: 60,
       loginBtn: false,
       // login type: 0 email, 1 username, 2 telephone
       loginType: 0,
       smsSendBtn: false,
+    });
+
+    // 表单相关
+    const form: UnwrapRef<FormState> = reactive({
+      rememberMe: false,
+      username: '',
+      password: '',
+      mobile: '',
+      captcha: '',
     });
     const handleUsernameOrEmail = (rule: any, value: string, callback: () => void) => {
       const regex = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
@@ -216,13 +241,15 @@ export default defineComponent({
         },
       ],
       captcha: [
-        { required: true, message: t('user.verification-code.required'), validateTrigger: 'blur' },
+        {
+          required: true,
+          message: t('user.verification-code.required'),
+          validateTrigger: 'blur',
+        },
       ],
     });
     const { validate, validateInfos } = useForm(form, rules);
-    const handleTabClick = (key: any) => {
-      customActiveKey.value = key;
-    };
+    const isLoginError = ref(false);
     const handleSubmit = (e: any) => {
       e.preventDefault();
       state.loginBtn = true;
@@ -244,95 +271,76 @@ export default defineComponent({
           state.loginBtn = false;
         })
         .catch((e) => {
-          console.log(e);
-          setTimeout(() => {
-            state.loginBtn = false;
-          }, 600);
+          state.loginBtn = false;
         });
     };
+
+    // 切换tab
     const customActiveKey = ref<any>('tab1');
-    const loginBtn = ref(false);
-    const loginType = ref(0);
-    const isLoginError = ref(false);
+    const handleTabClick = (key: any) => {
+      customActiveKey.value = key;
+    };
+
+    // 获取验证码
+    const getCaptcha = (e: any) => {
+      e.preventDefault();
+      validate(['mobile']).then(() => {
+        state.smsSendBtn = true;
+        const interval = window.setInterval(() => {
+          if (state.time-- <= 0) {
+            state.time = 60;
+            state.smsSendBtn = false;
+            window.clearInterval(interval);
+          }
+        }, 1000);
+        message.loading('验证码发送中..', 1);
+        api
+          .getSmsCaptcha({ mobile: form.mobile })
+          .then((res: any) => {
+            notification['success']({
+              message: '提示',
+              description: '验证码获取成功，您的验证码为：' + res.result.captcha,
+              duration: 8,
+            });
+          })
+          .catch((err) => {
+            clearInterval(interval);
+            state.time = 60;
+            state.smsSendBtn = false;
+            requestFailed(err);
+          });
+      });
+    };
+
+    // TwoStepCaptcha暂时没用
     const requiredTwoStepCaptcha = ref(false);
     const stepCaptchaVisible = ref(false);
+    const stepCaptchaSuccess = () => {
+      loginSuccess();
+    };
+    const stepCaptchaCancel = () => {
+      api.logout().then(() => {
+        state.loginBtn = false;
+        stepCaptchaVisible.value = false;
+      });
+    };
+
     return {
       form,
       rules,
       state,
       customActiveKey,
-      loginBtn,
-      loginType,
       isLoginError,
       requiredTwoStepCaptcha,
       stepCaptchaVisible,
       handleTabClick,
       handleSubmit,
       validateInfos,
+      getCaptcha,
+      stepCaptchaSuccess,
+      stepCaptchaCancel,
     };
   },
-  created() {
-    // get2step({})
-    //   .then(res => {
-    //     this.requiredTwoStepCaptcha = res.result.stepCode
-    //   })
-    //   .catch(() => {
-    //     this.requiredTwoStepCaptcha = false
-    //   })
-    // this.requiredTwoStepCaptcha = true
-  },
-  // methods: {
-  //   ...mapActions(['Login', 'Logout']),
-  //   // handler
-  //   getCaptcha(e) {
-  //     e.preventDefault();
-  //     const {
-  //       form: { validateFields },
-  //       state,
-  //     } = this;
-
-  //     validateFields(['mobile'], { force: true }, (err, values) => {
-  //       if (!err) {
-  //         state.smsSendBtn = true;
-
-  //         const interval = window.setInterval(() => {
-  //           if (state.time-- <= 0) {
-  //             state.time = 60;
-  //             state.smsSendBtn = false;
-  //             window.clearInterval(interval);
-  //           }
-  //         }, 1000);
-
-  //         const hide = this.$message.loading('验证码发送中..', 0);
-  //         getSmsCaptcha({ mobile: values.mobile })
-  //           .then((res) => {
-  //             setTimeout(hide, 2500);
-  //             this.$notification['success']({
-  //               message: '提示',
-  //               description: '验证码获取成功，您的验证码为：' + res.result.captcha,
-  //               duration: 8,
-  //             });
-  //           })
-  //           .catch((err) => {
-  //             setTimeout(hide, 1);
-  //             clearInterval(interval);
-  //             state.time = 60;
-  //             state.smsSendBtn = false;
-  //             this.requestFailed(err);
-  //           });
-  //       }
-  //     });
-  //   },
-  //   stepCaptchaSuccess() {
-  //     this.loginSuccess();
-  //   },
-  //   stepCaptchaCancel() {
-  //     this.Logout().then(() => {
-  //       this.loginBtn = false;
-  //       this.stepCaptchaVisible = false;
-  //     });
-  //   },
-  // },
 });
 </script>
 
