@@ -2,11 +2,12 @@
   "name": "vue_tsx",
   "version": "0.0.0",
   "scripts": {
-    "dev": "vite --force",
+    "dev": "vite",
     "build": "vite build"
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
+    "@vueuse/core": "^5.2.0",
     "ant-design-vue": "^2.2.2",
     "axios": "^0.21.1",
     "crypto-js": "^4.1.0",

@@ -91,7 +91,7 @@
       </a-tabs>
 
       <a-form-item v-bind="validateInfos.rememberMe">
-        <a-checkbox v-model:checked="form.rememberMe">
+        <a-checkbox v-model:checked="form.rememberMe" style="float:left">
           {{
           $t("user.login.remember-me")
           }}
@@ -372,7 +372,7 @@ export default defineComponent({
     margin-top: 24px;
     line-height: 22px;
 
-    .item-icon {
+    .anticon {
       font-size: 24px;
       color: rgba(0, 0, 0, 0.2);
       margin-left: 16px;

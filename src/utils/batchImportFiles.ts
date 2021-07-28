@@ -1,4 +1,4 @@
-export function genLangs(module: Record<string, any>, exclude: string) {
+export function genLangs(module: Record<string, any>, include: Array<string> | null, exclude?: string) {
   const obj: Indexable = {};
 
   Object.keys(module).forEach((item) => {
@@ -6,8 +6,16 @@ export function genLangs(module: Record<string, any>, exclude: string) {
     if (!content) {
       throw new Error('Please export default in ' + item)
     }
-    let path = item.replace(/^\.\.\//, '').replace(/^\.\//, '').replace(`${exclude}/`, '').replace(/\/lang/, '');
-    path = path.split('.')[0];
+    let path
+    if (include?.length) {
+      path = item.replace(/^\/src\//, '');
+      include?.forEach(e => {
+        path = path.replace(`${e}/`, '')
+      })
+    } else {
+      path = item.replace(/^\.\.\//, '').replace(/^\.\//, '').replace(`${exclude}/`, '');
+    }
+    path = path.replace(/\/lang/, '').split('.')[0];
     const names = path.split('/')
     names.pop() as string;
     const objKey = names.join('.');

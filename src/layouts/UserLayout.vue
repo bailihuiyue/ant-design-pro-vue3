@@ -30,24 +30,22 @@
   </div>
 </template>
 
-<script>
-// import { deviceMixin } from '@/store/device-mixin'
-// import SelectLang from '@/components/SelectLang'
+<script setup lang="ts">
+import SelectLang from '@/components/SelectLang'
+import { defineComponent, ref, reactive, UnwrapRef, onMounted, onBeforeUnmount } from 'vue';
+import { useBreakpoints, breakpointsAntDesign } from '@vueuse/core';
+// info:todo:经测试原版 vue-antd-pro 3.0.2版本deviceMixin在登录页面并没有效果,isMobile永远是false并且mobile这个class对布局没效果
+onMounted(() => {
+  document.body.classList.add('userLayout');
+});
+onBeforeUnmount(() => {
+  document.body.classList.remove('userLayout');
+});
 
-export default {
-  name: 'UserLayout',
-  components: {
-    // SelectLang
-  },
-  // info:todo:经测试原版 vue-antd-pro 3.0.2版本deviceMixin在登录页面并没有效果,isMobile永远是false并且mobile这个class对布局没效果
-  // mixins: [deviceMixin],
-  mounted() {
-    document.body.classList.add('userLayout');
-  },
-  beforeDestroy() {
-    document.body.classList.remove('userLayout');
-  },
-};
+const breakpoints = useBreakpoints(breakpointsAntDesign)
+// { "xs": 480, "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1600 }
+const isMobile = breakpoints.smaller('lg')
+
 </script>
 
 <style lang="less" scoped>
@@ -58,7 +56,7 @@ export default {
     .container {
       .main {
         max-width: 368px;
-        width: 98%;
+        width: 98% !important;
       }
     }
   }
@@ -77,14 +75,14 @@ export default {
       line-height: 44px;
       text-align: right;
 
-      .select-lang-trigger {
+      /deep/.select-lang-trigger {
         cursor: pointer;
         padding: 12px;
-        margin-right: 24px;
+        margin-right: 16px;
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        font-size: 18px;
+        font-size: 16px;
         vertical-align: middle;
       }
     }

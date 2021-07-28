@@ -176,10 +176,10 @@
   "typescript.updateImportsOnFileMove.enabled": "always",
   "workbench.sideBar.location": "left",
   "[javascriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
@@ -191,7 +191,7 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[less]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
+    "editor.defaultFormatter": "michelemelluso.code-beautifier"
   },
   "[scss]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"

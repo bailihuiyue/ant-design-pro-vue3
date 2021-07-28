@@ -1,6 +1,6 @@
 import { UserConfig, ConfigEnv } from 'vite';
 import vue from '@vitejs/plugin-vue'
-import ViteComponents, { AntDesignVueResolver, } from 'vite-plugin-components'
+import ViteComponents, { AntDesignVueResolver } from 'vite-plugin-components'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import path from 'path';
 import { viteMockServe } from 'vite-plugin-mock';
@@ -10,7 +10,7 @@ const pathResolve = (pathStr: string) => {
 };
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
-  return { 
+  return {
     plugins: [
       vue(),
       vueJsx(),
@@ -36,6 +36,14 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           replacement: pathResolve('src') + '/',
         },
       ]
-    }
+    },
+    css: {
+      preprocessorOptions: {
+        less: {
+          // modifyVars: generateModifyVars(),
+          javascriptEnabled: true,
+        },
+      },
+    },
   }
 };
