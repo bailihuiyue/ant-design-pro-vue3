@@ -2,7 +2,7 @@
   <div id="userLayout" :class="['user-layout-wrapper', isMobile && 'mobile']">
     <div class="container">
       <div class="user-layout-lang">
-        <select-lang class="select-lang-trigger" />
+        <select-lang class="select-lang-trigger" v-if="showSelectLang" @change="onChange" />
       </div>
       <div class="user-layout-content">
         <div class="top">
@@ -30,22 +30,36 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import SelectLang from '@/components/SelectLang'
-import { defineComponent, ref, reactive, UnwrapRef, onMounted, onBeforeUnmount } from 'vue';
-import { useBreakpoints, breakpointsAntDesign } from '@vueuse/core';
-// info:todo:经测试原版 vue-antd-pro 3.0.2版本deviceMixin在登录页面并没有效果,isMobile永远是false并且mobile这个class对布局没效果
-onMounted(() => {
-  document.body.classList.add('userLayout');
-});
-onBeforeUnmount(() => {
-  document.body.classList.remove('userLayout');
-});
+<script lang="ts">
+import SelectLang from '@/components/SelectLang';
+import { isMobile } from '@/utils/util';
+import { ref, onMounted, onBeforeUnmount, nextTick, defineComponent } from 'vue';
 
-const breakpoints = useBreakpoints(breakpointsAntDesign)
-// { "xs": 480, "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1600 }
-const isMobile = breakpoints.smaller('lg')
+export default defineComponent({
+  components: {
+    SelectLang,
+  },
+  setup() {
+    onMounted(() => {
+      document.body.classList.add('userLayout');
+    });
+    onBeforeUnmount(() => {
+      document.body.classList.remove('userLayout');
+    });
 
+    // bug:修复 4441
+    const showSelectLang = ref(true);
+    const onChange = () => {
+      showSelectLang.value = false;
+      nextTick(() => (showSelectLang.value = true));
+    };
+    return {
+      showSelectLang,
+      isMobile,
+      onChange
+    };
+  },
+});
 </script>
 
 <style lang="less" scoped>
@@ -75,7 +89,7 @@ const isMobile = breakpoints.smaller('lg')
       line-height: 44px;
       text-align: right;
 
-      /deep/.select-lang-trigger {
+      ::v-deep(.select-lang-trigger) {
         cursor: pointer;
         padding: 12px;
         margin-right: 16px;

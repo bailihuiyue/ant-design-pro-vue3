@@ -4,7 +4,7 @@ import { ACCESS_TOKEN, PERMISSION, USER_INFO } from '@/store/mutation-types';
 import { notification ,message} from 'ant-design-vue';
 import { Router } from 'vue-router'
 
-export const loginSuccess = (res?: any, router?: Router) => {
+export const loginSuccess = (res?, router?: Router) => {
   // 延迟 1 秒显示欢迎信息
   setTimeout(() => {
     notification.success({
@@ -22,7 +22,7 @@ export const loginSuccess = (res?: any, router?: Router) => {
   // router.push({ path: '/' });
 };
 
-export const requestFailed = (err: any) => {
+export const requestFailed = (err) => {
   notification['error']({
     message: '错误',
     description: ((err.response || {}).data || {}).message || '请求出现错误，请稍后再试',

@@ -1,8 +1,9 @@
+import { LangFile, I18nMsg, I18nMsgVal } from './types'
 export function genLangs(module: Record<string, any>, include: Array<string> | null, exclude?: string) {
   const obj: Indexable = {};
 
   Object.keys(module).forEach((item) => {
-    const content = module[item].default;
+    const content: LangFile = module[item].default;
     if (!content) {
       throw new Error('Please export default in ' + item)
     }
@@ -25,12 +26,12 @@ export function genLangs(module: Record<string, any>, include: Array<string> | n
 }
 
 // 修复i18n 9.0版本无法识别$t('a.b.c')的问题,(当key为a.b.c:"1"时无法识别,必须写成a:{b:{c:1}})
-function replaceDot(c: any) {
-  let o: any = {}
+function replaceDot(c: LangFile) {
+  let o: I18nMsg = {}
   for (var k in c) {
     if (k.includes('.')) {
       var arr = k.split('.')
-      arr.reduce((total, val, index) => {
+      arr.reduce((total: I18nMsgVal, val, index) => {
         if (index === arr.length - 1) {
           total[val] = c[k]
           return total[val]

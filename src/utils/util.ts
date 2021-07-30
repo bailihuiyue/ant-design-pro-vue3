@@ -1,3 +1,9 @@
+import { ResponseBody } from './types'
+import { useBreakpoints, breakpointsAntDesign } from '@vueuse/core';
+// { "xs": 480, "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1600 }
+const breakpoints = useBreakpoints(breakpointsAntDesign);
+export const isMobile = breakpoints.smaller('lg');
+
 export function timeFix() {
   const time = new Date()
   const hour = time.getHours()
@@ -11,14 +17,14 @@ export const encryptKeys = {
   iv: '1',
 };
 
-const responseBody: any = {
+const responseBody: ResponseBody = {
   message: '',
   timestamp: 0,
   result: null,
   code: 0
 }
 
-export const builder = (data: any, message?: any, code = 0, headers = {}) => {
+export const builder = (data: Object, message?: string, code = 0, headers = {}) => {
   responseBody.result = data
   if (message !== undefined && message !== null) {
     responseBody.message = message
@@ -34,7 +40,7 @@ export const builder = (data: any, message?: any, code = 0, headers = {}) => {
   return responseBody
 }
 
-export const getQueryParameters = (options: any) => {
+export const getQueryParameters = (options) => {
   const url = options.url
   const search = url.split('?')[1]
   if (!search) {
@@ -46,7 +52,7 @@ export const getQueryParameters = (options: any) => {
     .replace(/=/g, '":"') + '"}')
 }
 
-export const getBody = (options: any) => {
+export const getBody = (options) => {
   return options.body && JSON.parse(options.body)
 }
 

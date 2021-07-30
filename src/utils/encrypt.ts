@@ -13,8 +13,8 @@ export interface EncryptionParams {
 }
 
 export class AesEncryption {
-  private key: any;
-  private iv: any;
+  private key;
+  private iv;
 
   constructor(opt: Partial<EncryptionParams> = {}) {
     const { key, iv } = opt;

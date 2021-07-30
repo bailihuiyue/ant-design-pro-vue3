@@ -51,7 +51,7 @@ export default [
   },
   {
     url: '/auth/logout',
-    method: 'post',
+    method: 'get',
     response: () => {
       return builder({}, '[测试接口] 注销成功')
     },

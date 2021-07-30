@@ -1,13 +1,6 @@
 <template>
   <div class="main">
-    <a-form
-      id="formLogin"
-      class="user-layout-login"
-      ref="formLogin"
-      :rules="rules"
-      :model="form"
-      @submit="handleSubmit"
-    >
+    <a-form id="formLogin" class="user-layout-login" @submit="handleSubmit" :model="formRef">
       <a-tabs
         :activeKey="customActiveKey"
         :tabBarStyle="{ textAlign: 'center', borderBottom: 'unset' }"
@@ -27,7 +20,7 @@
               size="large"
               type="text"
               :placeholder="$t('user.login.username.placeholder')"
-              v-model:value="form.username"
+              v-model:value="formRef.username"
             >
               <template #prefix>
                 <UserOutlined :style="{ color: 'rgba(0,0,0,.25)' }" />
@@ -39,7 +32,7 @@
             <a-input-password
               size="large"
               :placeholder="$t('user.login.password.placeholder')"
-              v-model:value="form.password"
+              v-model:value="formRef.password"
             >
               <template #prefix>
                 <LockOutlined :style="{ color: 'rgba(0,0,0,.25)' }" />
@@ -54,7 +47,7 @@
               size="large"
               type="text"
               :placeholder="$t('user.login.mobile.placeholder')"
-              v-model:value="form.mobile"
+              v-model:value="formRef.mobile"
             >
               <MobileOutlined :style="{ color: 'rgba(0,0,0,.25)' }" />
             </a-input>
@@ -67,7 +60,7 @@
                   size="large"
                   type="text"
                   :placeholder="$t('user.login.mobile.verification-code.placeholder')"
-                  v-model:value="form.captcha"
+                  v-model:value="formRef.captcha"
                 >
                   <MailOutlined :style="{ color: 'rgba(0,0,0,.25)' }" />
                 </a-input>
@@ -91,7 +84,7 @@
       </a-tabs>
 
       <a-form-item v-bind="validateInfos.rememberMe">
-        <a-checkbox v-model:checked="form.rememberMe" style="float:left">
+        <a-checkbox v-model:checked="formRef.rememberMe" style="float:left">
           {{
           $t("user.login.remember-me")
           }}
@@ -143,7 +136,7 @@
 </template>
 
 <script lang="ts">
-import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha.vue';
+// import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha.vue';
 import { encryptByMd5 } from '@/utils/encrypt';
 import { defineComponent, ref, reactive, UnwrapRef, onMounted } from 'vue';
 import { useI18n } from 'vue-i18n';
@@ -160,19 +153,11 @@ import {
   LockOutlined,
 } from '@ant-design/icons-vue';
 import * as api from './service';
-
-interface FormState {
-  rememberMe: boolean;
-  username: string;
-  password: string;
-  mobile: string;
-  captcha: string;
-}
-const useForm = Form.useForm;
+import { FormState } from './types';
 
 export default defineComponent({
   components: {
-    TwoStepCaptcha,
+    // TwoStepCaptcha,
     MobileOutlined,
     UserOutlined,
     MailOutlined,
@@ -182,18 +167,19 @@ export default defineComponent({
     LockOutlined,
   },
   setup() {
+    const useForm = Form.useForm;
     const { t } = useI18n();
     const router = useRouter();
     onMounted(() => {
       api
-        .get2step({})
-        .then((res: any) => {
+        .get2step()
+        .then((res) => {
           requiredTwoStepCaptcha.value = res.result.stepCode;
         })
         .catch(() => {
-          requiredTwoStepCaptcha.value = false;
+          requiredTwoStepCaptcha.value = 0;
         });
-      requiredTwoStepCaptcha.value = true;
+      requiredTwoStepCaptcha.value = 1;
     });
 
     const state = reactive({
@@ -205,14 +191,15 @@ export default defineComponent({
     });
 
     // 表单相关
-    const form: UnwrapRef<FormState> = reactive({
+    const formRef: UnwrapRef<FormState> = reactive({
       rememberMe: false,
       username: '',
       password: '',
       mobile: '',
       captcha: '',
     });
-    const handleUsernameOrEmail = (rule: any, value: string, callback: () => void) => {
+
+    const handleUsernameOrEmail = (rule, value: string) => {
       const regex = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
       if (regex.test(value)) {
         state.loginType = 0;
@@ -221,17 +208,19 @@ export default defineComponent({
       }
       return Promise.resolve();
     };
-    const rules = reactive({
+    const rulesRef = reactive({
       rememberMe: [{ trigger: 'checked' }],
       username: [
-        { required: true, message: t('user.userName.required') },
-        { validator: handleUsernameOrEmail },
-        // { validateTrigger: 'change' },
+        {
+          required: true,
+          message: t('user.userName.required'),
+        },
+        {
+          validator: handleUsernameOrEmail,
+          trigger: 'change',
+        },
       ],
-      password: [
-        { required: true, message: t('user.password.required') },
-        { validateTrigger: 'blur' },
-      ],
+      password: [{ required: true, message: t('user.password.required') }, {}],
       mobile: [
         {
           required: true,
@@ -248,9 +237,9 @@ export default defineComponent({
         },
       ],
     });
-    const { validate, validateInfos } = useForm(form, rules);
+    const { validate, validateInfos } = useForm(formRef, rulesRef);
     const isLoginError = ref(false);
-    const handleSubmit = (e: any) => {
+    const handleSubmit = (e: Event) => {
       e.preventDefault();
       state.loginBtn = true;
       const validateFieldsKey =
@@ -258,15 +247,15 @@ export default defineComponent({
 
       validate(validateFieldsKey)
         .then(async () => {
-          form.password = encryptByMd5(form.password);
-          const res = await api.userLogin(form);
+          formRef.password = encryptByMd5(formRef.password);
+          const res = await api.userLogin(formRef);
           if (res) {
             loginSuccess(res, router);
             isLoginError.value = false;
           } else {
             requestFailed(res);
             isLoginError.value = true;
-            form.password = '';
+            formRef.password = '';
           }
           state.loginBtn = false;
         })
@@ -276,13 +265,13 @@ export default defineComponent({
     };
 
     // 切换tab
-    const customActiveKey = ref<any>('tab1');
-    const handleTabClick = (key: any) => {
+    const customActiveKey = ref<string>('tab1');
+    const handleTabClick = (key: string) => {
       customActiveKey.value = key;
     };
 
     // 获取验证码
-    const getCaptcha = (e: any) => {
+    const getCaptcha = (e: Event) => {
       e.preventDefault();
       validate(['mobile']).then(() => {
         state.smsSendBtn = true;
@@ -295,8 +284,8 @@ export default defineComponent({
         }, 1000);
         message.loading('验证码发送中..', 1);
         api
-          .getSmsCaptcha({ mobile: form.mobile })
-          .then((res: any) => {
+          .getSmsCaptcha({ mobile: formRef.mobile })
+          .then((res) => {
             notification['success']({
               message: '提示',
               description: '验证码获取成功，您的验证码为：' + res.result.captcha,
@@ -313,8 +302,8 @@ export default defineComponent({
     };
 
     // TwoStepCaptcha暂时没用
-    const requiredTwoStepCaptcha = ref(false);
-    const stepCaptchaVisible = ref(false);
+    const requiredTwoStepCaptcha = ref<number>(0);
+    const stepCaptchaVisible = ref<boolean>(false);
     const stepCaptchaSuccess = () => {
       loginSuccess();
     };
@@ -326,8 +315,8 @@ export default defineComponent({
     };
 
     return {
-      form,
-      rules,
+      formRef,
+      rulesRef,
       state,
       customActiveKey,
       isLoginError,

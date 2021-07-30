@@ -30,7 +30,7 @@ export const storage = {
     Object.assign(options, opt)
     hasSetStorage = true
   },
-  set: (key: string, value: any, expire: number | null = options.default_cache_time) => {
+  set: (key: string, value, expire: number | null = options.default_cache_time) => {
     const stringData = JSON.stringify({
       value,
       expire: expire !== null ? new Date().getTime() + expire * 1000 : null

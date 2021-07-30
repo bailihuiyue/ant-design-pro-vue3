@@ -3,7 +3,7 @@
     <h3>
       <span>{{ $t('user.register.register') }}</span>
     </h3>
-    <a-form ref="formRegister" :model="form" id="formRegister" :rules="rules">
+    <a-form id="formRegister" :model="form">
       <a-form-item v-bind="validateInfos.email">
         <a-input
           size="large"
@@ -119,7 +119,6 @@ import { scorePassword } from '@/utils/util';
 import { MailOutlined } from '@ant-design/icons-vue';
 import { useRouter } from 'vue-router';
 import { requestFailed, getCaptcha } from './helper';
-import { promises } from 'dns';
 import * as api from './service';
 
 const levelNames = {
@@ -152,10 +151,10 @@ export default defineComponent({
 
     // 表单相关
     const form = reactive({
-      email: '2@qq.com',
-      password: '111111',
-      password2: '111111',
-      mobile: '15822222222',
+      email: '',
+      password: '',
+      password2: '',
+      mobile: '',
     });
     const handlePasswordLevel = (rule, value) => {
       if (value === '') {
@@ -271,7 +270,7 @@ export default defineComponent({
 
         api
           .getSmsCaptcha({ mobile: form.mobile })
-          .then((res: any) => {
+          .then((res) => {
             setTimeout(hide, 2500);
             notification['success']({
               message: '提示',

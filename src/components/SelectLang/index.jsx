@@ -5,7 +5,7 @@ import "ant-design-vue/lib/menu/style/index.css";
 import "ant-design-vue/lib/dropdown/style/index.css";
 import { Menu, Dropdown } from 'ant-design-vue'
 
-import { defineComponent, getCurrentInstance, ref, reactive } from 'vue';
+import { defineComponent, getCurrentInstance, ref } from 'vue';
 import { GlobalOutlined } from '@ant-design/icons-vue';
 import Storage from '@/utils/Storage'
 
@@ -32,16 +32,18 @@ const SelectLang = {
     }
   },
   name: 'SelectLang',
-  setup (props) {
+  setup (props, { emit }) {
     const { proxy } = getCurrentInstance();
 
     const { prefixCls } = props
     const currentLang = ref(Storage.get('lang') || 'zh-CN')
-    const changeLang = ({ key }) => {
+    function changeLang ({ key }) {
       proxy.$i18n.locale = key
       Storage.set('lang', key)
       currentLang.value = key
+      emit('change')
     }
+
     const langMenu = (
       <Menu class={['menu', 'ant-pro-header-menu']} selectedKeys={[currentLang.value]} onClick={changeLang} getPopupContainer={
         triggerNode => {
@@ -58,13 +60,12 @@ const SelectLang = {
         ))}
       </Menu>
     )
-    return () => (
-      <Dropdown overlay={langMenu} placement="bottomRight">
-        <span class={prefixCls}>
+    return () =>
+      <Dropdown overlay={langMenu} class={prefixCls} placement="bottomRight" onClick={changeLang}>
+        <span>
           <GlobalOutlined />
         </span>
       </Dropdown>
-    )
   }
 }
 

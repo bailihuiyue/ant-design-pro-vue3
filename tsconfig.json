@@ -21,6 +21,7 @@
       "esnext",
       "dom"
     ],
+    "resolveJsonModule": true,
     "types": [
       "vite/client",
       "node"
