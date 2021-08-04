@@ -253,7 +253,7 @@ export default defineComponent({
       state.passwordLevelChecked = false;
     };
 
-    // todo:优化:获取验证码(Login相同)
+    // TODO:优化获取验证码方法(Login相同)
     const getCaptcha = (e) => {
       e.preventDefault();
       validate(['mobile']).then((res) => {

@@ -1,4 +1,5 @@
 import { UserLayout } from '@/layouts'
+import { Router } from './types'
 
 export default [
   {
@@ -10,7 +11,8 @@ export default [
       {
         path: 'login',
         name: 'login',
-        component: () => import(/* webpackChunkName: "user" */ '@/views/user/Login.vue')
+        component: () => import(/* webpackChunkName: "user" */ '@/views/user/Login.vue'),
+        meta: { title:'user.login.signup'}
       },
       {
         path: 'register',
@@ -30,18 +32,8 @@ export default [
       },
     ]
   },
-  // {
-  //   path: '/register',
-  //   name: 'register',
-  //   component: () => import(/* webpackChunkName: "user" */ '@/views/user/Register.vue')
-  // },
-  // {
-  //   path: '/login',
-  //   name: 'login',
-  //   component: () => import(/* webpackChunkName: "user" */ '@/views/user/Login.vue')
-  // },
   {
     path: '/404',
     component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404.vue')
   }
-]
+] as Router[]

@@ -1,5 +1,6 @@
 import { AesEncryption } from './encrypt'
 import { encryptKeys } from './util'
+import defaultSettings from '@/config/defaultSettings'
 
 interface storageOptType {
   namespace?: string
@@ -10,12 +11,13 @@ interface storageOptType {
 
 const encryption = new AesEncryption({ key: encryptKeys.key, iv: encryptKeys.iv });
 
-const options = {
+const options = Object.assign({
   namespace: 'ls_', // key prefix
   storage: 'localStorage', // storage name session, local, memory
   default_cache_time: 60 * 60 * 24 * 7,
   isEncrypt: false
-}
+}, defaultSettings.storage)
+
 let hasSetStorage = false
 
 export const storage = {

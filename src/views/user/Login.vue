@@ -308,8 +308,8 @@ export default defineComponent({
     //#region TwoStepCaptcha暂时没用
     const requiredTwoStepCaptcha = ref<number>(0);
     const stepCaptchaVisible = ref<boolean>(false);
-    const stepCaptchaSuccess = () => {
-      loginSuccess();
+    const stepCaptchaSuccess = (res) => {
+      loginSuccess(res, router);
     };
     const stepCaptchaCancel = () => {
       api.logout().then(() => {

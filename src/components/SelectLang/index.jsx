@@ -8,6 +8,7 @@ import { Menu, Dropdown } from 'ant-design-vue'
 import { defineComponent, getCurrentInstance, ref } from 'vue';
 import { GlobalOutlined } from '@ant-design/icons-vue';
 import Storage from '@/utils/Storage'
+import { setDocumentTitleForLangChange } from '@/utils/domUtil'
 
 const locales = ['zh-CN', /*'zh-TW',*/ 'en-US', /*'pt-BR'*/]
 const languageLabels = {
@@ -41,6 +42,7 @@ const SelectLang = {
       proxy.$i18n.locale = key
       Storage.set('lang', key)
       currentLang.value = key
+      setDocumentTitleForLangChange()
       emit('change')
     }
 
