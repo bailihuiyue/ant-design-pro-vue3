@@ -41,11 +41,6 @@ export default [
   //   component: () => import(/* webpackChunkName: "user" */ '@/views/user/Login.vue')
   // },
   {
-    path: '/h',
-    name: 'h',
-    component: () => import(/* webpackChunkName: "user" */ '@/components/HelloWord2.vue')
-  },
-  {
     path: '/404',
     component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404.vue')
   }

@@ -17,29 +17,6 @@ export const encryptKeys = {
   iv: '1',
 };
 
-const responseBody: ResponseBody = {
-  message: '',
-  timestamp: 0,
-  result: null,
-  code: 0
-}
-
-export const builder = (data: Object, message?: string, code = 0, headers = {}) => {
-  responseBody.result = data
-  if (message !== undefined && message !== null) {
-    responseBody.message = message
-  }
-  if (code !== undefined && code !== 0) {
-    responseBody.code = code
-    responseBody._status = code
-  }
-  if (headers !== null && typeof headers === 'object' && Object.keys(headers).length > 0) {
-    responseBody._headers = headers
-  }
-  responseBody.timestamp = new Date().getTime()
-  return responseBody
-}
-
 export const getQueryParameters = (options) => {
   const url = options.url
   const search = url.split('?')[1]
@@ -86,5 +63,5 @@ export function scorePassword(pass) {
 }
 
 const sitUrl = 'xxxxx'
-const isDev = true
-export const baseURL = isDev ? '/' : '生产地址'
+const isDev = import.meta.env.DEV
+export const baseURL = isDev ? '/api/' : '生产地址'

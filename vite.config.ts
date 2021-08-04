@@ -3,8 +3,8 @@ import vue from '@vitejs/plugin-vue'
 import ViteComponents, { AntDesignVueResolver } from 'vite-plugin-components'
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import path from 'path';
-import { viteMockServe } from 'vite-plugin-mock';
 import legacy from '@vitejs/plugin-legacy'
+import { vite2Ext } from "apite";
 
 const pathResolve = (pathStr: string) => {
   return path.resolve(__dirname, pathStr);
@@ -20,10 +20,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
           AntDesignVueResolver(),
         ]
       }),
-      viteMockServe({
-        mockPath: 'mock',
-        localEnabled: command === 'serve',
-      }),
+      vite2Ext({
+        dir: 'mock'
+      }) as any,
       legacy({
         targets: ['defaults', 'not IE 11']
       })

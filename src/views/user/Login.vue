@@ -170,6 +170,7 @@ export default defineComponent({
     const useForm = Form.useForm;
     const { t } = useI18n();
     const router = useRouter();
+
     onMounted(() => {
       api
         .get2step()
@@ -190,7 +191,7 @@ export default defineComponent({
       smsSendBtn: false,
     });
 
-    // 表单相关
+    // #region 表单相关
     const formRef: UnwrapRef<FormState> = reactive({
       rememberMe: false,
       username: '',
@@ -263,14 +264,16 @@ export default defineComponent({
           state.loginBtn = false;
         });
     };
+    // #endregion
 
-    // 切换tab
+    //#region 切换tab
     const customActiveKey = ref<string>('tab1');
     const handleTabClick = (key: string) => {
       customActiveKey.value = key;
     };
+    //#endregion
 
-    // 获取验证码
+    //#region 获取验证码
     const getCaptcha = (e: Event) => {
       e.preventDefault();
       validate(['mobile']).then(() => {
@@ -300,8 +303,9 @@ export default defineComponent({
           });
       });
     };
+    //#endregion
 
-    // TwoStepCaptcha暂时没用
+    //#region TwoStepCaptcha暂时没用
     const requiredTwoStepCaptcha = ref<number>(0);
     const stepCaptchaVisible = ref<boolean>(false);
     const stepCaptchaSuccess = () => {
@@ -313,6 +317,7 @@ export default defineComponent({
         stepCaptchaVisible.value = false;
       });
     };
+    //#endregion
 
     return {
       formRef,

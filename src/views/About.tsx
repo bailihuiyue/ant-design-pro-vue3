@@ -1,6 +1,6 @@
 import { defineComponent } from 'vue';
 import HelloWord from '../components/HelloWord';
-import Logo from '../assets/logo.png';
+import Logo from '@/assets/logo.svg';
 
 export default defineComponent({
   name: 'App',

@@ -8,15 +8,12 @@
   },
   "dependencies": {
     "@ant-design/icons-vue": "^6.0.1",
-    "@vitejs/plugin-legacy": "^1.5.0",
     "@vueuse/core": "^5.2.0",
     "ant-design-vue": "^2.2.2",
+    "apite": "^1.2.5",
     "axios": "^0.21.1",
     "crypto-js": "^4.1.0",
-    "mockjs": "^1.1.0",
     "nprogress": "^0.2.0",
-    "vite-plugin-components": "^0.13.2",
-    "vite-plugin-mock": "^2.9.3",
     "vue": "^3.1.5",
     "vue-i18n": "^9.1.7",
     "vue-router": "^4.0.6",
@@ -24,6 +21,8 @@
     "vuex": "^4.0.2"
   },
   "devDependencies": {
+    "vite-plugin-components": "^0.13.2",
+    "@vitejs/plugin-legacy": "^1.5.0",
     "@types/crypto-js": "^4.0.2",
     "@types/node": "^16.4.3",
     "@typescript-eslint/eslint-plugin": "^4.22.0",

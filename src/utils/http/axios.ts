@@ -1,5 +1,4 @@
-import Vue from 'vue'
-import axios, { AxiosResponse, AxiosInterceptorManager } from 'axios'
+import axios, { AxiosResponse } from 'axios'
 import { message } from 'ant-design-vue'
 import { ACCESS_TOKEN, USER_INFO } from '@/store/mutation-types'
 import { baseURL } from '@/utils/util'
@@ -15,7 +14,7 @@ const ContentType = {
 
 // 创建 axios 实例   withCredentials: true,
 const baseService = axios.create({
-  baseURL,
+  // baseURL,
   timeout: 60000,
   responseType: 'json',
   headers: {

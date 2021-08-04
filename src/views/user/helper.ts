@@ -12,7 +12,6 @@ export const loginSuccess = (res?, router?: Router) => {
       description: `${timeFix()}，欢迎回来`,
     });
   });
-
   if(res.token){
     storage.set(ACCESS_TOKEN, res.token, 7 * 24 * 60 * 60 * 1000);
     storage.set(PERMISSION, Array.isArray(res.role) ? res.role : res.role.split(','));

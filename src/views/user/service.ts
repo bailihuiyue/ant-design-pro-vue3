@@ -1,6 +1,6 @@
 import baseService from '@/utils/http/axios'
 import { baseURL } from '@/utils/util'
-import { API } from './ty'
+import { API } from './types'
 
 export const userLogin: API._Login = data => {
   const api = baseURL + `auth/login`
