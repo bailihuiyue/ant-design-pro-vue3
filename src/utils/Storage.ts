@@ -1,6 +1,6 @@
 import { AesEncryption } from './encrypt'
 import { encryptKeys } from './util'
-import defaultSettings from '@/config/defaultSettings'
+import config from '@/config/defaultSettings'
 
 interface storageOptType {
   namespace?: string
@@ -16,7 +16,7 @@ const options = Object.assign({
   storage: 'localStorage', // storage name session, local, memory
   default_cache_time: 60 * 60 * 24 * 7,
   isEncrypt: false
-}, defaultSettings.storage)
+}, config.storage)
 
 let hasSetStorage = false
 
@@ -38,6 +38,15 @@ export const storage = {
       expire: expire !== null ? new Date().getTime() + expire * 1000 : null
     })
     window[options.storage].setItem(storage.getKey(key), options.isEncrypt ? encryption.encryptByAES(stringData) : stringData)
+  },
+  setObj: (key: string, newVal, expire: number | null = options.default_cache_time) => {
+    const oldVal = storage.get(key)
+    if (!oldVal) {
+      storage.set(key, newVal, expire)
+    } else {
+      Object.assign(oldVal, newVal)
+      storage.set(key, oldVal, expire)
+    }
   },
   /**
    * 读取缓存

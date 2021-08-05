@@ -15,7 +15,6 @@ export default defineComponent({
   setup(props) {
     const { proxy } = getCurrentInstance();
     const lang = { 'en-US': en_US, 'zh-CN': zh_CN };
-    console.log(proxy.$i18n.locale);
     return {
       proxy,
       lang,
