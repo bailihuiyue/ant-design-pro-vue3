@@ -14,6 +14,7 @@ export default {
   'login.sign-in-with': '其他登录方式',
   'login.signup': '注册账户',
   'login.login': '登录',
+  'login.generateMenu': '正在获取菜单,请稍等...',
   'register.register': '注册',
   'register.email.placeholder': '邮箱',
   'register.password.placeholder': '请至少输入 6 个字符。请不要使用容易被猜到的密码。',

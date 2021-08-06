@@ -15,6 +15,7 @@ export default {
   'login.sign-in-with': 'Sign in with',
   'login.signup': 'Sign up',
   'login.login': 'Login',
+  'login.generateMenu': 'Generating menu, please wait...',
   'register.register': 'Register',
   'register.email.placeholder': 'Email',
   'register.password.placeholder': 'Password ',

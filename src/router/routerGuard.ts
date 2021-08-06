@@ -2,7 +2,7 @@ import NProgress from 'nprogress' // progress bar
 import '@/components/NProgress/nprogress.less' // progress bar custom style
 import { ACCESS_TOKEN, PERMISSION } from '@/store/mutation-types'
 import { hasPermission } from './permission'
-import storage from '@/utils/Storage'
+import ls from '@/utils/Storage'
 import { setDocumentTitle } from '@/utils/domUtil'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
@@ -13,13 +13,13 @@ const defaultRoutePath = '/dashboard/workplace'
 export const beforeEach = (to, from, next) => {
   NProgress.start() // 加载进度条
   setDocumentTitle(to)
-  if (storage.get(ACCESS_TOKEN) && storage.get(PERMISSION)) {
+  if (ls.get(ACCESS_TOKEN) && ls.get(PERMISSION)) {
     /* has token */
     if (to.path === '/user/login') {
       next({ path: defaultRoutePath })
       NProgress.done()
     } else {
-      const roles = storage.get(PERMISSION)
+      const roles = ls.get(PERMISSION)
       const canAccess = hasPermission(roles, to)
       if (canAccess) {
         next()

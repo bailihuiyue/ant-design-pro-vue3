@@ -28,7 +28,10 @@ export default {
   iconfontUrl: '',
   production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true',
   storage: {
-    namespace: 'v3_'
+    namespace: 'PRO_'
   },
-  dynamicBrowserTab: true
+  // 动态改变浏览器标签文字
+  dynamicBrowserTab: true,
+  // 服务端获取菜单 缺点是每次刷新页面都要重新去后端获取菜单或者重新渲染一次,因为路由的component是个方法,ls没办法存储
+  asyncRouter: true
 }

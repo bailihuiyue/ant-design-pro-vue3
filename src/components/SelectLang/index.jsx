@@ -7,7 +7,7 @@ import { Menu, Dropdown } from 'ant-design-vue'
 
 import { defineComponent, getCurrentInstance, ref } from 'vue';
 import { GlobalOutlined } from '@ant-design/icons-vue';
-import Storage from '@/utils/Storage'
+import ls from '@/utils/Storage'
 import { setDocumentTitleForLangChange } from '@/utils/domUtil'
 
 const locales = ['zh-CN', /*'zh-TW',*/ 'en-US', /*'pt-BR'*/]
@@ -33,21 +33,27 @@ const SelectLang = {
     }
   },
   name: 'SelectLang',
-  setup (props, { emit }) {
+  setup (props) {
     const { proxy } = getCurrentInstance();
 
     const { prefixCls } = props
-    const currentLang = ref(Storage.get('lang') || 'zh-CN')
+    const currentLang = ref(ls.get('lang') || 'zh-CN')
     function changeLang ({ key }) {
       proxy.$i18n.locale = key
-      Storage.set('lang', key)
+      ls.set('lang', key)
       currentLang.value = key
       setDocumentTitleForLangChange()
-      emit('change')
     }
 
+    return {
+      prefixCls,
+      changeLang,
+      currentLang
+    }
+  },
+  render () {
     const langMenu = (
-      <Menu class={['menu', 'ant-pro-header-menu']} selectedKeys={[currentLang.value]} onClick={changeLang} getPopupContainer={
+      <Menu class={['menu', 'ant-pro-header-menu']} selectedKeys={[this.currentLang]} onClick={this.changeLang} getPopupContainer={
         triggerNode => {
           return triggerNode.parentNode || document.body;
         }
@@ -62,15 +68,16 @@ const SelectLang = {
         ))}
       </Menu>
     )
-    return () =>
-      <Dropdown overlay={langMenu} class={prefixCls} placement="bottomRight" onClick={changeLang}>
+    return (
+      <Dropdown overlay={langMenu} class={this.prefixCls} placement="bottomRight" onClick={this.changeLang}>
         <span>
           <GlobalOutlined />
         </span>
-      </Dropdown>
+      </Dropdown>)
   }
 }
 
 export default defineComponent(SelectLang)
 
-// bug:antv本身有bug:https://github.com/vueComponent/ant-design-vue/issues/4441
+// info:todo:之前render里面的函数全部写在setup中,导致出现了bug:https://github.com/vueComponent/ant-design-vue/issues/4441
+// 经作者回复之后bug修复,但是要写在render函数中,感觉这样和模板没什么区别了,可是HelloWord.jsx却不用写在render中,不知道为什么

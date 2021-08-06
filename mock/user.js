@@ -40,7 +40,42 @@ api.post("/auth/login", () => {
     deleted: 0,
     roleId: 'admin',
     role: ['admin'],
-    token: '12312312'
+    token: '12312312',
+    menu: [
+      {
+        name: 'dashboard',
+        parentId: 0,
+        id: 1,
+        meta: {
+          icon: 'dashboard',
+          title: 'user.login.login',
+          show: true
+        },
+        component: 'RouteView',
+        redirect: '/dashboard/workplace'
+      },
+      {
+        name: 'workplace',
+        parentId: 1,
+        id: 7,
+        meta: {
+          title: '工作台',
+          show: true
+        },
+        component: 'Home'
+      },
+      {
+        name: 'monitor',
+        path: 'https://www.baidu.com/',
+        parentId: 1,
+        id: 3,
+        meta: {
+          title: 'user.login.login',
+          target: '_blank',
+          show: true
+        }
+      }
+    ],
   }
 });
 

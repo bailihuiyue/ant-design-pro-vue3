@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios'
 import { message } from 'ant-design-vue'
 import { ACCESS_TOKEN, USER_INFO } from '@/store/mutation-types'
 import { baseURL } from '@/utils/util'
-import storage from '@/utils/Storage'
+import ls from '@/utils/Storage'
 import { useRouter } from 'vue-router'
 // import emitter from '@/utils/eventBus'
 
@@ -25,8 +25,8 @@ const baseService = axios.create({
 // request interceptor
 baseService.interceptors.request.use(
   config => {
-    const token = storage.get(ACCESS_TOKEN)
-    const userinfo = storage.get(USER_INFO)
+    const token = ls.get(ACCESS_TOKEN)
+    const userinfo = ls.get(USER_INFO)
     if (token) {
       config.headers['token'] = token // 让每个请求携带自定义 token 请根据实际情况自行修改
     }

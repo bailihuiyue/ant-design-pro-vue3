@@ -20,6 +20,7 @@ export interface Login {
   deleted: number;
   roleId: string;
   role: string[];
+  menu: Array<any>
 }
 
 export interface GetSmsCaptcha extends Response {

@@ -2,7 +2,7 @@
   <div id="userLayout" :class="['user-layout-wrapper', isMobile && 'mobile']">
     <div class="container">
       <div class="user-layout-lang">
-        <select-lang class="select-lang-trigger" v-if="showSelectLang" @change="onChange" />
+        <select-lang class="select-lang-trigger"/>
       </div>
       <div class="user-layout-content">
         <div class="top">
@@ -33,7 +33,7 @@
 <script lang="ts">
 import SelectLang from '@/components/SelectLang';
 import { isMobile } from '@/utils/util';
-import { ref, onMounted, onBeforeUnmount, nextTick, defineComponent } from 'vue';
+import { onMounted, onBeforeUnmount, defineComponent } from 'vue';
 
 export default defineComponent({
   components: {
@@ -47,16 +47,8 @@ export default defineComponent({
       document.body.classList.remove('userLayout');
     });
 
-    // bug:修复 4441
-    const showSelectLang = ref(true);
-    const onChange = () => {
-      showSelectLang.value = false;
-      nextTick(() => (showSelectLang.value = true));
-    };
     return {
-      showSelectLang,
       isMobile,
-      onChange
     };
   },
 });

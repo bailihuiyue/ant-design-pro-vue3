@@ -19,7 +19,6 @@ export default [
         name: 'register',
         component: () => import(/* webpackChunkName: "user" */ '@/views/user/Register.vue')
       },
-
       {
         path: 'registerResult',
         name: 'registerResult',

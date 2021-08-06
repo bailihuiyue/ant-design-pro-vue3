@@ -154,6 +154,9 @@ import {
 } from '@ant-design/icons-vue';
 import * as api from './service';
 import { FormState } from './types';
+import config from '@/config/defaultSettings';
+import storage from '@/utils/Storage';
+import generateAsyncRoutes from '@/router/generateAsyncRoutes';
 
 export default defineComponent({
   components: {
@@ -251,6 +254,10 @@ export default defineComponent({
           formRef.password = encryptByMd5(formRef.password);
           const res = await api.userLogin(formRef);
           if (res) {
+            // TODO:动态生成菜单
+            if (config.asyncRouter) {
+                generateAsyncRoutes(res.menu)
+            }
             loginSuccess(res, router);
             isLoginError.value = false;
           } else {

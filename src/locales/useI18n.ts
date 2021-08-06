@@ -1,5 +1,5 @@
 import { createI18n } from 'vue-i18n'
-import storage from '@/utils/Storage'
+import ls from '@/utils/Storage'
 import { genLangs } from '@/utils/batchImportFiles'
 
 // // info:todo:底下这三大块没有封装是因为import.meta.globEager只让传字符串,不让传变量
@@ -30,7 +30,7 @@ en = genLangs(en, includePath)
 cn = genLangs(cn, includePath)
 
 const i18n = createI18n({
-  locale: storage.get('lang') || 'zh-CN',
+  locale: ls.get('lang') || 'zh-CN',
   legacy: false,
   globalInjection: true,
   messages: {
