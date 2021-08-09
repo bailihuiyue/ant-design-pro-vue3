@@ -254,9 +254,8 @@ export default defineComponent({
           formRef.password = encryptByMd5(formRef.password);
           const res = await api.userLogin(formRef);
           if (res) {
-            // TODO:动态生成菜单
-            if (config.asyncRouter) {
-                generateAsyncRoutes(res.menu)
+            if (config.useAsyncRouter) {
+              generateAsyncRoutes(router, res.menu);
             }
             loginSuccess(res, router);
             isLoginError.value = false;

@@ -1,6 +1,6 @@
 import { LangFile, I18nMsg, I18nMsgVal } from './types'
 export function genLangs(module: Record<string, any>, include: Array<string> | null, exclude?: string) {
-  const obj: Indexable = {};
+  const obj = {};
 
   Object.keys(module).forEach((item) => {
     const content: LangFile = module[item].default;
@@ -43,4 +43,22 @@ function replaceDot(c: LangFile) {
     }
   }
   return o
+}
+
+export const getRoutePages = () => {
+  const pages = import.meta.glob('/src/views/**/*.vue')
+  const files = {}
+  for (let p in pages) {
+    files[getFileName(p)] = pages[p]
+  }
+  return files
+}
+
+const getFileName = (path: string) => {
+  const pattern = /\/(\w*)\.vue/
+  const matched = path.match(pattern)
+  if(!matched){
+    throw new Error('path is not right:' + path)
+  }
+  return matched[1]
 }

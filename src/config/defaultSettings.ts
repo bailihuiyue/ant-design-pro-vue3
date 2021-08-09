@@ -33,5 +33,5 @@ export default {
   // 动态改变浏览器标签文字
   dynamicBrowserTab: true,
   // 服务端获取菜单 缺点是每次刷新页面都要重新去后端获取菜单或者重新渲染一次,因为路由的component是个方法,ls没办法存储
-  asyncRouter: true
+  useAsyncRouter: true
 }
