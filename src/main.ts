@@ -6,6 +6,7 @@ import '@/style/global.less';
 import storage from '@/utils/Storage'
 import i18n from '@/locales/useI18n'
 import '@/utils/components_use'
+import 'virtual:svg-icons-register';
 // storage.set('asd', 'zxcxzcxzcxzcxzcxzxcxzcxzcxz')
 // console.log(storage.get('asd'))
 const app = createApp(App)

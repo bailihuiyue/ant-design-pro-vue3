@@ -12,3 +12,10 @@ warn:todo: 可能有bug
 5.模块化开发
 
 当前 <script setup lang="ts"></script>有bug,会导致.ts文件无法引入,报错 The requested module '/src/views/user/ty.ts' does not provide an export named 'FormState',
+
+
+使用vite插件缓存了svg,将svg图标放入assets/icons下即可,想使用antv自带的图标请拷贝node_modules\@ant-design\icons-svg\inline-svg到图标文件夹,会自动引入,名称为 文件夹名-文件名 例如a下的b.svg,SvgIcon组件传入name="a-b"即可
+想获取所有已添加的icon:
+import ids from 'virtual:svg-icons-names';
+// => ['icon-icon1','icon-icon2','icon-icon3']
+这个插件是自动导入的,然后写到body上,如果图标过多觉得影响效率可以使用vite-plugin-vue-svg,手动引入一个个图标,demo在SvgIcon/manual中

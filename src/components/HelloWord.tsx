@@ -1,7 +1,7 @@
 import { defineComponent, ref } from 'vue';
 
 export default defineComponent({
-  name: 'App',
+  name: 'HelloWord',
   props: {
     msg: {
       type: String,

@@ -5,6 +5,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import path from 'path';
 import legacy from '@vitejs/plugin-legacy'
 import { vite2Ext } from "apite";
+import viteSvgIcons from 'vite-plugin-svg-icons';
 
 const pathResolve = (pathStr: string) => {
   return path.resolve(__dirname, pathStr);
@@ -25,7 +26,13 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       }) as any,
       legacy({
         targets: ['defaults', 'not IE 11']
-      })
+      }),
+      viteSvgIcons({
+        // 指定需要缓存的图标文件夹
+        iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
+        // 指定symbolId格式
+        symbolId: 'icon-[dir]-[name]',
+      }),
     ],
     resolve: {
       alias: [

@@ -3,18 +3,19 @@
   <h1>{{store.state.title}}</h1>
 </template>
 
-<script>
+<script lang="ts">
 import { defineComponent } from 'vue';
 import { useStore } from 'vuex';
 
 export default defineComponent({
-  name: 'App',
+  name: 'Home',
+  components: {},
   setup() {
-    const store = useStore()
+    const store = useStore();
     return {
-      store
-    }
-  }
+      store,
+    };
+  },
 });
 </script>
 
