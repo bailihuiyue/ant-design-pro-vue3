@@ -1,9 +1,3 @@
-import { ResponseBody } from './types'
-import { useBreakpoints, breakpointsAntDesign } from '@vueuse/core';
-// { "xs": 480, "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1600 }
-const breakpoints = useBreakpoints(breakpointsAntDesign);
-export const isMobile = breakpoints.smaller('lg');
-
 export function timeFix() {
   const time = new Date()
   const hour = time.getHours()

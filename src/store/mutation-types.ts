@@ -1,5 +1,4 @@
-export const ACCESS_TOKEN = 'Access-Token'
-
+export const ACCESS_TOKEN = 'ACCESS_TOKEN'
 export const SIDEBAR_TYPE = 'sidebar_type'
 export const TOGGLE_MOBILE_TYPE = 'is_mobile'
 export const TOGGLE_NAV_THEME = 'nav_theme'
@@ -12,8 +11,28 @@ export const TOGGLE_COLOR = 'color'
 export const TOGGLE_WEAK = 'weak'
 export const TOGGLE_MULTI_TAB = 'multi_tab'
 export const APP_LANGUAGE = 'app_language'
-export const USER_INFO = 'User_Info'
+export const USER_INFO = 'USER_INFO'
 export const PERMISSION = 'PERMISSION'
+export const TOGGLE_DEVICE = 'TOGGLE_DEVICE'
+
+export const DEFAULT_THEME = 'DEFAULT_THEME'
+export const DEFAULT_LAYOUT_MODE = 'DEFAULT_LAYOUT_MODE'
+export const DEFAULT_COLOR = 'DEFAULT_COLOR'
+export const DEFAULT_COLOR_WEAK = 'DEFAULT_COLOR_WEAK'
+export const DEFAULT_COLOR_GRAY = 'DEFAULT_COLOR_GRAY'
+export const DEFAULT_FIXED_HEADER = 'DEFAULT_FIXED_HEADER'
+export const DEFAULT_FIXED_SIDEMENU = 'DEFAULT_FIXED_SIDEMENU'
+export const DEFAULT_FIXED_HEADER_HIDDEN = 'DEFAULT_FIXED_HEADER_HIDDEN'
+export const DEFAULT_CONTENT_WIDTH_TYPE = 'DEFAULT_CONTENT_WIDTH_TYPE'
+export const DEFAULT_MULTI_TAB = 'DEFAULT_MULTI_TAB'
+export const DARK_MODE = 'DARK_MODE'
+export const SITE_SETTINGS = 'site_settings'
+
+export const DEVICE_TYPE = {
+  DESKTOP: 'desktop',
+  TABLET: 'tablet',
+  MOBILE: 'mobile'
+}
 
 export const CONTENT_WIDTH_TYPE = {
   Fluid: 'Fluid',

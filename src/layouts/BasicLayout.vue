@@ -1,8 +1,8 @@
 <template>
   <a-layout :class="['layout', device]">
     <!-- SideMenu -->
-    <a-drawer
-      v-if="isMobile()"
+    <!-- <a-drawer
+      v-if="isMobile"
       placement="left"
       :wrapClassName="`drawer-sider ${navTheme}`"
       :closable="false"
@@ -17,33 +17,39 @@
         :collapsible="true"
         @menuSelect="menuSelect"
       ></side-menu>
-    </a-drawer>
+    </a-drawer> -->
 
-    <side-menu
-      v-else-if="isSideMenu()"
+    <!-- <side-menu
+      v-else-if="isSideMenu"
       mode="inline"
       :menus="menus"
       :theme="navTheme"
       :collapsed="collapsed"
       :collapsible="true"
-    ></side-menu>
+    ></side-menu> -->
 
-    <a-layout :class="[layoutMode, `content-width-${contentWidth}`]" :style="{ paddingLeft: contentPaddingLeft, minHeight: '100vh' }">
+    <a-layout
+      :class="[layoutMode, `content-width-${contentWidth}`]"
+      :style="{ paddingLeft: contentPaddingLeft, minHeight: '100vh' }"
+    >
       <!-- layout header -->
-      <global-header
+      <!-- <global-header
         :mode="layoutMode"
         :menus="menus"
         :theme="navTheme"
         :collapsed="collapsed"
         :device="device"
         @toggle="toggle"
-      />
+      /> -->
 
       <!-- layout content -->
-      <a-layout-content :style="{ height: '100%', margin: '24px 24px 0', paddingTop: fixedHeader ? '64px' : '0' }">
+      <a-layout-content
+        :style="{ height: '100%', margin: '24px 24px 0', paddingTop: fixedHeader ? '64px' : '0' }"
+      >
         <multi-tab v-if="multiTab"></multi-tab>
         <transition name="page-transition">
-          <route-view />
+          <!-- <route-view /> -->
+          <router-view />
         </transition>
       </a-layout-content>
 
@@ -52,108 +58,112 @@
         <global-footer />
       </a-layout-footer>
 
-      <!-- Setting Drawer (show in development mode) -->
-      <!-- <setting-drawer v-if="!production"></setting-drawer> -->
-      <setting-drawer></setting-drawer>
+      <!-- <setting-drawer></setting-drawer> -->
     </a-layout>
   </a-layout>
-
 </template>
 
-<script>
-import { triggerWindowResizeEvent } from '@/utils/util'
-import { mapState, mapActions } from 'vuex'
-import { mixin, mixinDevice } from '@/utils/mixin'
-import config from '@/config/defaultSettings'
-import RouteView from './RouteView'
-import SideMenu from '@/proComponents/Menu/SideMenu'
-import GlobalHeader from '@/proComponents/GlobalHeader'
-import GlobalFooter from '@/proComponents/GlobalFooter'
-import SettingDrawer from '@/proComponents/SettingDrawer'
-import { convertRoutes } from '@/utils/routeConvert'
-// ones:修改路由逻辑
-import { constantRouterMap } from '@/config/router.config'
-import { hasPermission, filterAsyncRouter } from '@/store/modules/permission'
-import { PERMISSION } from '@/store/mutation-types'
-import cloneDeep from 'lodash.clonedeep'
-export default {
+<script lang="ts">
+// TODO:先能运行起来,然后再捋一捋逻辑,看看有没有什么可以删除的东西,或者不合理的东西
+import { defineComponent, ref, computed, watch, onMounted, nextTick } from 'vue';
+import { triggerWindowResizeEvent, isMobile, isDesktop } from '@/utils/device';
+import config from '@/config/defaultSettings';
+// import RouteView from './RouteView.vue'; //改造
+// import SideMenu from '@/components/Menu/SideMenu.vue'; //改造
+// import GlobalHeader from '@/components/GlobalHeader/index.vue'; //改造
+import GlobalFooter from '@/components/GlobalFooter/index.vue'; //改造
+// import SettingDrawer from '@/components/SettingDrawer.vue'; //改造
+import { convertRoutes } from '@/router/generateAsyncRoutes';
+
+import constantRouterMap from '@/router/commonRoutes';
+import { hasPermission, filterAsyncRouter } from '@/router/permission';
+import { PERMISSION } from '@/store/mutation-types';
+import cloneDeep from 'lodash.clonedeep';
+import { fixSidebar, sidebarOpened } from '@/store/useSiteSettings';
+import ls from '@/utils/Storage';
+import { useStore } from 'vuex';
+
+export default defineComponent({
   name: 'BasicLayout',
-  mixins: [mixin, mixinDevice],
   components: {
-    RouteView,
-    SideMenu,
-    GlobalHeader,
+    // RouteView,
+    // SideMenu,
+    // GlobalHeader,
     GlobalFooter,
-    SettingDrawer
+    // SettingDrawer,
   },
-  data () {
-    return {
-      production: config.production,
-      collapsed: false,
-      menus: [],
-      mainMenu: cloneDeep(constantRouterMap)
-    }
-  },
-  computed: {
-    // ...mapState({
-    //   // 动态主路由
-    //   mainMenu: state => state.permission.addRouters
-    // }),
-    contentPaddingLeft () {
-      if (!this.fixSidebar || this.isMobile()) {
-        return '0'
+  setup() {
+    const production = ref(config.production);
+    const collapsed = ref(false);
+    const menus = ref([]);
+    const store = useStore();
+    const contentPaddingLeft = computed(() => {
+      if (!fixSidebar || isMobile.value) {
+        return '0';
       }
-      if (this.sidebarOpened) {
-        return '256px'
+      if (sidebarOpened) {
+        return '256px';
       }
-      return '80px'
-    }
-  },
-  watch: {
-    sidebarOpened (val) {
-      this.collapsed = !val
-    }
-  },
-  created () {
-    const orginRoutes = filterAsyncRouter(this.mainMenu, this.$ls.get(PERMISSION))
-    const routes = convertRoutes(orginRoutes.find(item => item.path === '/'))
-    this.menus = (routes && routes.children) || []
-    this.collapsed = !this.sidebarOpened
-  },
-  mounted () {
-    const userAgent = navigator.userAgent
-    if (userAgent.indexOf('Edge') > -1) {
-      this.$nextTick(() => {
-        this.collapsed = !this.collapsed
-        setTimeout(() => {
-          this.collapsed = !this.collapsed
-        }, 16)
-      })
-    }
-  },
-  methods: {
-    ...mapActions(['setSidebar']),
-    toggle () {
-      this.collapsed = !this.collapsed
-      this.setSidebar(!this.collapsed)
-      triggerWindowResizeEvent()
-    },
-    paddingCalc () {
-      let left = ''
-      if (this.sidebarOpened) {
-        left = this.isDesktop() ? '256px' : '80px'
+      return '80px';
+    });
+
+    watch([sidebarOpened], (val) => {
+      collapsed.value = !val;
+    });
+
+    // created()
+    const mainMenu = cloneDeep(constantRouterMap);
+    const orginRoutes = filterAsyncRouter(mainMenu, ls.get(PERMISSION));
+    const routes = convertRoutes(orginRoutes.find((item) => item.path === '/'));
+    menus.value = (routes && routes.children) || [];
+    collapsed.value = !sidebarOpened.value;
+
+    onMounted(() => {
+      const userAgent = navigator.userAgent;
+      if (userAgent.indexOf('Edge') > -1) {
+        nextTick(() => {
+          collapsed.value = !collapsed.value;
+          setTimeout(() => {
+            collapsed.value = !collapsed.value;
+          }, 16);
+        });
+      }
+    });
+
+    const toggle = () => {
+      collapsed.value = !collapsed.value;
+      store.dispatch('setSidebar', !collapsed.value);
+      // TODO:未知用途
+      triggerWindowResizeEvent();
+    };
+    const paddingCalc = () => {
+      let left = '';
+      if (sidebarOpened.value) {
+        left = isDesktop.value ? '256px' : '80px';
       } else {
-        left = (this.isMobile() && '0') || ((this.fixSidebar && '80px') || '0')
+        left = (isMobile.value && '0') || (fixSidebar.value && '80px') || '0';
       }
-      return left
-    },
-    menuSelect () {
-    },
-    drawerClose () {
-      this.collapsed = false
-    }
-  }
-}
+      return left;
+    };
+    const menuSelect = () => {};
+    const drawerClose = () => {
+      collapsed.value = false;
+    };
+    return {
+      production,
+      collapsed,
+      menus,
+      mainMenu,
+      contentPaddingLeft,
+      orginRoutes,
+      routes,
+      toggle,
+      paddingCalc,
+      menuSelect,
+      drawerClose,
+    };
+  },
+});
 </script>
 
 <style lang="less">

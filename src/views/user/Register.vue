@@ -120,6 +120,7 @@ import { MailOutlined } from '@ant-design/icons-vue';
 import { useRouter } from 'vue-router';
 import { requestFailed, getCaptcha } from './helper';
 import * as api from './service';
+import {isMobile} from '@/utils/device'
 
 const levelNames = {
   0: 'user.password.strength.short',
@@ -245,8 +246,7 @@ export default defineComponent({
       return Promise.resolve();
     };
     const handlePasswordInputClick = () => {
-      // TODO:!this.isMobile
-      if (false) {
+      if (!isMobile.value) {
         state.passwordLevelChecked = true;
         return;
       }

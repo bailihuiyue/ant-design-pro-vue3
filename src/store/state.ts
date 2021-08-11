@@ -1,4 +1,5 @@
 export interface State {
+  app: any;
   title: string;
 }
 

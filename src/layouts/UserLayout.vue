@@ -32,7 +32,7 @@
 
 <script lang="ts">
 import SelectLang from '@/components/SelectLang';
-import { isMobile } from '@/utils/util';
+import { isMobile } from '@/utils/device';
 import { onMounted, onBeforeUnmount, defineComponent } from 'vue';
 
 export default defineComponent({

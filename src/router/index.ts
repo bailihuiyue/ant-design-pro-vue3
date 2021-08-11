@@ -1,33 +1,12 @@
 import config from '@/config/defaultSettings';
 import { RouteRecordRaw, createRouter, createWebHistory } from 'vue-router';
-import commonRoutes from '@/router/commonRoutes'
-import { Router } from './types'
 import { setupBeforeEach, setupAfterEach } from './routerGuard'
 import generateAsyncRoutes from './generateAsyncRoutes'
-
-const routes: Router[] = [
-  {
-    path: '/',
-    name: 'Home',
-    component: () => import('../views/Home.vue'),
-    meta: { title: 'user.login.login' }
-  },
-  {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About'),
-  },
-  commonRoutes,
-  {
-    path: '/:path(.*)',
-    name: 'NoMatch',
-    component: () => import('@/views/exception/404.vue'),
-  }
-];
+import routes from './commonRoutes'
 
 const router = createRouter({
   history: createWebHistory(),
-  routes: routes as any as RouteRecordRaw[],
+  routes: routes as unknown as RouteRecordRaw[],
 });
 
 // 路由守卫,鉴权

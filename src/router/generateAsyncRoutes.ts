@@ -1,11 +1,12 @@
+import cloneDeep from 'lodash.clonedeep'
 import i18n from '@/locales/useI18n'
 import ls from '@/utils/Storage'
-// import { BasicLayout, BlankLayout, PageView, RouteView } from '@/layouts'
+import { BasicLayout } from '@/layouts'//, BlankLayout, PageView, RouteView
 import { getRoutePages } from '@/utils/batchImportFiles'
 // 前端路由表
 const constantRouterComponents: { [x: string]: Function } = {
   // 基础页面 layout 必须引入
-  // BasicLayout,
+  BasicLayout,
   // BlankLayout,
   // RouteView,
   // PageView,
@@ -24,8 +25,8 @@ export const rootRouter: any = {
   },
   children: []
 }
-
-export const generateAsyncRoutes = (router, menu?: Array<unknown>) => {
+// TODO:测试退出账号,换权限登录,左侧菜单变化时路由是否正常,是否能清空之前路由
+const generateAsyncRoutes = (router, menu?: Array<unknown>) => {
   let menuNav: Array<unknown> = [];
   let childrenNav: Array<unknown> = [];
   // 后端数据, 根级树数组,  根级 PID
@@ -120,3 +121,32 @@ export const listToTree = (list, tree, parentId) => {
 }
 
 export default generateAsyncRoutes
+
+export function convertRoutes(nodes) {
+  if (!nodes) return null
+
+  nodes = cloneDeep(nodes)
+
+  let queue = Array.isArray(nodes) ? nodes.concat() : [nodes]
+
+  while (queue.length) {
+    const levelSize = queue.length
+
+    for (let i = 0; i < levelSize; i++) {
+      const node = queue.shift()
+
+      if (!node.children || !node.children.length) continue
+
+      node.children.forEach(child => {
+        // 转化相对路径
+        if (child.path[0] !== '/' && !child.path.startsWith('http')) {
+          child.path = node.path.replace(/(\w*)[/]*$/, `$1/${child.path}`)
+        }
+      })
+
+      queue = queue.concat(node.children)
+    }
+  }
+
+  return nodes
+}
