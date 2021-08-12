@@ -10,6 +10,7 @@ export default [
     children: [{
       name: 'test',
       path: 'test',
+      meta: { title: 'user.login.login' },
       component: () => import('../views/Home.vue'),
     }
     ],

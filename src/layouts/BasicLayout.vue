@@ -17,7 +17,7 @@
         :collapsible="true"
         @menuSelect="menuSelect"
       ></side-menu>
-    </a-drawer> -->
+    </a-drawer>-->
 
     <!-- <side-menu
       v-else-if="isSideMenu"
@@ -26,7 +26,7 @@
       :theme="navTheme"
       :collapsed="collapsed"
       :collapsible="true"
-    ></side-menu> -->
+    ></side-menu>-->
 
     <a-layout
       :class="[layoutMode, `content-width-${contentWidth}`]"
@@ -40,7 +40,7 @@
         :collapsed="collapsed"
         :device="device"
         @toggle="toggle"
-      /> -->
+      />-->
 
       <!-- layout content -->
       <a-layout-content
@@ -48,8 +48,9 @@
       >
         <multi-tab v-if="multiTab"></multi-tab>
         <transition name="page-transition">
-          <!-- <route-view /> -->
-          <router-view />
+          <section>
+            <route-view />
+          </section>
         </transition>
       </a-layout-content>
 
@@ -68,7 +69,8 @@
 import { defineComponent, ref, computed, watch, onMounted, nextTick } from 'vue';
 import { triggerWindowResizeEvent, isMobile, isDesktop } from '@/utils/device';
 import config from '@/config/defaultSettings';
-// import RouteView from './RouteView.vue'; //改造
+import RouteView from './RouteView.vue';
+import MultiTab from '@/components/MultiTab/index.vue';
 // import SideMenu from '@/components/Menu/SideMenu.vue'; //改造
 // import GlobalHeader from '@/components/GlobalHeader/index.vue'; //改造
 import GlobalFooter from '@/components/GlobalFooter/index.vue'; //改造
@@ -79,14 +81,23 @@ import constantRouterMap from '@/router/commonRoutes';
 import { hasPermission, filterAsyncRouter } from '@/router/permission';
 import { PERMISSION } from '@/store/mutation-types';
 import cloneDeep from 'lodash.clonedeep';
-import { fixSidebar, sidebarOpened } from '@/store/useSiteSettings';
+import {
+  fixSidebar,
+  sidebarOpened,
+  multiTab,
+  device,
+  layoutMode,
+  contentWidth,
+  fixedHeader,
+} from '@/store/useSiteSettings';
 import ls from '@/utils/Storage';
 import { useStore } from 'vuex';
 
 export default defineComponent({
   name: 'BasicLayout',
   components: {
-    // RouteView,
+    MultiTab,
+    RouteView,
     // SideMenu,
     // GlobalHeader,
     GlobalFooter,
@@ -112,6 +123,7 @@ export default defineComponent({
     });
 
     // created()
+    // TODO:菜单可能生成的不对
     const mainMenu = cloneDeep(constantRouterMap);
     const orginRoutes = filterAsyncRouter(mainMenu, ls.get(PERMISSION));
     const routes = convertRoutes(orginRoutes.find((item) => item.path === '/'));
@@ -153,7 +165,6 @@ export default defineComponent({
       production,
       collapsed,
       menus,
-      mainMenu,
       contentPaddingLeft,
       orginRoutes,
       routes,
@@ -161,6 +172,11 @@ export default defineComponent({
       paddingCalc,
       menuSelect,
       drawerClose,
+      multiTab,
+      device,
+      layoutMode,
+      contentWidth,
+      fixedHeader,
     };
   },
 });
