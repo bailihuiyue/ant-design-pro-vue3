@@ -19,8 +19,14 @@ export function genLangs(module: Record<string, any>, include: Array<string> | n
     path = path.replace(/\/lang/, '').split('.')[0];
     const names = path.split('/')
     names.pop() as string;
-    const objKey = names.join('_');
-    obj[objKey] = replaceDot(content)
+    reduceArr(obj, names, replaceDot(content))
+    // names.reduce((total, val, index) => {
+    //   if (index === names.length - 1) {
+    //     total[val] = replaceDot(content)
+    //     return total[val]
+    //   }
+    //   return (total[val] || (total[val] = {}))
+    // }, obj)
   });
   return obj;
 }
@@ -31,18 +37,29 @@ function replaceDot(c: LangFile) {
   for (var k in c) {
     if (k.includes('.')) {
       var arr = k.split('.')
-      arr.reduce((total: I18nMsgVal, val, index) => {
-        if (index === arr.length - 1) {
-          total[val] = c[k]
-          return total[val]
-        }
-        return (total[val] || (total[val] = {}))
-      }, o)
+      reduceArr(o, arr, c[k])
+      // arr.reduce((total: I18nMsgVal, val, index) => {
+      //   if (index === arr.length - 1) {
+      //     total[val] = c[k]
+      //     return total[val]
+      //   }
+      //   return (total[val] || (total[val] = {}))
+      // }, o)
     } else {
       return c
     }
   }
   return o
+}
+
+function reduceArr(o, arr, cb) {
+  arr.reduce((total, val, index) => {
+    if (index === arr.length - 1) {
+      total[val] = cb
+      return total[val]
+    }
+    return (total[val] || (total[val] = {}))
+  }, o)
 }
 
 export const getRoutePages = () => {
@@ -57,7 +74,7 @@ export const getRoutePages = () => {
 const getFileName = (path: string) => {
   const pattern = /\/(\w*)\.vue/
   const matched = path.match(pattern)
-  if(!matched){
+  if (!matched) {
     throw new Error('path is not right:' + path)
   }
   return matched[1]
