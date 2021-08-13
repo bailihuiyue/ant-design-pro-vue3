@@ -19,7 +19,7 @@ export function genLangs(module: Record<string, any>, include: Array<string> | n
     path = path.replace(/\/lang/, '').split('.')[0];
     const names = path.split('/')
     names.pop() as string;
-    const objKey = names.join('.');
+    const objKey = names.join('_');
     obj[objKey] = replaceDot(content)
   });
   return obj;

@@ -12,7 +12,7 @@
 // 使用vite-plugin-vue-svg插件的demo
 import { defineComponent } from 'vue';
 import Icon from '@ant-design/icons-vue';
-// import logo from '@/assets/logo.svg?component';
+// import logo from '@/assets/icons/logo.svg?component';
 export default defineComponent({
   components: {
     Icon,

@@ -91,8 +91,6 @@ export default defineComponent({
       selectedLastPath();
     })();
 
-    setTimeout(() => router.push('/about'),2000);
-
     const onEdit = (targetKey, action) => {
       ctx[action](targetKey);
     };

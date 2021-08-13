@@ -33,14 +33,14 @@
       :style="{ paddingLeft: contentPaddingLeft, minHeight: '100vh' }"
     >
       <!-- layout header -->
-      <!-- <global-header
+      <global-header
         :mode="layoutMode"
         :menus="menus"
         :theme="navTheme"
         :collapsed="collapsed"
         :device="device"
         @toggle="toggle"
-      />-->
+      />
 
       <!-- layout content -->
       <a-layout-content
@@ -72,7 +72,7 @@ import config from '@/config/defaultSettings';
 import RouteView from './RouteView.vue';
 import MultiTab from '@/components/MultiTab/index.vue';
 // import SideMenu from '@/components/Menu/SideMenu.vue'; //改造
-// import GlobalHeader from '@/components/GlobalHeader/index.vue'; //改造
+import GlobalHeader from '@/components/GlobalHeader/index.vue'; //改造
 import GlobalFooter from '@/components/GlobalFooter/index.vue'; //改造
 // import SettingDrawer from '@/components/SettingDrawer.vue'; //改造
 import { convertRoutes } from '@/router/generateAsyncRoutes';
@@ -89,6 +89,7 @@ import {
   layoutMode,
   contentWidth,
   fixedHeader,
+  navTheme
 } from '@/store/useSiteSettings';
 import ls from '@/utils/Storage';
 import { useStore } from 'vuex';
@@ -99,7 +100,7 @@ export default defineComponent({
     MultiTab,
     RouteView,
     // SideMenu,
-    // GlobalHeader,
+    GlobalHeader,
     GlobalFooter,
     // SettingDrawer,
   },
@@ -177,6 +178,7 @@ export default defineComponent({
       layoutMode,
       contentWidth,
       fixedHeader,
+      navTheme
     };
   },
 });
