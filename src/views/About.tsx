@@ -8,7 +8,7 @@ export default defineComponent({
     return () => (
       <>
         <h1>About</h1>
-        <img src={Logo}/>
+        <img src={Logo} width="100"/>
         <HelloWord/>
       </>
     );

@@ -4,7 +4,7 @@
       <a-tabs
         hideAdd
         type="editable-card"
-        v-model.value="activeKey"
+        v-model:activeKey="activeKey"
         :tabBarStyle="{background: '#FFF', margin: 0, paddingLeft: '16px', paddingTop: '1px' }"
         @edit="onEdit"
       >
@@ -14,23 +14,23 @@
           :closable="pages.length > 1"
           style="height: 0"
         >
-        <template #tab>
-          <a-dropdown :trigger="['contextmenu']">
-            <span :style="{ userSelect: 'none' }">{{page.meta.customTitle || $t(page.meta.title)}}</span>
-            <template #overlay>
-              <a-menu
-                @click="({ key, item, domEvent }) => {
+          <template #tab>
+            <a-dropdown :trigger="['contextmenu']">
+              <span :style="{ userSelect: 'none' }">{{page.meta.customTitle || $t(page.meta.title)}}</span>
+              <template #overlay>
+                <a-menu
+                  @click="({ key, item, domEvent }) => {
                 this.closeMenuClick(key, page.fullPath);
               }"
-              >
-                <a-menu-item key="closeThat">关闭当前标签</a-menu-item>
-                <a-menu-item key="closeRight">关闭右侧</a-menu-item>
-                <a-menu-item key="closeLeft">关闭左侧</a-menu-item>
-                <a-menu-item key="closeAll">关闭全部</a-menu-item>
-              </a-menu>
-            </template>
-          </a-dropdown>
-        </template>
+                >
+                  <a-menu-item key="closeSelf">{{$t('MultiTab.closeCurrent')}}</a-menu-item>
+                  <a-menu-item key="closeRight">{{$t('MultiTab.closeRight')}}</a-menu-item>
+                  <a-menu-item key="closeLeft">{{$t('MultiTab.closeLeft')}}</a-menu-item>
+                  <a-menu-item key="closeAll">{{$t('MultiTab.closeAll')}}</a-menu-item>
+                </a-menu>
+              </template>
+            </a-dropdown>
+          </template>
         </a-tab-pane>
       </a-tabs>
     </div>
@@ -38,62 +38,68 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, reactive, watch, getCurrentInstance } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRouter, RouteLocationNormalizedLoaded } from 'vue-router';
 import events from '@/utils/eventBus';
-import { message } from 'ant-design-vue'
-import './index.less'
+import { message } from 'ant-design-vue';
+import { useI18n } from 'vue-i18n';
+import './index.less';
 
-// TODO:1.测试该组件 2.去掉any 3.整理代码 4.完成国际化
 export default defineComponent({
   name: 'MultiTab',
   setup() {
-    let fullPathList: any = [];
-    const pages = reactive<any>([]);
+    let fullPathList: Array<string> = [];
+    const pages = reactive<Array<RouteLocationNormalizedLoaded>>([]);
     const activeKey = ref('');
-    const newTabIndex = ref(0);
     const router = useRouter();
+    const { t } = useI18n();
+    const { ctx } = getCurrentInstance();
 
     const selectedLastPath = () => {
       activeKey.value = fullPathList[fullPathList.length - 1];
     };
 
     (function created() {
-      // bind event
-      events.once('open', (val) => {
+      // 全局的事件绑定用于页面内控制tab标签,暂时用不上
+      // #region
+      events.once('multiTab.open', (val) => {
         if (!val) {
           throw new Error(`multi-tab: open tab ${val} err`);
         }
         activeKey.value = val;
       });
-      events.once('close', (val) => {
+      events.once('multiTab.close', (val) => {
         if (!val) {
-          closeThat(activeKey.value);
+          closeSelf(activeKey.value);
           return;
         }
-        closeThat(val);
+        closeSelf(val);
       });
-      events.once('rename', ({ key, name }) => {
+      events.once('multiTab.rename', ({ key, name }) => {
         console.log('rename', key, name);
         try {
-          const item: any = pages.find((item: any) => item.path === key);
-          item.meta.customTitle = name;
-          const { ctx } = getCurrentInstance();
+          const item = pages.find((item) => item.path === key);
+          item!.meta.customTitle = name;
           ctx.$forceUpdate();
-        } catch (e) {}
+        } catch (e) {
+          console.error(e);
+        }
       });
+      // #endregion
 
       pages.push(router.currentRoute.value);
       fullPathList.push(router.currentRoute.value.fullPath);
       selectedLastPath();
     })();
 
+    setTimeout(() => router.push('/about'),2000);
+
     const onEdit = (targetKey, action) => {
-      this[action](targetKey);
+      ctx[action](targetKey);
     };
     const remove = (targetKey) => {
       const temp = pages.filter((page) => page.fullPath !== targetKey);
       pages.length = 0;
-      pages.push(...temp)
+      pages.push(...temp);
       fullPathList = fullPathList.filter((path) => path !== targetKey);
       // 判断当前标签是否关闭，若关闭则跳转到最后一个还存在的标签页
       if (!fullPathList.includes(activeKey.value)) {
@@ -102,12 +108,12 @@ export default defineComponent({
     };
 
     // content menu
-    const closeThat = (e) => {
+    const closeSelf = (e) => {
       // 判断是否为最后一个标签页，如果是最后一个，则无法被关闭
       if (fullPathList.length > 1) {
         remove(e);
       } else {
-        message.info('这是最后一个标签了, 无法被关闭');
+        message.info(t('MultiTab.cannotCloseLast'));
       }
     };
     const closeLeft = (e) => {
@@ -119,7 +125,7 @@ export default defineComponent({
           }
         });
       } else {
-        message.info('左侧没有标签');
+        message.info(t('MultiTab.noLeft'));
       }
     };
     const closeRight = (e) => {
@@ -131,7 +137,7 @@ export default defineComponent({
           }
         });
       } else {
-        message.info('右侧没有标签');
+        message.info(t('MultiTab.noRight'));
       }
     };
     const closeAll = (e) => {
@@ -142,16 +148,16 @@ export default defineComponent({
         }
       });
     };
-    const closeMenuClick = (key, route) => {
-      this[key](route);
+    const closeMenuClick = (key: string, route) => {
+      ctx[key](route);
     };
 
     watch(
-      () => router.currentRoute,
+      () => router.currentRoute.value,
       (newVal) => {
-        activeKey.value = newVal.value.fullPath;
-        if (fullPathList.indexOf(newVal.value.fullPath) < 0) {
-          fullPathList.push(newVal.value.fullPath);
+        activeKey.value = newVal.fullPath;
+        if (fullPathList.indexOf(newVal.fullPath) < 0) {
+          fullPathList.push(newVal.fullPath);
           pages.push(newVal);
         }
       },
@@ -165,11 +171,10 @@ export default defineComponent({
       fullPathList,
       pages,
       activeKey,
-      newTabIndex,
       onEdit,
       remove,
       selectedLastPath,
-      closeThat,
+      closeSelf,
       closeLeft,
       closeRight,
       closeAll,
