@@ -18,7 +18,7 @@ const app = {
   state: {
     sidebar: true,
     device: 'desktop',
-    theme: '',
+    theme: 'dark',
     layout: '',
     contentWidth: '',
     fixedHeader: false,

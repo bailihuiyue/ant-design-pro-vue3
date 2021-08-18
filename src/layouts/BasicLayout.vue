@@ -1,7 +1,7 @@
 <template>
   <a-layout :class="['layout', device]">
     <!-- SideMenu -->
-    <!-- <a-drawer
+    <a-drawer
       v-if="isMobile"
       placement="left"
       :wrapClassName="`drawer-sider ${navTheme}`"
@@ -17,16 +17,16 @@
         :collapsible="true"
         @menuSelect="menuSelect"
       ></side-menu>
-    </a-drawer>-->
+    </a-drawer>
 
-    <!-- <side-menu
+    <side-menu
       v-else-if="isSideMenu"
       mode="inline"
       :menus="menus"
       :theme="navTheme"
       :collapsed="collapsed"
       :collapsible="true"
-    ></side-menu>-->
+    ></side-menu>
 
     <a-layout
       :class="[layoutMode, `content-width-${contentWidth}`]"
@@ -71,14 +71,14 @@ import { triggerWindowResizeEvent, isMobile, isDesktop } from '@/utils/device';
 import config from '@/config/defaultSettings';
 import RouteView from './RouteView.vue';
 import MultiTab from '@/components/MultiTab/index.vue';
-// import SideMenu from '@/components/Menu/SideMenu.vue'; //改造
+import SideMenu from '@/components/Menu/SideMenu.vue'; //改造
 import GlobalHeader from '@/components/GlobalHeader/index.vue'; //改造
 import GlobalFooter from '@/components/GlobalFooter/index.vue'; //改造
 // import SettingDrawer from '@/components/SettingDrawer.vue'; //改造
 import { convertRoutes } from '@/router/generateAsyncRoutes';
 
 import constantRouterMap from '@/router/commonRoutes';
-import { hasPermission, filterAsyncRouter } from '@/router/permission';
+import { filterAsyncRouter } from '@/router/permission';
 import { PERMISSION } from '@/store/mutation-types';
 import cloneDeep from 'lodash.clonedeep';
 import {
@@ -89,7 +89,7 @@ import {
   layoutMode,
   contentWidth,
   fixedHeader,
-  navTheme
+  navTheme,
 } from '@/store/useSiteSettings';
 import ls from '@/utils/Storage';
 import { useStore } from 'vuex';
@@ -99,7 +99,7 @@ export default defineComponent({
   components: {
     MultiTab,
     RouteView,
-    // SideMenu,
+    SideMenu,
     GlobalHeader,
     GlobalFooter,
     // SettingDrawer,
@@ -178,7 +178,7 @@ export default defineComponent({
       layoutMode,
       contentWidth,
       fixedHeader,
-      navTheme
+      navTheme,
     };
   },
 });

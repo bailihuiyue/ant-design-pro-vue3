@@ -17,20 +17,19 @@
               <MenuFoldOutlined v-if="collapsed==='menu-fold'" class="trigger" />
             </template>
           </span>
-          <user-menu></user-menu>
+          <user-menu :theme="theme"></user-menu>
         </div>
         <div v-else :class="['top-nav-header-index', theme]">
           <div class="header-index-wide">
             <div class="header-index-left">
               <logo class="top-nav-header" :show-title="device !== 'mobile'" />
-              <!-- <s-menu v-if="device !== 'mobile'" mode="horizontal" :menu="menus" :theme="theme" /> -->
-              <span v-if="device !== 'mobile'">s-menu</span>
+              <s-menu v-if="device !== 'mobile'" mode="horizontal" :menu="menus" :theme="theme" />
               <span v-else @click="toggle">
                 <MenuFoldOutlined v-if="collapsed==='menu-fold'" class="trigger" />
                 <MenuUnfoldOutlined v-if="collapsed==='menu-unfold'" class="trigger" />
               </span>
             </div>
-            <user-menu class="header-index-right"></user-menu>
+            <user-menu class="header-index-right" :theme="theme"></user-menu>
           </div>
         </div>
       </a-layout-header>
@@ -40,23 +39,17 @@
 
 <script lang="ts">
 import UserMenu from '../tools/UserMenu/index.vue';
-// TODO:SMenu
-// import SMenu from '../Menu/';
+import SMenu from '../Menu/Menu.vue';
 import Logo from '../tools/Logo.vue';
 import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue';
 import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue';
-import {
-  sidebarOpened,
-  device,
-  fixedHeader,
-  autoHideHeader
-} from '@/store/useSiteSettings';
+import { sidebarOpened, device, fixedHeader, autoHideHeader } from '@/store/useSiteSettings';
 
 export default defineComponent({
   name: 'GlobalHeader',
   components: {
     UserMenu,
-    // SMenu,
+    SMenu,
     Logo,
     MenuFoldOutlined,
     MenuUnfoldOutlined,
@@ -91,7 +84,7 @@ export default defineComponent({
     const visible = ref<boolean>(true);
     const oldScrollTop = ref<number>(0);
     const ticking = ref<boolean>(false);
-
+    // TODO:未知作用
     const handleScroll = () => {
       if (!autoHideHeader) {
         return;
@@ -126,13 +119,13 @@ export default defineComponent({
       document.body.removeEventListener('scroll', handleScroll, true);
     });
 
-    return{
+    return {
       visible,
       fixedHeader,
       sidebarOpened,
       toggle,
-      device
-    }
+      device,
+    };
   },
 });
 </script>

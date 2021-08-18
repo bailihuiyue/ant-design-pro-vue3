@@ -119,8 +119,8 @@ body {}
           }
 
           .ant-menu.ant-menu-horizontal {
-            max-width: calc(100vw - 190px - 242px - 25px);
-            flex: 1 1 calc(100vw - 190px - 242px - 25px);
+            max-width: calc(100vw - 190px - 260px - 25px);
+            flex: 1 1 calc(100vw - 190px - 260px - 25px);
           }
         }
 
@@ -192,6 +192,12 @@ body {}
           padding: 4px;
         }
       }
+
+      .anticon-question-circle,
+      .ant-badge,
+      .nickname {
+        vertical-align: middle;
+      }
     }
 
     &.dark {
@@ -200,6 +206,10 @@ body {}
           color: rgba(255, 255, 255, 0.85);
 
           a {
+            color: rgba(255, 255, 255, 0.85);
+          }
+
+          .ant-badge {
             color: rgba(255, 255, 255, 0.85);
           }
 
@@ -321,7 +331,7 @@ body {}
       }
 
       .header-index-right {
-        flex: 0 0 242px;
+        flex: 0 0 260px;
         align-self: flex-end;
         height: 64px;
         overflow: hidden;

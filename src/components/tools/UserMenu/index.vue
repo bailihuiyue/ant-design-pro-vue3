@@ -1,8 +1,10 @@
 <template>
   <div class="user-wrapper">
     <div class="content-box">
-      <!-- TODO:可以改成这个项目的readme.md -->
-      <a href="https://pro.loacg.com/docs/getting-started" target="_blank">
+      <a
+        href="https://github.com/bailihuiyue/ant-design-pro-vue3/blob/main/README.md"
+        target="_blank"
+      >
         <span class="action">
           <QuestionCircleOutlined />
         </span>
@@ -11,7 +13,7 @@
       <a-dropdown>
         <span class="action ant-dropdown-link user-dropdown-menu">
           <a-avatar class="avatar" size="small" :src="avatar" />
-          <span>{{ nickname }}</span>
+          <span class="nickname">{{ nickname }}</span>
         </span>
         <template #overlay>
           <a-menu class="user-dropdown-menu-wrapper">
@@ -30,23 +32,25 @@
             <a-menu-item key="4" @click="showSystemSetting">
               <a>
                 <SettingOutlined />
-                <span>{{ $t('tools_UserMenu.systemConfig') }}</span>
+                <span>{{ $t('tools.UserMenu.systemConfig') }}</span>
               </a>
             </a-menu-item>
             <a-menu-item key="2" disabled>
               <SettingOutlined />
-              <span>{{ $t('tools_UserMenu.test') }}</span>
+              <span>{{ $t('tools.UserMenu.test') }}</span>
             </a-menu-item>
             <a-menu-divider />
             <a-menu-item key="3">
               <a href="javascript:;" @click="handleLogout">
                 <LogoutOutlined />
-                <span>{{ $t('tools_UserMenu.logout') }}</span>
+                <span>{{ $t('tools.UserMenu.logout') }}</span>
               </a>
             </a-menu-item>
           </a-menu>
         </template>
       </a-dropdown>
+      <!-- TODO:位置不对 -->
+      <SelectLang :class="theme" />
     </div>
   </div>
 </template>
@@ -56,27 +60,32 @@ import { defineComponent } from 'vue';
 import NoticeIcon from '@/components/NoticeIcon/index.vue';
 import { logout } from '@/views/user/service';
 import { ACCESS_TOKEN, PERMISSION, USER_INFO } from '@/store/mutation-types';
-import { ls, store, router } from '@/utils/commonImport';
+import { ls, router } from '@/utils/commonImport';
 import { Modal } from 'ant-design-vue';
 import { QuestionCircleOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons-vue';
 import { useI18n } from 'vue-i18n';
+import { useStore } from 'vuex';
+import SelectLang from '@/components/SelectLang';
 
+// TODO:2.右侧三个按钮
 export default defineComponent({
   name: 'UserMenu',
+  props: ['theme'],
   components: {
     NoticeIcon,
     QuestionCircleOutlined,
     SettingOutlined,
     LogoutOutlined,
+    SelectLang,
   },
   setup(props) {
     const { t } = useI18n();
-    const UserInfo = ls.get('User_Info');
-    // const store = useStore();
+    const UserInfo = ls.get(USER_INFO);
+    const store = useStore();
     const handleLogout = () => {
       Modal.confirm({
-        title: t('tools_UserMenu.tip'),
-        content: t('tools_UserMenu.checkLogout'),
+        title: t('tools.UserMenu.tip'),
+        content: t('tools.UserMenu.checkLogout'),
         onOk: () => {
           logout().then((res) => {
             ls.remove(ACCESS_TOKEN);

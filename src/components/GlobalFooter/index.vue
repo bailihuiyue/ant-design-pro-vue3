@@ -17,6 +17,7 @@
 </template>
 
 <script lang="ts">
+// TODO:修改文案和链接地址
 import { CopyrightOutlined, GithubOutlined } from '@ant-design/icons-vue';
 import { defineComponent } from 'vue';
 export default defineComponent({

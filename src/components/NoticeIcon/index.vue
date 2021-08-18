@@ -4,12 +4,12 @@
     trigger="click"
     placement="bottomRight"
     overlayClassName="header-notice-wrapper"
-    :getPopupContainer="() => $refs.noticeRef.parentElement"
-    :autoAdjustOverflow="true"
+    :getPopupContainer="getPopupContainer"
+    :autoAdjustOverflow="false"
     :arrowPointAtCenter="true"
-    :overlayStyle="{ width: '300px', top: '50px' }"
+    :overlayStyle="{ width: isMobile?'250px':'300px', top: '50px' }"
   >
-    <template slot="content">
+    <template #content>
       <a-spin :spinning="loading">
         <a-tabs>
           <a-tab-pane tab="通知" key="1">
@@ -59,6 +59,7 @@
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
 import { BellOutlined } from '@ant-design/icons-vue';
+import { isMobile } from '@/utils/device';
 
 export default defineComponent({
   name: 'HeaderNotice',
@@ -68,22 +69,30 @@ export default defineComponent({
   setup() {
     const loading = ref<boolean>(false);
     const visible = ref<boolean>(false);
+    const noticeRef = ref(null);
 
     const fetchNotice = () => {
       if (!visible.value) {
         loading.value = true;
         setTimeout(() => {
           loading.value = false;
-        }, 2000);
+        }, 300);
       } else {
         loading.value = false;
       }
-      visible.value = !visible.value;
+      // visible.value = !visible.value;
+    };
+
+    const getPopupContainer = () => {
+      return noticeRef.value!.parentElement;
     };
     return {
       loading,
       visible,
       fetchNotice,
+      noticeRef,
+      getPopupContainer,
+      isMobile
     };
   },
 });
@@ -100,7 +109,7 @@ export default defineComponent({
   transition: all 0.3s;
 
   span {
-    vertical-align: initial;
+    // vertical-align: initial;
   }
 }
 </style>

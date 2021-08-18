@@ -52,6 +52,7 @@ function replaceDot(c: LangFile) {
   return o
 }
 
+// 数组生成obj,可递归
 function reduceArr(o, arr, cb) {
   arr.reduce((total, val, index) => {
     if (index === arr.length - 1) {
