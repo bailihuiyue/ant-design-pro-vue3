@@ -49,8 +49,9 @@
           </a-menu>
         </template>
       </a-dropdown>
-      <!-- TODO:位置不对 -->
-      <SelectLang :class="theme" />
+      <span style="overflow: hidden;display: inline-block;">
+        <SelectLang :class="theme" class="action" />
+      </span>
     </div>
   </div>
 </template>
@@ -67,7 +68,6 @@ import { useI18n } from 'vue-i18n';
 import { useStore } from 'vuex';
 import SelectLang from '@/components/SelectLang';
 
-// TODO:2.右侧三个按钮
 export default defineComponent({
   name: 'UserMenu',
   props: ['theme'],
