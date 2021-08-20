@@ -35,10 +35,10 @@
                 <span>{{ $t('tools.UserMenu.systemConfig') }}</span>
               </a>
             </a-menu-item>
-            <a-menu-item key="2" disabled>
+            <!-- <a-menu-item key="2" disabled>
               <SettingOutlined />
               <span>{{ $t('tools.UserMenu.test') }}</span>
-            </a-menu-item>
+            </a-menu-item> -->
             <a-menu-divider />
             <a-menu-item key="3">
               <a href="javascript:;" @click="handleLogout">

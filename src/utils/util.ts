@@ -57,5 +57,5 @@ export function scorePassword(pass) {
 }
 
 const sitUrl = 'xxxxx'
-const isDev = import.meta.env.DEV
+export const isDev = import.meta.env.DEV
 export const baseURL = isDev ? '/api/' : '生产地址'

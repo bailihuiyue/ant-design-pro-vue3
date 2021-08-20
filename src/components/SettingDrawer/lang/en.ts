@@ -1,0 +1,27 @@
+export default {
+  fixation: 'Fixation',
+  fluid: 'Fluid',
+  globalStyleSetting: 'Global style setting',
+  darkStyle: 'Dark style',
+  lightStyle: 'Light style',
+  theme: 'Theme',
+  navigationMode: 'Navigation mode',
+  sidebarNavigater: 'Sidebar navigater',
+  topNavigater: 'Top navigater',
+  onlyValid: 'This setting is only valid for [top bar navigation]',
+  contentWidth: 'Content area width',
+  fixHeader: 'Fixed Header',
+  configurableWhenFixingHeaders: 'Configurable when fixing headers',
+  hideHeaders: 'Hide headers when sliding',
+  fixedSideMenu: 'Fixed side menu',
+  otherSettings: 'Other settings',
+  layoutSettings:'Layout settings',
+  colorBlindness: 'Color blindness mode',
+  grayMode: 'Gray mode',
+  multiTab: 'Multi-tab mode',
+  copySettings: 'Copy Settings',
+  words:
+    'The configured Settings can be copied to defaultSettings.ts as the defaultSettings for the project. After modifying the configuration file, you need to clear the local cache and localstorage',
+  testFun: 'Test function',
+  darkMode: 'Dark mode'
+}

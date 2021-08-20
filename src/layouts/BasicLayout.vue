@@ -59,7 +59,7 @@
         <global-footer />
       </a-layout-footer>
 
-      <!-- <setting-drawer></setting-drawer> -->
+      <setting-drawer></setting-drawer>
     </a-layout>
   </a-layout>
 </template>
@@ -71,15 +71,15 @@ import { triggerWindowResizeEvent, isMobile, isDesktop } from '@/utils/device';
 import config from '@/config/defaultSettings';
 import RouteView from './RouteView.vue';
 import MultiTab from '@/components/MultiTab/index.vue';
-import SideMenu from '@/components/Menu/SideMenu.vue'; //改造
-import GlobalHeader from '@/components/GlobalHeader/index.vue'; //改造
-import GlobalFooter from '@/components/GlobalFooter/index.vue'; //改造
-// import SettingDrawer from '@/components/SettingDrawer.vue'; //改造
+import SideMenu from '@/components/Menu/SideMenu.vue';
+import GlobalHeader from '@/components/GlobalHeader/index.vue';
+import GlobalFooter from '@/components/GlobalFooter/index.vue';
+import SettingDrawer from '@/components/SettingDrawer/index.vue';
 import { convertRoutes } from '@/router/generateAsyncRoutes';
 
 import constantRouterMap from '@/router/commonRoutes';
 import { filterAsyncRouter } from '@/router/permission';
-import { PERMISSION } from '@/store/mutation-types';
+import { PERMISSION, SET_SIDEBAR_TYPE } from '@/store/mutation-types';
 import cloneDeep from 'lodash.clonedeep';
 import {
   fixSidebar,
@@ -102,7 +102,7 @@ export default defineComponent({
     SideMenu,
     GlobalHeader,
     GlobalFooter,
-    // SettingDrawer,
+    SettingDrawer,
   },
   setup() {
     const production = ref(config.production);
@@ -145,7 +145,7 @@ export default defineComponent({
 
     const toggle = () => {
       collapsed.value = !collapsed.value;
-      store.dispatch('setSidebar', !collapsed.value);
+      store.dispatch(SET_SIDEBAR_TYPE, !collapsed.value);
       // TODO:未知用途
       triggerWindowResizeEvent();
     };

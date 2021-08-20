@@ -15,6 +15,7 @@ export const autoHideHeader = computed(() => state.app.autoHideHeader)
 export const sidebarOpened = computed(() => state.app.sidebar)
 export const multiTab = computed(() => state.app.multiTab)
 export const device = computed(() => state.app.device)
+export const darkMode = computed(() => state.app.darkMode)
 
 export const isTopMenu = () => layoutMode.value === 'topmenu'
 export const isSideMenu = () => !isTopMenu()
