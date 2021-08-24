@@ -16,7 +16,7 @@ export default {
     },
     divider: {
       type: Boolean,
-      default: false
+      default: true
     }
   }
 }

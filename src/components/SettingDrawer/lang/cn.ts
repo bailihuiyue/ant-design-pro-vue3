@@ -23,5 +23,6 @@ export default {
   words:
     '配置的设置可以复制到defaultSettings.ts中作为项目的默认设置。修改配置文件后，需要清空本地缓存和LocalStorage',
   testFun: '试验功能',
-  darkMode: '黑夜模式'
+  darkMode: '黑夜模式',
+  contentArea: '内容区域'
 }

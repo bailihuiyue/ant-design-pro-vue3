@@ -90,6 +90,7 @@ import {
   contentWidth,
   fixedHeader,
   navTheme,
+  isSideMenu
 } from '@/store/useSiteSettings';
 import ls from '@/utils/Storage';
 import { useStore } from 'vuex';
@@ -179,6 +180,8 @@ export default defineComponent({
       contentWidth,
       fixedHeader,
       navTheme,
+      isMobile,
+      isSideMenu
     };
   },
 });

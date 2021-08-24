@@ -15,7 +15,7 @@ export default {
   hideHeaders: 'Hide headers when sliding',
   fixedSideMenu: 'Fixed side menu',
   otherSettings: 'Other settings',
-  layoutSettings:'Layout settings',
+  layoutSettings: 'Layout settings',
   colorBlindness: 'Color blindness mode',
   grayMode: 'Gray mode',
   multiTab: 'Multi-tab mode',
@@ -23,5 +23,6 @@ export default {
   words:
     'The configured Settings can be copied to defaultSettings.ts as the defaultSettings for the project. After modifying the configuration file, you need to clear the local cache and localstorage',
   testFun: 'Test function',
-  darkMode: 'Dark mode'
+  darkMode: 'Dark mode',
+  contentArea: 'Content area'
 }

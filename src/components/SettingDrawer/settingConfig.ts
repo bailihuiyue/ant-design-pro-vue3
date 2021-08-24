@@ -52,13 +52,13 @@ const updateTheme = newPrimaryColor => {
 }
 
 const updateDarkMode = isDark => {
-  let styleTag = document.getElementById('darkMode')
+  let styleTag = document.getElementById('themeCss')
   if (!styleTag) {
     styleTag = document.createElement('link')
-    styleTag.setAttribute('id', 'darkMode')
+    styleTag.setAttribute('id', 'themeCss')
     document.head.appendChild(styleTag)
   }
-  styleTag.setAttribute('href', isDark ? './themes/dark.css' : '')
+  styleTag.setAttribute('href', isDark ? '/themes/dark.css' : '')
 }
 
 // const updateTheme = newPrimaryColor => {
