@@ -1,0 +1,71 @@
+@dark-deactive-font-color: rgba(255, 255, 255, 0.65);
+@dark-active-font-color: rgba(255, 255, 255, 0.85);
+@dark-bg: #1f1f1f;
+@dark-bg-hover: #242424;
+
+.darkMode {
+
+  // 多标签
+  .ant-pro-multi-tab-wrapper {
+    .ant-tabs-bar {
+      background-color: #000;
+
+      .ant-dropdown-trigger {
+        color: @dark-deactive-font-color
+      }
+
+      .ant-tabs-tab-active {
+        .ant-dropdown-trigger {
+          color: @dark-active-font-color
+        }
+      }
+    }
+  }
+
+  // logo
+  .sider {
+    .logo {
+      background-color: @dark-bg;
+    }
+  }
+
+  // Menu菜单
+  .ant-menu {
+    background-color: @dark-bg  !important;
+
+    .ant-menu-sub {
+      background-color: @dark-bg  !important;
+    }
+
+    .ant-menu-item:hover {
+      background-color: @dark-bg-hover;
+    }
+  }
+
+  // 国际化下拉菜单
+  .ant-dropdown-menu-title-content {
+
+    a,
+    .ant-dropdown-menu-title-content {
+      color: @dark-deactive-font-color
+    }
+
+    a:hover {
+      color: @dark-active-font-color
+    }
+
+    color: @dark-deactive-font-color
+  }
+
+  .ant-dropdown-menu-item-selected {
+    background-color: @dark-bg-hover;
+
+    .ant-dropdown-menu-title-content {
+      color: @dark-active-font-color
+    }
+  }
+
+  h3.setting-drawer-index-title {
+    color: @dark-deactive-font-color !important;
+  }
+}

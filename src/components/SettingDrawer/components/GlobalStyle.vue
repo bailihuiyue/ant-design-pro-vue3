@@ -58,15 +58,11 @@ export default defineComponent({
     })
 
     const handleMenuTheme = (theme) => {
-      updateDarkMode(false)
       commit(TOGGLE_THEME, theme)
-      commit(SET_DARK_MODE, false)
     }
 
     const handleDarkMode = (isDark) => {
-      updateDarkMode(isDark)
       commit(SET_DARK_MODE, isDark)
-      commit(TOGGLE_THEME, 'dark')
     }
 
     return {

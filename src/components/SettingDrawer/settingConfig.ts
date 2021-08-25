@@ -53,12 +53,19 @@ const updateTheme = newPrimaryColor => {
 
 const updateDarkMode = isDark => {
   let styleTag = document.getElementById('themeCss')
+  let appTag = document.getElementById('html')
   if (!styleTag) {
     styleTag = document.createElement('link')
     styleTag.setAttribute('id', 'themeCss')
     document.head.appendChild(styleTag)
   }
-  styleTag.setAttribute('href', isDark ? '/themes/dark.css' : '')
+  if (isDark) {
+    styleTag.setAttribute('href', '/themes/dark.css')
+    appTag!.className = 'darkMode'
+  }else{
+    styleTag.setAttribute('href', '')
+    appTag!.className = ''
+  }
 }
 
 // const updateTheme = newPrimaryColor => {

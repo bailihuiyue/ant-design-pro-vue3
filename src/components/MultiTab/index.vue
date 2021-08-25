@@ -5,7 +5,7 @@
         hideAdd
         type="editable-card"
         v-model:activeKey="activeKey"
-        :tabBarStyle="{background: '#FFF', margin: 0, paddingLeft: '16px', paddingTop: '1px' }"
+        :tabBarStyle="{margin: 0, paddingLeft: '16px', paddingTop: '1px' }"
         @edit="onEdit"
       >
         <a-tab-pane
