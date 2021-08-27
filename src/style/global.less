@@ -170,6 +170,7 @@ body {}
       height: 100%;
 
       .action {
+        overflow: hidden;
         cursor: pointer;
         padding: 0 12px;
         display: inline-block;
@@ -183,7 +184,7 @@ body {}
 
         .avatar {
           margin: 20px 8px 20px 0;
-          color: #1890ff;
+          color: @primary-color;
           background: hsla(0, 0%, 100%, 0.85);
           vertical-align: middle;
         }
@@ -549,5 +550,11 @@ body {}
     button {
       margin-right: 8px;
     }
+  }
+}
+
+.themeColorCustomColor {
+  .ant-popover-inner-content {
+    padding: 0;
   }
 }

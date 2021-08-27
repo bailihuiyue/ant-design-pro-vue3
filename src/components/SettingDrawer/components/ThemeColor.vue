@@ -11,41 +11,58 @@
           <CheckOutlined v-if="item.color === primaryColor" />
         </a-tag>
       </a-tooltip>
+      <!-- 自定义颜色 -->
+      <a-popover title="自定义" overlayClassName="themeColorCustomColor" placement="bottomRight">
+        <template #content>
+          <ColorPicker @change="changeColor" format="hex" disableHistory disableAlpha />
+        </template>
+        <a-tag :color="isCustomColor?primaryColor:''" class="setting-drawer-theme-color-colorBlock">
+          <CheckOutlined v-if="isCustomColor" />
+        </a-tag>
+      </a-popover>
     </div>
   </SettingItem>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent, computed } from 'vue'
 import { useStore } from 'vuex'
-import { TOGGLE_COLOR } from '@/store/mutation-types'
+import { TOGGLE_COLOR, TOGGLE_CUSTOM_COLOR } from '@/store/mutation-types'
 import { CheckOutlined } from '@ant-design/icons-vue'
-import { colorList, updateTheme } from '../settingConfig'
+import { colorList } from '../settingConfig'
+import { updateTheme } from '../updateTheme'
 import { primaryColor } from '@/store/useSiteSettings'
 import SettingItem from './SettingItem.vue'
+import ColorPicker from '@/components/ColorPicker/index.vue'
 
 export default defineComponent({
   components: {
     CheckOutlined,
-    SettingItem
+    SettingItem,
+    ColorPicker
   },
   setup() {
     const { state, commit } = useStore()
 
     const changeColor = (color) => {
-      if (state.app.primaryColor !== color) {
+      if (color === TOGGLE_CUSTOM_COLOR) {
+        commit(TOGGLE_CUSTOM_COLOR, color)
+      } else if (state.app.color !== color) {
         commit(TOGGLE_COLOR, color)
         updateTheme(color)
       }
     }
 
-    onMounted(() => {
-      updateTheme(state.primaryColor)
+    const colorArr = colorList.map((item) => item.color)
+    const isCustomColor = computed(() => {
+      return !colorArr.includes(state.app.color)
     })
 
     return {
       colorList,
       changeColor,
-      primaryColor
+      primaryColor,
+      TOGGLE_CUSTOM_COLOR,
+      isCustomColor
     }
   }
 })

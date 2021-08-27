@@ -131,7 +131,7 @@ export default defineComponent({
 </script>
 
 <style lang="less">
-@import '../index.less';
+@import '../../style/index.less';
 
 .header-animat {
   position: relative;

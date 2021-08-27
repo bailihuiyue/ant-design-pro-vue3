@@ -137,12 +137,12 @@
 
 <script lang="ts">
 // import TwoStepCaptcha from '@/components/tools/TwoStepCaptcha.vue';
-import { encryptByMd5 } from '@/utils/encrypt';
-import { defineComponent, ref, reactive, UnwrapRef, onMounted } from 'vue';
-import { useI18n } from 'vue-i18n';
-import { Form, message, notification } from 'ant-design-vue';
-import { loginSuccess, requestFailed } from './helper';
-import { useRouter } from 'vue-router';
+import { encryptByMd5 } from '@/utils/encrypt'
+import { defineComponent, ref, reactive, UnwrapRef, onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
+import { Form, message, notification } from 'ant-design-vue'
+import { loginSuccess, requestFailed } from './helper'
+import { useRouter } from 'vue-router'
 import {
   MobileOutlined,
   MailOutlined,
@@ -150,13 +150,13 @@ import {
   TaobaoCircleOutlined,
   WeiboCircleOutlined,
   UserOutlined,
-  LockOutlined,
-} from '@ant-design/icons-vue';
-import * as api from './service';
-import { FormState } from './types';
-import config from '@/config/defaultSettings';
-import storage from '@/utils/Storage';
-import generateAsyncRoutes from '@/router/generateAsyncRoutes';
+  LockOutlined
+} from '@ant-design/icons-vue'
+import * as api from './service'
+import { FormState } from './types'
+import config from '@/config/defaultSettings'
+import storage from '@/utils/Storage'
+import generateAsyncRoutes from '@/router/generateAsyncRoutes'
 
 export default defineComponent({
   components: {
@@ -167,32 +167,32 @@ export default defineComponent({
     AlipayCircleOutlined,
     TaobaoCircleOutlined,
     WeiboCircleOutlined,
-    LockOutlined,
+    LockOutlined
   },
   setup() {
-    const useForm = Form.useForm;
-    const { t } = useI18n();
-    const router = useRouter();
+    const useForm = Form.useForm
+    const { t } = useI18n()
+    const router = useRouter()
 
     onMounted(() => {
       api
         .get2step()
         .then((res) => {
-          requiredTwoStepCaptcha.value = res.result.stepCode;
+          requiredTwoStepCaptcha.value = res.result.stepCode
         })
         .catch(() => {
-          requiredTwoStepCaptcha.value = 0;
-        });
-      requiredTwoStepCaptcha.value = 1;
-    });
+          requiredTwoStepCaptcha.value = 0
+        })
+      requiredTwoStepCaptcha.value = 1
+    })
 
     const state = reactive({
       time: 60,
       loginBtn: false,
       // login type: 0 email, 1 username, 2 telephone
       loginType: 0,
-      smsSendBtn: false,
-    });
+      smsSendBtn: false
+    })
 
     // #region 表单相关
     const formRef: UnwrapRef<FormState> = reactive({
@@ -200,29 +200,29 @@ export default defineComponent({
       username: '',
       password: '',
       mobile: '',
-      captcha: '',
-    });
+      captcha: ''
+    })
 
     const handleUsernameOrEmail = (rule, value: string) => {
-      const regex = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/;
+      const regex = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+((\.[a-zA-Z0-9_-]{2,3}){1,2})$/
       if (regex.test(value)) {
-        state.loginType = 0;
+        state.loginType = 0
       } else {
-        state.loginType = 1;
+        state.loginType = 1
       }
-      return Promise.resolve();
-    };
+      return Promise.resolve()
+    }
     const rulesRef = reactive({
       rememberMe: [{ trigger: 'checked' }],
       username: [
         {
           required: true,
-          message: t('user.userName.required'),
+          message: t('user.userName.required')
         },
         {
           validator: handleUsernameOrEmail,
-          trigger: 'change',
-        },
+          trigger: 'change'
+        }
       ],
       password: [{ required: true, message: t('user.password.required') }, {}],
       mobile: [
@@ -230,99 +230,99 @@ export default defineComponent({
           required: true,
           pattern: /^1[34578]\d{9}$/,
           message: t('user.login.mobile.placeholder'),
-          validateTrigger: 'change',
-        },
+          validateTrigger: 'change'
+        }
       ],
       captcha: [
         {
           required: true,
           message: t('user.verification-code.required'),
-          validateTrigger: 'blur',
-        },
-      ],
-    });
-    const { validate, validateInfos } = useForm(formRef, rulesRef);
-    const isLoginError = ref(false);
+          validateTrigger: 'blur'
+        }
+      ]
+    })
+    const { validate, validateInfos } = useForm(formRef, rulesRef)
+    const isLoginError = ref(false)
     const handleSubmit = (e: Event) => {
-      e.preventDefault();
-      state.loginBtn = true;
+      e.preventDefault()
+      state.loginBtn = true
       const validateFieldsKey =
-        customActiveKey.value === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha'];
+        customActiveKey.value === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
 
       validate(validateFieldsKey)
         .then(async () => {
-          formRef.password = encryptByMd5(formRef.password);
-          const res = await api.userLogin(formRef);
+          formRef.password = encryptByMd5(formRef.password)
+          const res = await api.userLogin(formRef)
           if (res) {
             if (config.useAsyncRouter) {
-              generateAsyncRoutes(router, res.menu);
+              generateAsyncRoutes(router, res.menu)
             }
-            loginSuccess(res, router);
-            isLoginError.value = false;
+            loginSuccess(res, router)
+            isLoginError.value = false
           } else {
-            requestFailed(res);
-            isLoginError.value = true;
-            formRef.password = '';
+            requestFailed(res)
+            isLoginError.value = true
+            formRef.password = ''
           }
-          state.loginBtn = false;
+          state.loginBtn = false
         })
         .catch((e) => {
-          state.loginBtn = false;
-        });
-    };
+          state.loginBtn = false
+        })
+    }
     // #endregion
 
     //#region 切换tab
-    const customActiveKey = ref<string>('tab1');
+    const customActiveKey = ref<string>('tab1')
     const handleTabClick = (key: string) => {
-      customActiveKey.value = key;
-    };
+      customActiveKey.value = key
+    }
     //#endregion
 
     //#region 获取验证码
     const getCaptcha = (e: Event) => {
-      e.preventDefault();
+      e.preventDefault()
       validate(['mobile']).then(() => {
-        state.smsSendBtn = true;
+        state.smsSendBtn = true
         const interval = window.setInterval(() => {
           if (state.time-- <= 0) {
-            state.time = 60;
-            state.smsSendBtn = false;
-            window.clearInterval(interval);
+            state.time = 60
+            state.smsSendBtn = false
+            window.clearInterval(interval)
           }
-        }, 1000);
-        message.loading('验证码发送中..', 1);
+        }, 1000)
+        message.loading('验证码发送中..', 1)
         api
           .getSmsCaptcha({ mobile: formRef.mobile })
           .then((res) => {
             notification['success']({
               message: '提示',
               description: '验证码获取成功，您的验证码为：' + res.result.captcha,
-              duration: 8,
-            });
+              duration: 8
+            })
           })
           .catch((err) => {
-            clearInterval(interval);
-            state.time = 60;
-            state.smsSendBtn = false;
-            requestFailed(err);
-          });
-      });
-    };
+            clearInterval(interval)
+            state.time = 60
+            state.smsSendBtn = false
+            requestFailed(err)
+          })
+      })
+    }
     //#endregion
 
     //#region TwoStepCaptcha暂时没用
-    const requiredTwoStepCaptcha = ref<number>(0);
-    const stepCaptchaVisible = ref<boolean>(false);
+    const requiredTwoStepCaptcha = ref<number>(0)
+    const stepCaptchaVisible = ref<boolean>(false)
     const stepCaptchaSuccess = (res) => {
-      loginSuccess(res, router);
-    };
+      loginSuccess(res, router)
+    }
     const stepCaptchaCancel = () => {
       api.logout().then(() => {
-        state.loginBtn = false;
-        stepCaptchaVisible.value = false;
-      });
-    };
+        state.loginBtn = false
+        stepCaptchaVisible.value = false
+      })
+    }
     //#endregion
 
     return {
@@ -338,13 +338,15 @@ export default defineComponent({
       validateInfos,
       getCaptcha,
       stepCaptchaSuccess,
-      stepCaptchaCancel,
-    };
-  },
-});
+      stepCaptchaCancel
+    }
+  }
+})
 </script>
 
 <style lang="less" scoped>
+@import '../../style/index.less';
+
 .user-layout-login {
   label {
     font-size: 14px;
@@ -381,7 +383,7 @@ export default defineComponent({
       transition: color 0.3s;
 
       &:hover {
-        color: #1890ff;
+        color: @primary-color;
       }
     }
 

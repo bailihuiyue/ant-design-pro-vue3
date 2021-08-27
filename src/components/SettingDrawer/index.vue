@@ -1,7 +1,7 @@
 <template>
   <div class="setting-drawer">
     <a-drawer
-      width="300"
+      width="320"
       placement="right"
       @close="onClose"
       :closable="false"
@@ -119,6 +119,7 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
+@import '../../style/index.less';
 .setting-drawer-index-content {
   ::v-deep(.setting-drawer-index-blockChecbox) {
     display: flex;
@@ -141,7 +142,7 @@ export default defineComponent({
         padding-top: 15px;
         padding-left: 24px;
         height: 100%;
-        color: #1890ff;
+        color: @primary-color;
         font-size: 14px;
         font-weight: 700;
       }
@@ -152,10 +153,10 @@ export default defineComponent({
 .setting-drawer-index-handle {
   position: absolute;
   top: 240px;
-  background: #1890ff;
+  background: @primary-color;
   width: 48px;
   height: 48px;
-  right: 300px;
+  right: 320px;
   display: flex;
   justify-content: center;
   align-items: center;

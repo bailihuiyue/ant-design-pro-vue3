@@ -29,12 +29,12 @@ const app = {
     fixedHeader: false,
     fixSiderbar: false,
     autoHideHeader: false,
-    color: null,
+    color: null, //主题颜色
     weak: false,
     gray: false,
     multiTab: true,
     showSettings: false,
-    darkMode: false
+    darkMode: false,
   },
   mutations: {
     [SET_SIDEBAR_TYPE]: (state, type) => {
@@ -56,7 +56,6 @@ const app = {
       updateDarkMode(false)
       state.darkMode = false
     },
-    // TODO:黑夜模式下一旦点开设置抽屉,黑色就没了一半
     [SET_DARK_MODE]: (state, type) => {
       cache({ [SET_DARK_MODE]: type })
       updateDarkMode(type)

@@ -6,6 +6,8 @@ import path from 'path';
 import legacy from '@vitejs/plugin-legacy'
 import { vite2Ext } from "apite";
 import viteSvgIcons from 'vite-plugin-svg-icons';
+import { viteThemePlugin } from 'vite-plugin-theme';
+import { getThemeColors } from './src/utils/themeUtil'
 
 const pathResolve = (pathStr: string) => {
   return path.resolve(__dirname, pathStr);
@@ -32,6 +34,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
         iconDirs: [path.resolve(process.cwd(), 'src/assets/icons')],
         // 指定symbolId格式
         symbolId: 'icon-[dir]-[name]',
+      }),
+      viteThemePlugin({
+        colorVariables: [...getThemeColors()],
       }),
     ],
     resolve: {

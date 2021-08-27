@@ -23,7 +23,7 @@
 
       <a-tooltip>
         <template #title>{{ $t('SettingDrawer.darkMode') }}</template>
-        <div class="setting-drawer-index-item" @click="handleDarkMode('realDark')">
+        <div class="setting-drawer-index-item" @click="handleDarkMode(true)">
           <img src="../icons/darkTheme.svg" alt="dark theme" />
           <div class="setting-drawer-index-selectIcon" v-if="darkMode">
             <CheckOutlined />
@@ -34,14 +34,12 @@
   </SettingItem>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { TOGGLE_THEME, SET_DARK_MODE } from '@/store/mutation-types'
 import { navTheme, darkMode } from '@/store/useSiteSettings'
 import { CheckOutlined } from '@ant-design/icons-vue'
 import SettingItem from './SettingItem.vue'
-import config from '@/config/defaultSettings'
-import { updateDarkMode } from '../settingConfig'
 
 export default defineComponent({
   components: {
@@ -49,13 +47,7 @@ export default defineComponent({
     SettingItem
   },
   setup() {
-    const { state, commit } = useStore()
-
-    onMounted(() => {
-      if (state.app.darkMode !== config.darkMode) {
-        updateDarkMode(state.darkMode)
-      }
-    })
+    const { commit } = useStore()
 
     const handleMenuTheme = (theme) => {
       commit(TOGGLE_THEME, theme)

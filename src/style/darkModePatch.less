@@ -66,6 +66,30 @@
   }
 
   h3.setting-drawer-index-title {
-    color: @dark-deactive-font-color !important;
+    color: @dark-deactive-font-color  !important;
+  }
+
+  // 头部颜色
+  .layout {
+    .ant-layout {
+      .header-animat {
+        .header {
+          background-color: @dark-bg;
+        }
+
+        .header,
+        .top-nav-header-index {
+          .user-wrapper {
+            .action {
+              color: @dark-deactive-font-color;
+
+              &:hover {
+                background: @dark-bg-hover;
+              }
+            }
+          }
+        }
+      }
+    }
   }
 }

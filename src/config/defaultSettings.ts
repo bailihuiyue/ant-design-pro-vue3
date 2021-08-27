@@ -7,26 +7,20 @@
  * fixedHeader - 固定 Header : boolean
  * fixSiderbar - 固定左侧菜单栏 ： boolean
  * contentWidth - 内容区布局： 流式 |  固定
- *
- * storageOptions: {} - Vue-ls 插件配置项 (localStorage/sessionStorage)
- *
  */
 
 export default {
   navTheme: 'dark', // theme for nav menu
-  primaryColor: '#F5222D', // primary color of ant design
+  primaryColor: '#1890FF', // ant design 默认主颜色(在node_modules/ant-design-vue/style/color/colors.less中@blue-base变量定义,实际上@primary-color = @blue-6 = @blue-base,禁止套娃,手动狗头)
   layout: 'sidemenu', // nav menu position: `sidemenu` or `topmenu`
   contentWidth: 'Fluid', // layout of content: `Fluid` or `Fixed`, only works when layout is topmenu
   fixedHeader: false, // sticky header
   fixSiderbar: false, // sticky siderbar
   colorWeak: false,
-  menu: {
-    locale: true
-  },
   title: 'Ant Design Pro',
-  pwa: false,
-  iconfontUrl: '',
-  production: process.env.NODE_ENV === 'production' && process.env.VUE_APP_PREVIEW !== 'true',
+  // pwa: false,
+  // iconfontUrl: '',
+  production: import.meta.env.PROD,
   storage: {
     namespace: 'PRO_'
   },
