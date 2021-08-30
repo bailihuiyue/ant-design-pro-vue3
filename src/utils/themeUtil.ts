@@ -1,5 +1,5 @@
 import { generate } from '@ant-design/colors';
-import config from '@/config/defaultSettings'
+import config from '../config/defaultSettings'
 
 export const primaryColor = config.primaryColor;
 

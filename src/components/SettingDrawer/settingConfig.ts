@@ -51,15 +51,14 @@ const updateDarkMode = isDark => {
   }
 }
 
-const updateColorWeak = colorWeak => {
-  // document.body.className = colorWeak ? 'colorWeak' : '';
-  const app = document.body.querySelector('#app')
-  colorWeak ? app!.classList.add('colorWeak') : app!.classList.remove('colorWeak')
+const updateColorWeak = isColorWeak => {
+  const app = document.getElementById('html')
+  isColorWeak ? app!.classList.add('colorWeak') : app!.classList.remove('colorWeak')
 }
 
-const updateGrayMode = grayMode => {
-  const app = document.body.querySelector('#app')
-  grayMode ? app!.classList.add('grayMode') : app!.classList.remove('grayMode')
+const updateGrayMode = isGrayMode => {
+  const app = document.getElementById('html')
+  isGrayMode ? app!.classList.add('grayMode') : app!.classList.remove('grayMode')
 }
 
 export { colorList, updateColorWeak, updateGrayMode, updateDarkMode }

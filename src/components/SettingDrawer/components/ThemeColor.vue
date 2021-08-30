@@ -26,7 +26,7 @@
 <script lang="ts">
 import { defineComponent, computed } from 'vue'
 import { useStore } from 'vuex'
-import { TOGGLE_COLOR, TOGGLE_CUSTOM_COLOR } from '@/store/mutation-types'
+import { TOGGLE_COLOR } from '@/store/mutation-types'
 import { CheckOutlined } from '@ant-design/icons-vue'
 import { colorList } from '../settingConfig'
 import { updateTheme } from '../updateTheme'
@@ -44,12 +44,8 @@ export default defineComponent({
     const { state, commit } = useStore()
 
     const changeColor = (color) => {
-      if (color === TOGGLE_CUSTOM_COLOR) {
-        commit(TOGGLE_CUSTOM_COLOR, color)
-      } else if (state.app.color !== color) {
-        commit(TOGGLE_COLOR, color)
-        updateTheme(color)
-      }
+      commit(TOGGLE_COLOR, color)
+      updateTheme(color)
     }
 
     const colorArr = colorList.map((item) => item.color)
@@ -61,7 +57,6 @@ export default defineComponent({
       colorList,
       changeColor,
       primaryColor,
-      TOGGLE_CUSTOM_COLOR,
       isCustomColor
     }
   }

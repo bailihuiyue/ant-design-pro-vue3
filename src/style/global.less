@@ -1,17 +1,9 @@
 @import './index.less';
 @import './darkModePatch.less';
 
-body {}
-
-#app {
-  height: 100%;
-
+#html {
   &.colorWeak {
     filter: invert(80%);
-  }
-
-  &.userLayout {
-    overflow: auto;
   }
 
   &.grayMode {
@@ -21,6 +13,14 @@ body {}
     -o-filter: grayscale(100%);
     filter: grayscale(100%);
     filter: gray;
+  }
+}
+
+#app {
+  height: 100%;
+
+  &.userLayout {
+    overflow: auto;
   }
 }
 

@@ -68,7 +68,6 @@
 // TODO:先能运行起来,然后再捋一捋逻辑,看看有没有什么可以删除的东西,或者不合理的东西
 import { defineComponent, ref, computed, watch, onMounted, nextTick } from 'vue';
 import { triggerWindowResizeEvent, isMobile, isDesktop } from '@/utils/device';
-import config from '@/config/defaultSettings';
 import RouteView from './RouteView.vue';
 import MultiTab from '@/components/MultiTab/index.vue';
 import SideMenu from '@/components/Menu/SideMenu.vue';
@@ -106,7 +105,6 @@ export default defineComponent({
     SettingDrawer,
   },
   setup() {
-    const production = ref(config.production);
     const collapsed = ref(false);
     const menus = ref([]);
     const store = useStore();
@@ -164,7 +162,6 @@ export default defineComponent({
       collapsed.value = false;
     };
     return {
-      production,
       collapsed,
       menus,
       contentPaddingLeft,

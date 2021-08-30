@@ -20,7 +20,6 @@ export default {
   title: 'Ant Design Pro',
   // pwa: false,
   // iconfontUrl: '',
-  production: import.meta.env.PROD,
   storage: {
     namespace: 'PRO_'
   },

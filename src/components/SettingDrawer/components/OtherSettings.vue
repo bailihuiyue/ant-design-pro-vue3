@@ -32,14 +32,13 @@
   </SettingItem>
 </template>
 <script lang="ts">
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { TOGGLE_WEAK, TOGGLE_GRAY, TOGGLE_MULTI_TAB } from '@/store/mutation-types'
 import { colorWeak, grayMode, multiTab } from '@/store/useSiteSettings'
 import { CheckOutlined } from '@ant-design/icons-vue'
 import { updateColorWeak, updateGrayMode } from '../settingConfig'
 import SettingItem from './SettingItem.vue'
-import config from '@/config/defaultSettings'
 
 export default defineComponent({
   components: {
@@ -47,16 +46,7 @@ export default defineComponent({
     SettingItem
   },
   setup() {
-    const { state, commit } = useStore()
-
-    onMounted(() => {
-      if (state.app.colorWeak !== config.colorWeak) {
-        updateColorWeak(state.colorWeak)
-      }
-      if (state.app.grayMode !== config.grayMode) {
-        updateGrayMode(state.grayMode)
-      }
-    })
+    const { commit } = useStore()
 
     const onColorWeak = (checked) => {
       commit(TOGGLE_WEAK, checked)
