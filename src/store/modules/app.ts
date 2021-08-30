@@ -101,7 +101,7 @@ const app = {
     },
     [SET_SETTING_DRAWER]: (state, type) => {
       state.showSettings = type
-    },
+    }
   }
 }
 

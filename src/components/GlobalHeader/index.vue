@@ -38,12 +38,12 @@
 </template>
 
 <script lang="ts">
-import UserMenu from '../tools/UserMenu/index.vue';
-import SMenu from '../Menu/Menu.vue';
-import Logo from '../tools/Logo.vue';
-import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue';
-import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue';
-import { sidebarOpened, device, fixedHeader, autoHideHeader } from '@/store/useSiteSettings';
+import UserMenu from '../tools/UserMenu/index.vue'
+import SMenu from '../Menu/Menu.vue'
+import Logo from '../tools/Logo.vue'
+import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue'
+import { MenuFoldOutlined, MenuUnfoldOutlined } from '@ant-design/icons-vue'
+import { sidebarOpened, device, fixedHeader, autoHideHeader } from '@/store/useSiteSettings'
 
 export default defineComponent({
   name: 'GlobalHeader',
@@ -52,82 +52,82 @@ export default defineComponent({
     SMenu,
     Logo,
     MenuFoldOutlined,
-    MenuUnfoldOutlined,
+    MenuUnfoldOutlined
   },
   props: {
     mode: {
       type: String,
       // sidemenu, topmenu
-      default: 'sidemenu',
+      default: 'sidemenu'
     },
     menus: {
       type: Array,
-      required: true,
+      required: true
     },
     theme: {
       type: String,
       required: false,
-      default: 'dark',
+      default: 'dark'
     },
     collapsed: {
       type: Boolean,
       required: false,
-      default: false,
+      default: false
     },
     device: {
       type: String,
       required: false,
-      default: 'desktop',
-    },
+      default: 'desktop'
+    }
   },
   setup(props, { emit }) {
-    const visible = ref<boolean>(true);
-    const oldScrollTop = ref<number>(0);
-    const ticking = ref<boolean>(false);
-    // TODO:未知作用
+    const visible = ref<boolean>(true)
+    const oldScrollTop = ref<number>(0)
+    const ticking = ref<boolean>(false)
+    // 下滑时隐藏 Header
     const handleScroll = () => {
-      if (!autoHideHeader) {
-        return;
+      if (!autoHideHeader.value) {
+        return
       }
 
-      const scrollTop = document.body.scrollTop + document.documentElement.scrollTop;
+      const scrollTop = document.body.scrollTop + document.documentElement.scrollTop
       if (!ticking.value) {
-        ticking.value = true;
+        ticking.value = true
         requestAnimationFrame(() => {
           if (oldScrollTop.value > scrollTop) {
-            visible.value = true;
-          } else if (scrollTop > 300 && visible.value) {
-            visible.value = false;
-          } else if (scrollTop < 300 && !visible.value) {
-            visible.value = true;
+            visible.value = true
+          } else if (scrollTop > 200 && visible.value) {
+            visible.value = false
+          } else if (scrollTop < 200 && !visible.value) {
+            visible.value = true
           }
-          oldScrollTop.value = scrollTop;
-          ticking.value = false;
-        });
+          oldScrollTop.value = scrollTop
+          ticking.value = false
+        })
       }
-    };
+    }
 
     const toggle = () => {
-      emit('toggle');
-    };
+      emit('toggle')
+    }
 
     onMounted(() => {
-      document.addEventListener('scroll', handleScroll, { passive: true });
-    });
+      document.addEventListener('scroll', handleScroll, { passive: true })
+    })
 
     onBeforeUnmount(() => {
-      document.body.removeEventListener('scroll', handleScroll, true);
-    });
+      document.body.removeEventListener('scroll', handleScroll, true)
+    })
 
     return {
       visible,
       fixedHeader,
       sidebarOpened,
       toggle,
-      device,
-    };
-  },
-});
+      device
+    }
+  }
+})
 </script>
 
 <style lang="less">

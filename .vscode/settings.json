@@ -159,8 +159,10 @@
     "prettier": {
       "eslintIntegration": true,
       "arrowParens": "always",
+      // 去掉末尾空格
       "semi": false,
-      "singleQuote": true
+      "singleQuote": true,
+      "trailingComma": "none"
     }
   },
   "javascript.updateImportsOnFileMove.enabled": "never",

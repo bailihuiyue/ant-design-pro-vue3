@@ -12,16 +12,11 @@
               :defaultValue="contentWidth"
               @change="handleContentWidthChange"
             >
-              <a-select-option value="Fixed">
-                {{
-                $t('SettingDrawer.fixation')
-                }}
-              </a-select-option>
-              <a-select-option value="Fluid" v-if="layoutMode !== 'sidemenu'">
-                {{
-                $t('SettingDrawer.fluid')
-                }}
-              </a-select-option>
+              <a-select-option value="Fixed">{{ $t('SettingDrawer.fixation')}}</a-select-option>
+              <a-select-option
+                value="Fluid"
+                v-if="layoutMode !== 'sidemenu'"
+              >{{$t('SettingDrawer.fluid')}}</a-select-option>
             </a-select>
           </a-tooltip>
         </template>
@@ -38,26 +33,24 @@
           <template #title>{{ $t('SettingDrawer.fixHeader') }}</template>
         </a-list-item-meta>
       </a-list-item>
-      <!-- 固定 Header 时可配置 -->
+      <!-- 下滑时隐藏 Header -->
       <a-list-item>
         <template #actions>
           <a-switch
             slot="actions"
             size="small"
             :disabled="!fixedHeader"
-            v-model:checked="autoHideHeader"
+            :checked="autoHideHeader"
             @change="handleFixedHeaderHidden"
           />
         </template>
         <a-list-item-meta>
           <template #title>
             <a-tooltip placement="left">
-              <template #title>
-                <div
-                  :style="{ opacity: !fixedHeader ? '0.5' : '1' }"
-                >{{ $t('SettingDrawer.hideHeaders') }}</div>
-              </template>
-              {{ $t('SettingDrawer.configurableWhenFixingHeaders') }}
+              <template #title>{{ $t('SettingDrawer.configurableWhenFixingHeaders') }}</template>
+              <div
+                :style="{ opacity: !fixedHeader ? '0.5' : '1' }"
+              >{{ $t('SettingDrawer.hideHeaders') }}</div>
             </a-tooltip>
           </template>
         </a-list-item-meta>
