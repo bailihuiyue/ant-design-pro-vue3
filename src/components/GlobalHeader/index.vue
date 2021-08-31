@@ -9,12 +9,12 @@
         <div v-if="mode === 'sidemenu'" class="header">
           <span @click="toggle">
             <template v-if="device==='mobile'">
-              <MenuFoldOutlined v-if="collapsed==='menu-fold'" class="trigger" />
-              <MenuUnfoldOutlined v-if="collapsed==='menu-unfold'" class="trigger" />
+              <MenuFoldOutlined v-if="collapsed" class="trigger" />
+              <MenuUnfoldOutlined v-else class="trigger" />
             </template>
             <template v-else>
-              <MenuUnfoldOutlined v-if="collapsed==='menu-unfold'" class="trigger" />
-              <MenuFoldOutlined v-if="collapsed==='menu-fold'" class="trigger" />
+              <MenuUnfoldOutlined v-if="collapsed" class="trigger" />
+              <MenuFoldOutlined v-else class="trigger" />
             </template>
           </span>
           <user-menu :theme="theme"></user-menu>

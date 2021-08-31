@@ -22,6 +22,57 @@
   &.userLayout {
     overflow: auto;
   }
+
+  // 系统菜单颜色
+  .SysMenu {
+
+    // 统一设置
+    .ant-menu-item-icon {
+      width: 14px;
+      height: 14px;
+    }
+
+    // 深色菜单
+    &.ant-menu-dark {
+      .ant-menu-item-icon {
+        color: @dark-deactive-font-color  !important;
+      }
+
+      .ant-menu-submenu-selected {
+        .ant-menu-item-icon {
+          color: #fff !important;
+        }
+      }
+
+      .ant-menu-item-active,
+      .ant-menu-item-selected {
+        .ant-menu-item-icon {
+          color: #fff !important;
+        }
+      }
+    }
+
+    // 浅色菜单
+    &.ant-menu-light {
+      .ant-menu-item-icon {
+        color: #000 !important;
+      }
+
+      .ant-menu-submenu-active,
+      .ant-menu-submenu-selected {
+        .ant-menu-item-icon {
+          color: @primary-color  !important;
+        }
+      }
+
+      .ant-menu-item-active,
+      .ant-menu-item-selected {
+        .ant-menu-item-icon {
+          color: @primary-color  !important;
+        }
+      }
+    }
+  }
 }
 
 // 内容区域宽度为固定时的样式

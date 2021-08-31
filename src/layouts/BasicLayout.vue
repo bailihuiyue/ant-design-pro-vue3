@@ -146,8 +146,7 @@ export default defineComponent({
 
     const toggle = () => {
       collapsed.value = !collapsed.value
-      store.dispatch(SET_SIDEBAR_TYPE, !collapsed.value)
-      // TODO:未知用途
+      store.commit(SET_SIDEBAR_TYPE, !collapsed.value)
       triggerWindowResizeEvent()
     }
     const paddingCalc = () => {
