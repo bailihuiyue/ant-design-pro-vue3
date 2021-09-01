@@ -1,5 +1,5 @@
 <template>
-  <a-sub-menu v-if="menu.children && !menu.hideChildrenInMenu" :key="menu.path">
+  <a-sub-menu v-if="menu.children && !menu.hideChildrenInMenu" :key="menu.path" popupClassName="popupSubMenu">
     <template #icon>
       <SvgIcon :name="menu.meta.icon" v-if="menu.meta.icon" />
     </template>
@@ -7,28 +7,23 @@
     <template v-if="!menu.hideChildrenInMenu">
       <template v-for="sub in menu.children">
         <!-- 递归组件 -->
-        <RenderItem :menu="sub" />
+        <RenderSubMenu :menu="sub" />
       </template>
     </template>
   </a-sub-menu>
   <!-- renderMenuItem -->
   <a-menu-item :key="menu.path" v-else>
-    <!-- 外部链接 -->
-    <a v-if="menu.meta.target" :href="menu.path">
-      <!-- menuName重复了吧?这就是template的弊端,jsx才是王道 -->
-      <span class="menuName">
-        <SvgIcon :name="menu.meta.icon" v-if="menu.meta.icon" />
-        <span>{{$t(menu.meta.title)}}</span>
-      </span>
-    </a>
-    <!-- <router-link v-else :to="menu.name"> -->
-    <!-- <span class="menuName"> -->
     <template #icon>
       <SvgIcon :name="menu.meta.icon" v-if="menu.meta.icon" />
     </template>
-    <span>{{$t(menu.meta.title)}}</span>
-    <!-- </span> -->
-    <!-- </router-link> -->
+    <!-- 外部链接 -->
+    <a v-if="menu.meta.target" :href="menu.meta.target" :target="menu.meta.blank===false?'':'_blank'">
+      <!-- span重复了吧?这就是template的弊端,jsx才是王道 -->
+      <span>{{$t(menu.meta.title)}}</span>
+    </a>
+    <router-link :to="menu.path" v-else>
+      <span>{{$t(menu.meta.title)}}</span>
+    </router-link>
   </a-menu-item>
 </template>
 <script lang="ts">
@@ -36,7 +31,7 @@ import { defineComponent } from 'vue'
 import SvgIcon from '@/components/SvgIcon/index.vue'
 
 export default defineComponent({
-  name: 'RenderItem',
+  name: 'RenderSubMenu',
   props: ['menu'],
   components: {
     SvgIcon

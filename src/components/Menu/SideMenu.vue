@@ -12,7 +12,6 @@
 </template>
 
 <script lang="ts">
-// TODO:1.菜单点击不跳转2.菜单颜色变化图标不跟随变化3.并列的菜单看不见4.缩小的图标没有对齐5.测试外链菜单6.流式,固定逻辑不对
 import { defineComponent } from 'vue'
 import Logo from '@/components/tools/Logo.vue'
 import Menu from './Menu.vue'

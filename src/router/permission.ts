@@ -21,11 +21,11 @@ export function hasRole(roles, route) {
   }
 }
 
-export function filterAsyncRouter(routerMap, roles) {
+export function filteRouterPermission(routerMap, roles) {
   const accessedRouters = routerMap.filter(route => {
     if (hasPermission(roles, route)) {
       if (route.children && route.children.length) {
-        route.children = filterAsyncRouter(route.children, roles)
+        route.children = filteRouterPermission(route.children, roles)
       }
       return true
     }

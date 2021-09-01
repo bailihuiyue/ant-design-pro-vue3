@@ -9,14 +9,12 @@
             <a-select
               size="small"
               style="width: 80px"
-              :defaultValue="contentWidth"
+              :value="contentWidth"
               @change="handleContentWidthChange"
+              :disabled="layoutMode === 'sidemenu'"
             >
+              <a-select-option value="Fluid">{{$t('SettingDrawer.fluid')}}</a-select-option>
               <a-select-option value="Fixed">{{ $t('SettingDrawer.fixation')}}</a-select-option>
-              <a-select-option
-                value="Fluid"
-                v-if="layoutMode !== 'sidemenu'"
-              >{{$t('SettingDrawer.fluid')}}</a-select-option>
             </a-select>
           </a-tooltip>
         </template>

@@ -21,7 +21,7 @@ export default defineComponent({
     },
     color: {
       type: String,
-      default: '#333'
+      default: ''
     },
     width: {
       type: String,

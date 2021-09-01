@@ -35,3 +35,8 @@ import ids from 'virtual:svg-icons-names';
 
 
 注意:svg文件的<svg> 标签上必须有 fill="currentColor" 字段,这样才能从外部的span等标签复制颜色,否则颜色不可变
+
+菜单跳转第三方网址的写法meta: { title: 'user.login.login', icon: 'account-book', target: 'http://www.baidu.com', blank: false }
+如果不想在新窗口打卡,请写明blank: false否则blank不写或者任意值均表示true
+
+黑夜模式css位置:darkModePatch.less

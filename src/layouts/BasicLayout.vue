@@ -76,7 +76,7 @@ import SettingDrawer from '@/components/SettingDrawer/index.vue'
 import { convertRoutes } from '@/router/generateAsyncRoutes'
 
 import constantRouterMap from '@/router/commonRoutes'
-import { filterAsyncRouter } from '@/router/permission'
+import { filteRouterPermission } from '@/router/permission'
 import { PERMISSION, SET_SIDEBAR_TYPE } from '@/store/mutation-types'
 import cloneDeep from 'lodash.clonedeep'
 import {
@@ -125,9 +125,11 @@ export default defineComponent({
     )
 
     // created()
-    // TODO:菜单可能生成的不对
+    // TODO:菜单可能生成的不对,不应该取值constantRouterMap
     const mainMenu = cloneDeep(constantRouterMap)
-    const orginRoutes = filterAsyncRouter(mainMenu, ls.get(PERMISSION))
+    const orginRoutes = filteRouterPermission(mainMenu, ls.get(PERMISSION))
+    // 相对路径转绝对路径
+    // 系统菜单以/为第一级,/外面的都不显示在菜单中,但是可以跳转到该路由
     const routes = convertRoutes(orginRoutes.find((item) => item.path === '/'))
     menus.value = (routes && routes.children) || []
     collapsed.value = !sidebarOpened.value

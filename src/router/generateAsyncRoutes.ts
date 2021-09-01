@@ -140,6 +140,7 @@ export function convertRoutes(nodes) {
       node.children.forEach(child => {
         // 转化相对路径
         if (child.path[0] !== '/' && !child.path.startsWith('http')) {
+          // 看不懂,但是目的是把 a:{path:b}转化成a/b这种path
           child.path = node.path.replace(/(\w*)[/]*$/, `$1/${child.path}`)
         }
       })

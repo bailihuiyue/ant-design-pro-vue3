@@ -9,14 +9,14 @@
     class="SysMenu"
   >
     <template v-for="m in menu" :key="m.path">
-      <RenderItem :menu="m" v-if="!m.hidden" />
+      <RenderSubMenu :menu="m" v-if="!m.hidden" />
     </template>
   </a-menu>
 </template>
 <script lang="ts">
 import { defineComponent, reactive, computed, onMounted, watch } from 'vue'
 import { useRouter } from 'vue-router'
-import RenderItem from './RenderItem.vue'
+import RenderSubMenu from './RenderSubMenu.vue'
 // import { asyncRouterMap } from '@/router/asyncRouterMap';
 
 export default defineComponent({
@@ -42,7 +42,7 @@ export default defineComponent({
       default: false
     }
   },
-  components: { RenderItem },
+  components: { RenderSubMenu },
   setup(props, { emit }) {
     const router = useRouter()
     const route = router.currentRoute.value
@@ -54,7 +54,6 @@ export default defineComponent({
       props.menu.forEach((item) => keys.push(item.path))
       return keys
     })
-
     onMounted(() => {
       updateMenu()
     })

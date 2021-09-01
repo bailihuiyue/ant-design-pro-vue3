@@ -48,22 +48,29 @@ const app = {
     [TOGGLE_DEVICE]: (state, device) => {
       state.device = device
     },
+    // 深浅主题
     [TOGGLE_THEME]: (state, theme) => {
       cache({ [TOGGLE_THEME]: theme })
       state.theme = theme
+
       // 开启深浅主题时关闭黑夜模式
-      cache({ [SET_DARK_MODE]: false })
-      updateDarkMode(false)
-      state.darkMode = false
+      if (state.darkMode) {
+        setDarkMode(state, false)
+      }
     },
-    [SET_DARK_MODE]: (state, type) => {
-      cache({ [SET_DARK_MODE]: type })
-      updateDarkMode(type)
-      state.darkMode = type
-      // 开启/关闭黑夜模式时设置主题为黑色
-      state.theme = 'dark'
+    [SET_DARK_MODE]: (state, isDark) => {
+      setDarkMode(state, isDark)
+      // 开启黑夜模式时设置主题为黑色
+      if (isDark) {
+        state.theme = 'dark'
+      }
     },
     [TOGGLE_LAYOUT_MODE]: (state, layout) => {
+      // 左侧菜单的话就用流式布局
+      if (layout === 'sidemenu') {
+        state.contentWidth = 'Fluid'
+        cache({ [TOGGLE_CONTENT_WIDTH]: 'Fluid' })
+      }
       cache({ [TOGGLE_LAYOUT_MODE]: layout })
       state.layout = layout
     },
@@ -86,6 +93,8 @@ const app = {
     [TOGGLE_COLOR]: (state, color) => {
       cache({ [TOGGLE_COLOR]: color })
       state.color = color
+
+      // menuIconColorPatch(color)
     },
     [TOGGLE_WEAK]: (state, flag) => {
       cache({ [TOGGLE_WEAK]: flag })
@@ -107,6 +116,24 @@ const app = {
 
 function cache(o) {
   ls.setObj(SITE_SETTINGS, o)
+}
+
+function menuIconColorPatch(color) {
+  const menuIconColor = `
+      .SysMenu .ant-menu-light .ant-menu-submenu-selected .ant-menu-item-icon,
+      .SysMenu .ant-menu-light .ant-menu-item-selected .ant-menu-item-icon{
+        color: ${color} !important;
+      }`
+  var style = document.createElement("style");
+  style.appendChild(document.createTextNode(menuIconColor));
+  var head = document.getElementsByTagName("head")[0];
+  head.appendChild(style);
+}
+
+function setDarkMode(state, isDark) {
+  cache({ [SET_DARK_MODE]: isDark })
+  updateDarkMode(isDark)
+  state.darkMode = isDark
 }
 
 export default app

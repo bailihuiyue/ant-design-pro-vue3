@@ -52,25 +52,49 @@
       }
     }
 
-    // 浅色菜单
-    &.ant-menu-light {
-      .ant-menu-item-icon {
-        color: #000 !important;
-      }
+    // 浅色菜单,目前使用antv自动设置
+    // &.ant-menu-light {
+    //   .ant-menu-item-icon {
+    //     color: #000 !important;
+    //   }
 
-      .ant-menu-submenu-active,
-      .ant-menu-submenu-selected {
-        .ant-menu-item-icon {
-          color: @primary-color  !important;
-        }
-      }
+    //   .ant-menu-submenu-active,
+    //   .ant-menu-submenu-selected {
+    //     .ant-menu-item-icon {
+    //       color: @primary-color  !important;
+    //     }
+    //   }
 
-      .ant-menu-item-active,
-      .ant-menu-item-selected {
-        .ant-menu-item-icon {
-          color: @primary-color  !important;
-        }
-      }
+    //   .ant-menu-item-active,
+    //   .ant-menu-item-selected {
+    //     .ant-menu-item-icon {
+    //       color: @primary-color  !important;
+    //     }
+    //   }
+    // }
+  }
+}
+
+// 垂直菜单缩小样式(popupClassName),在id='app'之外
+.popupSubMenu {
+  .ant-menu-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+
+    .ant-menu-item-icon {
+      width: 14px;
+      height: 14px;
+    }
+  }
+
+
+}
+
+.ant-menu-inline-collapsed-tooltip {
+  .ant-tooltip-inner {
+    a {
+      color: #fff;
     }
   }
 }
