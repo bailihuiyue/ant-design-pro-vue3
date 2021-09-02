@@ -65,6 +65,7 @@ export const generate = (routerMap, parent?) => {
       meta: {
         title: i18n.global.t(title),
         icon: icon || undefined,
+        // PageView用的,控制PageHeader的,暂时没用上
         hiddenHeaderContent,
         target,
         permission: item.name,

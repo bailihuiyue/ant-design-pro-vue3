@@ -40,3 +40,8 @@ import ids from 'virtual:svg-icons-names';
 如果不想在新窗口打卡,请写明blank: false否则blank不写或者任意值均表示true
 
 黑夜模式css位置:darkModePatch.less
+
+
+TODO:1.详尽的文档(按照ant pro vue 文档对比一下,看看还有哪里没实现)
+
+项目为了保持了ant vue pro样式一致,部分代码引用自ant vue pro(链接),入global.less,部分插件和原理借鉴vben(链接),感谢两位大大

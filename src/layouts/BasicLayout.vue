@@ -64,7 +64,6 @@
 </template>
 
 <script lang="ts">
-// TODO:1.左侧菜单点击效果没有2.左侧菜单无效缩小
 import { defineComponent, ref, computed, watch, onMounted, nextTick } from 'vue'
 import { triggerWindowResizeEvent, isMobile, isDesktop } from '@/utils/device'
 import RouteView from './RouteView.vue'

@@ -1,6 +1,25 @@
 @import './index.less';
 @import './darkModePatch.less';
 
+::-webkit-scrollbar {
+  width: 6px;
+  border-radius: 10px;
+  // height: 6px;
+}
+
+::-webkit-scrollbar-track-piece {
+  border: none;
+  background-color: transparent;
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  width: 6px;
+  // height: 6px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+}
+
 #html {
   &.colorWeak {
     filter: invert(80%);
