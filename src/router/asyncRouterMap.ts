@@ -1,13 +1,6 @@
-import { UserLayout, BasicLayout, BlankLayout, RouteView} from '@/layouts'
-// import { bxAnaalyse } from '@/core/icons'
+import { UserLayout, BasicLayout, BlankLayout, RouteView } from '@/layouts'
 import { Router } from './types'
 
-// const RouteView = {
-//   name: 'RouteView',
-//   render: h => h('router-view')
-// }
-
-// TODO:自定义标题
 export const asyncRouterMap: Router[] = [
   {
     path: '/',

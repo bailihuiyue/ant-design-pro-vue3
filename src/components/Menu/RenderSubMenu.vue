@@ -37,7 +37,7 @@ export default defineComponent({
     SvgIcon
   },
   setup(prop) {
-    // TODO:貌似没用
+    // info:todo:貌似没用
     if (prop.menu.children && prop.menu.hideChildrenInMenu) {
       // 把有子菜单的 并且 父菜单是要隐藏子菜单的
       // 都给子菜单增加一个 hidden 属性

@@ -61,12 +61,13 @@ import { defineComponent } from 'vue';
 import NoticeIcon from '@/components/NoticeIcon/index.vue';
 import { logout } from '@/views/user/service';
 import { ACCESS_TOKEN, PERMISSION, USER_INFO } from '@/store/mutation-types';
-import { ls, router } from '@/utils/commonImport';
 import { Modal } from 'ant-design-vue';
 import { QuestionCircleOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons-vue';
 import { useI18n } from 'vue-i18n';
 import { useStore } from 'vuex';
 import SelectLang from '@/components/SelectLang';
+import ls from '@/utils/Storage'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'UserMenu',
@@ -80,6 +81,7 @@ export default defineComponent({
   },
   setup(props) {
     const { t } = useI18n();
+    const router = useRouter()
     const UserInfo = ls.get(USER_INFO);
     const store = useStore();
     const handleLogout = () => {

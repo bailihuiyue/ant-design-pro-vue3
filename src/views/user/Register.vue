@@ -110,109 +110,106 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref, reactive, computed, onMounted } from 'vue';
-import { Form, message, notification } from 'ant-design-vue';
-import { useI18n } from 'vue-i18n';
-// TODO:完成deviceMixin的配置
-// import { deviceMixin } from '@/store/device-mixin'
-import { scorePassword } from '@/utils/util';
-import { MailOutlined } from '@ant-design/icons-vue';
-import { useRouter } from 'vue-router';
-import { requestFailed, getCaptcha } from './helper';
-import * as api from './service';
-import {isMobile} from '@/utils/device'
+import { defineComponent, ref, reactive, computed } from 'vue'
+import { Form } from 'ant-design-vue'
+import { useI18n } from 'vue-i18n'
+import { scorePassword } from '@/utils/util'
+import { MailOutlined } from '@ant-design/icons-vue'
+import { useRouter } from 'vue-router'
+import { isMobile } from '@/utils/device'
+import { useGetCaptcha } from './helper'
 
 const levelNames = {
   0: 'user.password.strength.short',
   1: 'user.password.strength.low',
   2: 'user.password.strength.medium',
-  3: 'user.password.strength.strong',
-};
+  3: 'user.password.strength.strong'
+}
 const levelClass = {
   0: 'error',
   1: 'error',
   2: 'warning',
-  3: 'success',
-};
+  3: 'success'
+}
 const levelColor = {
   0: '#ff0000',
   1: '#ff0000',
   2: '#ff7e05',
-  3: '#52c41a',
-};
+  3: '#52c41a'
+}
 export default defineComponent({
   name: 'Register',
   components: {
-    MailOutlined,
+    MailOutlined
   },
   setup() {
-    const { t } = useI18n();
-    const router = useRouter();
-    const useForm = Form.useForm;
+    const { t } = useI18n()
+    const router = useRouter()
+    const useForm = Form.useForm
 
     // 表单相关
     const form = reactive({
       email: '',
       password: '',
       password2: '',
-      mobile: '',
-    });
+      mobile: ''
+    })
     const handlePasswordLevel = (rule, value) => {
       if (value === '') {
-        return Promise.resolve();
+        return Promise.resolve()
       }
-      console.log('scorePassword ; ', scorePassword(value));
+      console.log('scorePassword ; ', scorePassword(value))
       if (value.length >= 6) {
         if (scorePassword(value) >= 30) {
-          state.level = 1;
+          state.level = 1
         }
         if (scorePassword(value) >= 60) {
-          state.level = 2;
+          state.level = 2
         }
         if (scorePassword(value) >= 80) {
-          state.level = 3;
+          state.level = 3
         }
       } else {
-        state.level = 0;
-        return Promise.reject(new Error(t('user.password.strength.msg')));
+        state.level = 0
+        return Promise.reject(new Error(t('user.password.strength.msg')))
       }
-      state.passwordLevel = state.level;
-      state.percent = state.level * 33;
+      state.passwordLevel = state.level
+      state.percent = state.level * 33
 
-      return Promise.resolve();
-    };
+      return Promise.resolve()
+    }
     const handlePhoneCheck = (rule, value) => {
-      return Promise.resolve();
-    };
+      return Promise.resolve()
+    }
     const rules = reactive({
       email: [
         { required: true, type: 'email', message: t('user.email.required') },
-        { validateTrigger: ['change', 'blur'] },
+        { validateTrigger: ['change', 'blur'] }
       ],
       password: [
         { required: true, message: t('user.password.required') },
         { validator: handlePasswordLevel },
-        { validateTrigger: ['change', 'blur'] },
+        { validateTrigger: ['change', 'blur'] }
       ],
       password2: [
         { required: true, message: t('user.password.required') },
         { validator: handlePasswordLevel },
-        { validateTrigger: ['change', 'blur'] },
+        { validateTrigger: ['change', 'blur'] }
       ],
       mobile: [
         { required: true, message: t('user.phone-number.required'), pattern: /^1[3456789]\d{9}$/ },
         { validator: handlePhoneCheck },
-        { validateTrigger: ['change', 'blur'] },
+        { validateTrigger: ['change', 'blur'] }
       ],
-      captcha: [{ required: true, message: '请输入验证码' }, { validateTrigger: 'blur' }],
-    });
-    const { validate, validateInfos } = useForm(form, rules);
+      captcha: [{ required: true, message: '请输入验证码' }, { validateTrigger: 'blur' }]
+    })
+    const { validate, validateInfos } = useForm(form, rules)
     const handleSubmit = () => {
       validate().then((res) => {
-        state.passwordLevelChecked = false;
-        router.push({ name: 'registerResult', params: { ...form } });
-      });
-    };
+        state.passwordLevelChecked = false
+        router.push({ name: 'registerResult', params: { ...form } })
+      })
+    }
 
     const state = reactive({
       time: 60,
@@ -221,73 +218,41 @@ export default defineComponent({
       passwordLevel: 0,
       passwordLevelChecked: false,
       percent: 10,
-      progressColor: '#FF0000',
-    });
+      progressColor: '#FF0000'
+    })
 
     // 密码检查相关
-    const registerBtn = ref(false);
+    const registerBtn = ref(false)
     const passwordLevelClass = computed(() => {
-      return levelClass[state.passwordLevel];
-    });
+      return levelClass[state.passwordLevel]
+    })
     const passwordLevelName = computed(() => {
-      return levelNames[state.passwordLevel];
-    });
+      return levelNames[state.passwordLevel]
+    })
     const passwordLevelColor = computed(() => {
-      return levelColor[state.passwordLevel];
-    });
+      return levelColor[state.passwordLevel]
+    })
     const handlePasswordCheck = (rule, value) => {
-      const password = form.password;
+      const password = form.password
       if (value === undefined) {
-        return Promise.reject(new Error(t('user.password.required')));
+        return Promise.reject(new Error(t('user.password.required')))
       }
       if (value && password && value.trim() !== password.trim()) {
-        return Promise.reject(new Error(t('user.password.twice.msg')));
+        return Promise.reject(new Error(t('user.password.twice.msg')))
       }
-      return Promise.resolve();
-    };
+      return Promise.resolve()
+    }
     const handlePasswordInputClick = () => {
       if (!isMobile.value) {
-        state.passwordLevelChecked = true;
-        return;
+        state.passwordLevelChecked = true
+        return
       }
-      state.passwordLevelChecked = false;
-    };
+      state.passwordLevelChecked = false
+    }
 
-    // TODO:优化获取验证码方法(Login相同)
     const getCaptcha = (e) => {
-      e.preventDefault();
-      validate(['mobile']).then((res) => {
-        state.smsSendBtn = true;
-        const interval = window.setInterval(() => {
-          if (state.time-- <= 0) {
-            state.time = 60;
-            state.smsSendBtn = false;
-            window.clearInterval(interval);
-          }
-        }, 1000);
-
-        const hide = message.loading('验证码发送中..', 1);
-
-        api
-          .getSmsCaptcha({ mobile: form.mobile })
-          .then((res) => {
-            setTimeout(hide, 2500);
-            notification['success']({
-              message: '提示',
-              description: '验证码获取成功，您的验证码为：' + res.result.captcha,
-              duration: 8,
-            });
-          })
-          .catch((err) => {
-            setTimeout(hide, 1);
-            clearInterval(interval);
-            state.time = 60;
-            state.smsSendBtn = false;
-            requestFailed(err);
-            registerBtn.value = false;
-          });
-      });
-    };
+      useGetCaptcha(e, validate, state, form, registerBtn)
+    }
 
     return {
       t,
@@ -302,12 +267,10 @@ export default defineComponent({
       handlePasswordInputClick,
       handleSubmit,
       getCaptcha,
-      rules,
-    };
-  },
-  // TODO:判断设备
-  // mixins: [deviceMixin],
-});
+      rules
+    }
+  }
+})
 </script>
 <style lang="less">
 .user-register {

@@ -4,7 +4,7 @@ import { ACCESS_TOKEN, USER_INFO } from '@/store/mutation-types'
 import { baseURL } from '@/utils/util'
 import ls from '@/utils/Storage'
 import { useRouter } from 'vue-router'
-// import emitter from '@/utils/eventBus'
+import { globalLoading } from '@/store/reactiveState'
 
 const ContentType = {
   urlencoded: 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -25,6 +25,7 @@ const baseService = axios.create({
 // request interceptor
 baseService.interceptors.request.use(
   config => {
+    globalLoading.value = true
     const token = ls.get(ACCESS_TOKEN)
     const userinfo = ls.get(USER_INFO)
     if (token) {
@@ -37,12 +38,14 @@ baseService.interceptors.request.use(
     return config
   },
   error => {
+    globalLoading.value = false
     return Promise.reject(error)
   }
 )
 
 baseService.interceptors.response.use(
   (res: AxiosResponse<any>) => {
+    globalLoading.value = false
     if (res.status === 200) {
       return res.data
     } else if (res.status === 401 || res.status === 403) {
@@ -62,16 +65,13 @@ baseService.interceptors.response.use(
       } else {
         message.error(res.data.zhMsg)
       }
-      // TODO:axios:以后可以写一个全局的loading,出错时抛出异常,这样就不用个模块单独写loading了
-      // emitter.emit('okr.loading', false)
-      // throw new Error(res.data.zhMsg)
       return false
     }
     // return res
   },
   error => {
     console.log(error)
-    // emitter.emit('okr.loading', false)
+    globalLoading.value = false
     const msg = error.message
     const result = error.response
     if (result) {

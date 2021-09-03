@@ -61,7 +61,7 @@ import { defineComponent, reactive, onMounted, onUpdated, toRefs, ref } from 'vu
 import PageHeader from '@/components/PageHeader/index.vue'
 import { multiTab } from '@/store/useSiteSettings'
 import { useRouter } from 'vue-router'
-// TODO:用处不大,尚未完成
+// info:todo:用处不大,尚未完成
 export default defineComponent({
   name: 'PageView',
   components: {

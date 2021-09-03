@@ -1,4 +1,4 @@
-// TODO:不太懂,抄的vben
+// info:todo:不太懂,抄的vben
 import { replaceStyleVariables } from 'vite-plugin-theme/es/client';
 import { getThemeColors, generateColors } from '@/utils/themeUtil'
 import { mixLighten, mixDarken, tinycolor } from 'vite-plugin-theme/es/colorUtils';

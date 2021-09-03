@@ -50,7 +50,6 @@
 </template>
 
 <script lang="ts">
-// TODO:2.修复各按钮逻辑 3.增加自定义颜色
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { CloseOutlined, CopyOutlined } from '@ant-design/icons-vue'

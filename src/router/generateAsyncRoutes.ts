@@ -47,7 +47,7 @@ const generateAsyncRoutes = (router, menu?: Array<unknown>) => {
   // 当前addRoute方法只能add一个object,之前的算法返回的是包含一个object的数组,因此,取[0]
   router.addRoute(routers[0])
 }
-// TODO:2.icon无法识别
+
 export const generate = (routerMap, parent?) => {
   return routerMap.map(item => {
     const { title, show, hideChildren, hiddenHeaderContent, target, icon } = item.meta || {}

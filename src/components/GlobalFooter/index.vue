@@ -1,23 +1,22 @@
 <template>
   <div class="footer">
     <div class="links">
-      <a href="https://pro.loacg.com/" target="_blank">Pro 首页</a>
-      <a href="https://github.com/sendya/ant-design-pro-vue" target="_blank">
+      <a href="https://github.com/bailihuiyue/ant-design-pro-vue3/blob/main/README.md" target="_blank">Pro 首页</a>
+      <a href="https://github.com/bailihuiyue/ant-design-pro-vue3/blob/main/README.md" target="_blank">
         <GithubOutlined />
       </a>
       <a href="https://ant.design/">Ant Design</a>
-      <a href="https://vue.ant.design/">Vue Antd</a>
+      <a href="https://2x.antdv.com/">Vue Antd</a>
     </div>
     <div class="copyright">
       Copyright
       <CopyrightOutlined />2018
-      <span>白鹭学园技术组出品</span>
+      <span>Ones</span>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-// TODO:修改文案和链接地址
 import { CopyrightOutlined, GithubOutlined } from '@ant-design/icons-vue';
 import { defineComponent } from 'vue';
 export default defineComponent({

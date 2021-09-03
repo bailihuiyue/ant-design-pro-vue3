@@ -33,6 +33,16 @@
     filter: grayscale(100%);
     filter: gray;
   }
+
+  // 修复VITE_PLUGIN_THEME style生成的样式问题(viteThemePlugin)
+  .ant-btn-primary {
+
+    &:active,
+    &:hover,
+    &:focus {
+      color: #fff;
+    }
+  }
 }
 
 #app {
