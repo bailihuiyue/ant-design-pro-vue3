@@ -73,8 +73,6 @@ import GlobalHeader from '@/components/GlobalHeader/index.vue'
 import GlobalFooter from '@/components/GlobalFooter/index.vue'
 import SettingDrawer from '@/components/SettingDrawer/index.vue'
 import { convertRoutes } from '@/router/generateAsyncRoutes'
-
-import constantRouterMap from '@/router/commonRoutes'
 import { filteRouterPermission } from '@/router/permission'
 import { PERMISSION, SET_SIDEBAR_TYPE } from '@/store/mutation-types'
 import cloneDeep from 'lodash.clonedeep'
@@ -91,6 +89,7 @@ import {
 } from '@/store/useSiteSettings'
 import ls from '@/utils/Storage'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router';
 
 export default defineComponent({
   name: 'BasicLayout',
@@ -103,6 +102,7 @@ export default defineComponent({
     SettingDrawer
   },
   setup() {
+    const router = useRouter();
     const collapsed = ref(false)
     const menus = ref([])
     const store = useStore()
@@ -124,8 +124,7 @@ export default defineComponent({
     )
 
     // created()
-    // TODO:菜单可能生成的不对,不应该取值constantRouterMap
-    const mainMenu = cloneDeep(constantRouterMap)
+    const mainMenu = cloneDeep(router.getRoutes())
     const orginRoutes = filteRouterPermission(mainMenu, ls.get(PERMISSION))
     // 相对路径转绝对路径
     // 系统菜单以/为第一级,/外面的都不显示在菜单中,但是可以跳转到该路由

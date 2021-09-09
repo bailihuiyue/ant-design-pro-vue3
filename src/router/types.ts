@@ -5,7 +5,10 @@ export type Component<T extends any = any> =
   | (() => Promise<typeof import('*.vue')>)
   | (() => Promise<T>);
 
-export interface RouterMeta { title: string, keepAlive?: boolean, icon?: any, permission?: Array<string>, target?: string }
+export interface RouterMeta {
+  title: string, keepAlive?: boolean, icon?: any, permission?: Array<string>, target?: string, hidden?: boolean,
+  hiddenHeaderContent?: boolean, hideHeader?: boolean
+}
 
 export interface Router {
   name: string;
@@ -15,4 +18,5 @@ export interface Router {
   component?: Component | string;
   children?: Router[];
   hidden?: boolean
+  hideChildrenInMenu?: boolean
 }

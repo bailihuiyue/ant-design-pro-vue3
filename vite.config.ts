@@ -15,6 +15,9 @@ const pathResolve = (pathStr: string) => {
 
 export default ({ command, mode }: ConfigEnv): UserConfig => {
   return {
+    server: {
+      host: '0.0.0.0'
+    },
     plugins: [
       vue(),
       vueJsx(),

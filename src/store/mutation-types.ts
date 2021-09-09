@@ -19,6 +19,7 @@ export const TOGGLE_LAYOUT_MODE ='TOGGLE_LAYOUT_MODE'
 export const CLOSE_SIDEBAR ='CLOSE_SIDEBAR'
 export const SET_DARK_MODE = 'SET_DARK_MODE'
 export const SITE_SETTINGS = 'SITE_SETTINGS'
+export const MENU_NAV = 'MENU_NAV'
 
 export const DEVICE_TYPE = {
   DESKTOP: 'desktop',

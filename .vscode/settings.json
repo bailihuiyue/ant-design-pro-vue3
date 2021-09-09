@@ -274,6 +274,15 @@
       "bold": false,
       "italic": false
     },
+    {
+      "tag": "ques",
+      "color": "#FF5400",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
   ],
   // "better-comments.highlightPlainText": true
 }

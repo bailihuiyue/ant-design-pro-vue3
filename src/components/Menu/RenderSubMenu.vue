@@ -12,7 +12,7 @@
     </template>
   </a-sub-menu>
   <!-- renderMenuItem -->
-  <a-menu-item :key="menu.path" v-else>
+  <a-menu-item :key="menu.path" v-else-if="!menu.meta.hidden">
     <template #icon>
       <SvgIcon :name="menu.meta.icon" v-if="menu.meta.icon" />
     </template>

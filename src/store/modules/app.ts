@@ -32,7 +32,7 @@ const app = {
     color: null, //主题颜色
     weak: false,
     gray: false,
-    multiTab: true,
+    multiTab: false,
     showSettings: false,
     darkMode: false,
   },

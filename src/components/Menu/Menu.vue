@@ -3,7 +3,7 @@
     :mode="mode"
     :theme="theme"
     :openKeys="openKeys.value"
-    :selectedKeys="selectedKeys.value"
+    :selectedKeys="selectedKeys"
     @openChange="onOpenChange"
     @select="onSelect"
     class="SysMenu"
@@ -14,7 +14,7 @@
   </a-menu>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, computed, onMounted, watch } from 'vue'
+import { defineComponent, reactive, computed, onMounted, watch, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import RenderSubMenu from './RenderSubMenu.vue'
 // import { asyncRouterMap } from '@/router/asyncRouterMap';
@@ -45,9 +45,10 @@ export default defineComponent({
   components: { RenderSubMenu },
   setup(props, { emit }) {
     const router = useRouter()
-    const route = router.currentRoute.value
+    // ques:todo:router.currentRoute就保留了响应式router.currentRoute.value响应式就没了?难道.value等于取值了?,如果是响应没了,为什么点击菜单就显示正常,而使用代码跳转路由就不正常呢,难道是vue-router4的bug?
+    const route = router.currentRoute
     const openKeys = reactive<any>({ value: [] })
-    const selectedKeys = reactive<any>({ value: [] })
+    const selectedKeys = ref<any>([])
     const cachedOpenKeys = reactive<any>({ value: [] })
     const rootSubmenuKeys = computed(() => {
       const keys = []
@@ -69,12 +70,13 @@ export default defineComponent({
       }
     )
 
-    // watch(
-    //   () => router.currentRoute.value,
-    //   (val) => {
-    //     updateMenu();
-    //   },
-    // );
+    // 主要作用:使用router.push跳转页面时更左侧新菜单选中项
+    watch(
+      () => route.value,
+      (val) => {
+        updateMenu()
+      }
+    )
 
     // select menu item
     const onOpenChange = (openKeysParams) => {
@@ -96,8 +98,8 @@ export default defineComponent({
       emit('select', { item, key, selectedKeys })
     }
     const updateMenu = () => {
-      const routes = route.matched.concat()
-      const { hidden } = route.meta
+      const routes = route.value.matched.concat()
+      const { hidden } = route.value.meta
       if (routes.length >= 3 && hidden) {
         routes.pop()
         selectedKeys.value = [routes[routes.length - 1].path]
@@ -110,7 +112,6 @@ export default defineComponent({
           openKeysArr.push(item.path)
         })
       }
-
       props.collapsed ? (cachedOpenKeys.value = openKeysArr) : (openKeys.value = openKeysArr)
     }
 
@@ -118,9 +119,7 @@ export default defineComponent({
       openKeys,
       selectedKeys,
       onOpenChange,
-      onSelect,
-      updateMenu
-      // asyncRouterMap,
+      onSelect
     }
   }
 })

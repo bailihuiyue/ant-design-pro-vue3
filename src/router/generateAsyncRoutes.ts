@@ -1,14 +1,16 @@
 import cloneDeep from 'lodash.clonedeep'
 import i18n from '@/locales/useI18n'
 import ls from '@/utils/Storage'
-import { BasicLayout } from '@/layouts'//, BlankLayout, PageView, RouteView
+import { BasicLayout, RouteView, BlankLayout } from '@/layouts'//, BlankLayout, PageView, RouteView
 import { getRoutePages } from '@/utils/batchImportFiles'
+import { MENU_NAV } from '@/store/mutation-types'
+
 // 前端路由表
 const constantRouterComponents: { [x: string]: Function } = {
   // 基础页面 layout 必须引入
   BasicLayout,
-  // BlankLayout,
-  // RouteView,
+  BlankLayout,
+  RouteView,
   // PageView,
   ...getRoutePages()
 }
@@ -19,18 +21,19 @@ export const rootRouter: any = {
   name: 'index',
   path: '/',
   component: 'BasicLayout',
-  redirect: '/dashboard',
+  redirect: '目前逻辑是重定向到第一个菜单',
   meta: {
     title: 'user.login.login'
   },
   children: []
 }
-// TODO:测试退出账号,换权限登录,左侧菜单变化时路由是否正常,是否能清空之前路由
+
+// info:todo:退出账号后,换权限登录,左侧菜单变化时路由如果由/开始,会替换之前/里面的内容
 const generateAsyncRoutes = (router, menu?: Array<unknown>) => {
-  let menuNav: Array<unknown> = [];
+  let menuNav: Array<any> = [];
   let childrenNav: Array<unknown> = [];
   // 后端数据, 根级树数组,  根级 PID
-  const menuData = ls.get('MENU_NAV')
+  const menuData = ls.get(MENU_NAV)
   if (!menuData && !menu) return
   // 若有缓存,则从缓存取菜单内容,然后直接生成路由
   if (menuData) {
@@ -39,13 +42,17 @@ const generateAsyncRoutes = (router, menu?: Array<unknown>) => {
     listToTree(menu, childrenNav, 0);
     rootRouter.children = childrenNav;
     menuNav.push(rootRouter);
-    ls.set('MENU_NAV', menuNav)
-    console.log('MENU_NAV', menuNav);
+    // 让 path: '/',永远重定向到第一个子菜单
+    menuNav[0].redirect = '/' + menuNav[0].children[0].key
+    ls.set(MENU_NAV, menuNav)
+    console.log(MENU_NAV, menuNav);
   }
   const routers = generate(menuNav);
   // routers.push(notFoundRouter);
   // 当前addRoute方法只能add一个object,之前的算法返回的是包含一个object的数组,因此,取[0]
   router.addRoute(routers[0])
+  // 原理:vue-router的children其实自动递归children,然后生成/a/b/c等,所以addRoute第一个参数只不过是在路由上加上前置的string地址而已
+  // TOOD:如果有服务端路由,commonRoutes的path:'/'就不要写了
 }
 
 export const generate = (routerMap, parent?) => {
@@ -53,7 +60,7 @@ export const generate = (routerMap, parent?) => {
     const { title, show, hideChildren, hiddenHeaderContent, target, icon } = item.meta || {}
     const currentRouter: any = {
       // 如果路由设置了 path，则作为默认 path，否则 路由地址 动态拼接生成如 /dashboard/workplace
-      path: item.path || `${(parent && parent.path) || ''}/${item.key}`,
+      path: item.path || item.key, //`${(parent && parent.path) || ''}/${item.key}`,
       // 路由名称，建议唯一
       name: item.name || item.key || '',
       // 该路由对应页面的 组件 :方案1                                      必须写一个存在的component,否则会报错
@@ -74,7 +81,7 @@ export const generate = (routerMap, parent?) => {
 
     // 找不到页面文件并且不是外链
     if (!constantRouterComponents[item.component || item.key] && !item.path?.startsWith('http')) {
-      console.warn('Can not find Component: ' + (item.component || item.key) + ' in path: ' + (item.path||item.key))
+      console.warn('Can not find Component: ' + (item.component || item.key) + ' in path: ' + (item.path || item.key))
     }
 
     // 是否设置了隐藏菜单

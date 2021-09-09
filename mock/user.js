@@ -66,13 +66,14 @@ api.post("/auth/login", () => {
       },
       {
         name: 'monitor',
-        path: 'https://www.baidu.com/',
+        path: 'monitor',
         parentId: 1,
         id: 3,
         meta: {
           title: 'user.login.login',
-          target: '_blank',
-          show: true
+          show: true,
+          target: 'https://www.baidu.com',
+          blank: true
         }
       }
     ],

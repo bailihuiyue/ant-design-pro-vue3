@@ -140,7 +140,7 @@
 import { encryptByMd5 } from '@/utils/encrypt'
 import { defineComponent, ref, reactive, UnwrapRef, onMounted } from 'vue'
 import { useI18n } from 'vue-i18n'
-import { Form, message, notification } from 'ant-design-vue'
+import { Form } from 'ant-design-vue'
 import { loginSuccess, requestFailed } from './helper'
 import { useRouter } from 'vue-router'
 import {

@@ -38,7 +38,7 @@
             <!-- <a-menu-item key="2" disabled>
               <SettingOutlined />
               <span>{{ $t('tools.UserMenu.test') }}</span>
-            </a-menu-item> -->
+            </a-menu-item>-->
             <a-menu-divider />
             <a-menu-item key="3">
               <a href="javascript:;" @click="handleLogout">
@@ -57,17 +57,18 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
-import NoticeIcon from '@/components/NoticeIcon/index.vue';
-import { logout } from '@/views/user/service';
-import { ACCESS_TOKEN, PERMISSION, USER_INFO } from '@/store/mutation-types';
-import { Modal } from 'ant-design-vue';
-import { QuestionCircleOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons-vue';
-import { useI18n } from 'vue-i18n';
-import { useStore } from 'vuex';
-import SelectLang from '@/components/SelectLang';
+import { defineComponent } from 'vue'
+import NoticeIcon from '@/components/NoticeIcon/index.vue'
+import { logout } from '@/views/user/service'
+import { USER_INFO } from '@/store/mutation-types'
+import { Modal } from 'ant-design-vue'
+import { QuestionCircleOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons-vue'
+import { useI18n } from 'vue-i18n'
+import { useStore } from 'vuex'
+import SelectLang from '@/components/SelectLang'
 import ls from '@/utils/Storage'
 import { useRouter } from 'vue-router'
+import { clearUserInfo } from '@/utils/util'
 
 export default defineComponent({
   name: 'UserMenu',
@@ -77,40 +78,38 @@ export default defineComponent({
     QuestionCircleOutlined,
     SettingOutlined,
     LogoutOutlined,
-    SelectLang,
+    SelectLang
   },
   setup(props) {
-    const { t } = useI18n();
+    const { t } = useI18n()
     const router = useRouter()
-    const UserInfo = ls.get(USER_INFO);
-    const store = useStore();
+    const UserInfo = ls.get(USER_INFO)
+    const store = useStore()
     const handleLogout = () => {
       Modal.confirm({
         title: t('tools.UserMenu.tip'),
         content: t('tools.UserMenu.checkLogout'),
         onOk: () => {
           logout().then((res) => {
-            ls.remove(ACCESS_TOKEN);
-            ls.remove(PERMISSION);
-            ls.remove(USER_INFO);
-            router.push({ path: '/user/login' });
-          });
+            clearUserInfo()
+            router.push({ path: '/user/login' })
+          })
         },
-        onCancel() {},
-      });
-    };
+        onCancel() {}
+      })
+    }
     const showSystemSetting = () => {
-      store.commit('SET_SETTING_DRAWER', true);
-    };
+      store.commit('SET_SETTING_DRAWER', true)
+    }
 
     return {
       avatar: UserInfo.avatar,
       nickname: UserInfo.name,
       handleLogout,
-      showSystemSetting,
-    };
-  },
-});
+      showSystemSetting
+    }
+  }
+})
 </script>
 <style lang="less">
 .user-dropdown-menu-wrapper {

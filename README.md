@@ -3,6 +3,7 @@ TODO: 待完成
 bug:todo: bug
 info:todo: 发现的一些情况
 warn:todo: 可能有bug
+ques:todo: 疑问
 只有大写的TODO才表示未完成的功能,小写的todo只是为了方便搜索而已
 
 已完成:1.注册登录vue3 语法
@@ -15,6 +16,8 @@ warn:todo: 可能有bug
 8.组件化svg图标(自动)
 9.权限管理
 10.mock
+
+国际化不推荐写成 'list.search-list.articles': '搜索列表（文章）',由于vue-i18n 9版本不识别.组成的key,所以程序用为了兼用使用replaceDot方法进行了一层循环,影响项目性能,并且禁止写成 'a':'xx','a.b':'xxxx'这种形式,因为无法生成对象
 
 当前 <script setup lang="ts"></script>有bug,会导致.ts文件无法引入,报错 The requested module '/src/views/user/ty.ts' does not provide an export named 'FormState',
 
@@ -42,7 +45,10 @@ import ids from 'virtual:svg-icons-names';
 黑夜模式css位置:darkModePatch.less
 
 
-TODO:1.详尽的文档(按照ant pro vue 文档对比一下,看看还有哪里没实现)2.测试手机是否显示正常,包括菜单和SettingDrawer等
+TODO:
+1.详尽的文档(按照ant pro vue 文档对比一下,看看还有哪里没实现)
+2.测试手机是否显示正常,包括菜单和SettingDrawer等
+3,写几个ant pro的页面,放在主页,要不太空了,菜单可以用完整的,大不了没有的页面点击就是404呗
 
 项目为了保持了ant vue pro样式一致,部分代码引用自ant vue pro(链接),入global.less,部分插件和原理借鉴vben(链接),感谢两位大大
 
