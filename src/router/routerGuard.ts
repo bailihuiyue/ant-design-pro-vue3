@@ -21,8 +21,8 @@ export const setupBeforeEach = (router: Router) => {
         next({ path: defaultRoutePath })
         NProgress.done()
       } else {
-        const roles = ls.get(PERMISSION)
-        const canAccess = hasPermission(roles, to)
+        const permission = ls.get(PERMISSION)
+        const canAccess = hasPermission(permission, to)
         if (canAccess) {
           next()
         } else {

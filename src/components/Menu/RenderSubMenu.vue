@@ -1,5 +1,9 @@
 <template>
-  <a-sub-menu v-if="menu.children && !menu.hideChildrenInMenu" :key="menu.path" popupClassName="popupSubMenu">
+  <a-sub-menu
+    v-if="menu.children && !menu.hideChildrenInMenu"
+    :key="menu.path"
+    popupClassName="popupSubMenu"
+  >
     <template #icon>
       <SvgIcon :name="menu.meta.icon" v-if="menu.meta.icon" />
     </template>
@@ -17,11 +21,16 @@
       <SvgIcon :name="menu.meta.icon" v-if="menu.meta.icon" />
     </template>
     <!-- 外部链接 -->
-    <a v-if="menu.meta.target" :href="menu.meta.target" :target="menu.meta.blank===false?'':'_blank'">
+    <a
+      v-if="menu.meta.target"
+      :href="menu.meta.target"
+      :target="menu.meta.blank===false?'':'_blank'"
+    >
       <!-- span重复了吧?这就是template的弊端,jsx才是王道 -->
       <span>{{$t(menu.meta.title)}}</span>
     </a>
-    <router-link :to="menu.path" v-else>
+    <!-- filterParams(menu.path) -->
+    <router-link :to="menu.name.toLowerCase()" v-else>
       <span>{{$t(menu.meta.title)}}</span>
     </router-link>
   </a-menu-item>
@@ -46,6 +55,15 @@ export default defineComponent({
         item.meta = Object.assign(item.meta, { hidden: true })
       })
     }
+
+    // info:todo:目前没有发现需要入口带参数的情况,一般这种跳转的都是二级页面,是从其他页面跳转过来的,不需要显示在菜单中,目前菜单中是这种路径的,点击也会报404,因为没有对:pageNo([1-9]\\d*)?进行翻译,直接当做了路径去匹配,目前做法是去掉后面的参数
+    // 由于性能原因,该方法暂不使用router-link的to属性改为menu.name,缺点就是每个路由必须带上name属性
+    // const filterParams = (menu) => {
+    //   return menu.indexOf(':') > 0 ? menu.split('/:')[0] : menu
+    // }
+    // return {
+    //   filterParams
+    // }
   }
 })
 </script>

@@ -11,7 +11,6 @@
     "@ant-design/icons-vue": "^6.0.1",
     "@vueuse/core": "^5.2.0",
     "ant-design-vue": "^2.2.2",
-    "apite": "^1.2.5",
     "axios": "^0.21.1",
     "crypto-js": "^4.1.0",
     "lodash.clonedeep": "^4.5.0",
@@ -22,7 +21,7 @@
     "vue": "^3.2.0",
     "vue-clipboard3": "^1.0.1",
     "vue-i18n": "^9.1.7",
-    "vue-router": "^4.0.6",
+    "vue-router": "^4.0.11",
     "vue-tsc": "^0.2.2",
     "vuex": "^4.0.2"
   },
@@ -49,7 +48,8 @@
     "vite": "2.4.3",
     "vite-plugin-components": "^0.13.2",
     "vite-plugin-svg-icons": "^1.0.4",
+    "vite-plugin-theme": "^0.8.1",
     "vue-eslint-parser": "^7.6.0",
-    "vite-plugin-theme": "^0.8.1"
+    "apite": "^1.2.5"
   }
 }

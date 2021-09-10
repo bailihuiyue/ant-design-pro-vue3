@@ -17,7 +17,6 @@
 import { defineComponent, reactive, computed, onMounted, watch, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import RenderSubMenu from './RenderSubMenu.vue'
-// import { asyncRouterMap } from '@/router/asyncRouterMap';
 
 export default defineComponent({
   name: 'Menu',

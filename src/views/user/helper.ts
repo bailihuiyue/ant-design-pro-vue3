@@ -15,7 +15,7 @@ export const loginSuccess = (res, router: Router) => {
   });
   if (res.token) {
     ls.set(ACCESS_TOKEN, res.token, 7 * 24 * 60 * 60 * 1000);
-    ls.set(PERMISSION, Array.isArray(res.role) ? res.role : res.role.split(','));
+    ls.set(PERMISSION, Array.isArray(res.permission) ? res.permission : res.permission.split(','));
     ls.set(USER_INFO, res);
   }
   router.push({ path: '/' });

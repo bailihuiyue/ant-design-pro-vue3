@@ -6,8 +6,15 @@ export type Component<T extends any = any> =
   | (() => Promise<T>);
 
 export interface RouterMeta {
-  title: string, keepAlive?: boolean, icon?: any, permission?: Array<string>, target?: string, hidden?: boolean,
-  hiddenHeaderContent?: boolean, hideHeader?: boolean
+  title: string;
+  keepAlive?: boolean;
+  icon?: any;
+  permission?: Array<string>;
+  target?: string;
+  hidden?: boolean;
+  hiddenHeaderContent?: boolean;
+  hideHeader?: boolean;
+  blank?: boolean
 }
 
 export interface Router {

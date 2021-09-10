@@ -1,14 +1,12 @@
-// 示例用路由,可删
-import { UserLayout, BasicLayout, BlankLayout, RouteView } from '@/layouts'
+import { BasicLayout, RouteView } from '@/layouts'
 import { Router } from './types'
 
-export const example: Router =
-{
+export const example: Router = {
   path: '/',
   name: 'index',
   component: BasicLayout,
   meta: { title: 'menu.home' },
-  redirect: '/dashboard/workplace',
+  redirect: '/dashboard',
   children: [
     // dashboard
     {
@@ -16,27 +14,25 @@ export const example: Router =
       name: 'dashboard',
       redirect: '/dashboard/workplace',
       component: RouteView,
-      meta: { title: 'menu.dashboard.title', icon: 'bx-analyse', keepAlive: true, permission: ['dashboard'] },
+      meta: { title: 'menu.dashboard.title', icon: 'bx-analyse', keepAlive: true, permission: ['admin'] },
       children: [
         {
-          // TODO:1.支持/:pageNo([1-9]\\d*)?2.不同权限登录显示不同菜单3.auth/login之后的菜单照抄原版菜单内容
-          // info:todo:目前没有发现需要入口带参数的情况,一般这种跳转的都是二级页面,是从其他页面跳转过来的,不需要显示在菜单中,目前菜单中是这种路径的,点击也会报404,因为没有对:pageNo([1-9]\\d*)?进行翻译,直接当做了路径去匹配
           path: '/dashboard/analysis/:pageNo([1-9]\\d*)?',
           name: 'Analysis',
           component: () => import('@/views/About.tsx'),
-          meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['dashboard'], hidden: false }
+          meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['admin'], hidden: false }
         },
         // 外部链接
         {
-          path: 'https://www.baidu.com/',
+          path: '/dashboard/monitor',
           name: 'Monitor',
-          meta: { title: 'menu.dashboard.monitor', target: '_blank' }
+          meta: { title: 'menu.dashboard.monitor', target: 'http://www.baidu.com', permission: ['admin'], blank: true }
         },
         {
           path: '/dashboard/workplace',
           name: 'Workplace',
           component: () => import('@/views/Home.vue'),
-          meta: { title: 'menu.dashboard.workplace', keepAlive: true, permission: ['dashboard'] }
+          meta: { title: 'menu.dashboard.workplace', keepAlive: true, permission: ['admin'] }
         }
       ]
     },
@@ -46,25 +42,25 @@ export const example: Router =
       name: 'form',
       redirect: '/form/base-form',
       component: RouteView,
-      meta: { title: 'menu.form.title', icon: 'bx-analyse', permission: ['form'] },
+      meta: { title: 'menu.form.title', icon: 'bx-analyse', permission: ['user'] },
       children: [
         {
           path: '/form/base-form',
           name: 'BaseForm',
           component: () => import('@/views/Home.vue'),
-          meta: { title: 'menu.form.basic-form', keepAlive: true, permission: ['form'] }
+          meta: { title: 'menu.form.basic-form', keepAlive: true }
         },
         {
           path: '/form/step-form',
           name: 'StepForm',
           component: () => import('@/views/Home.vue'),
-          meta: { title: 'menu.form.step-form.title', keepAlive: true, permission: ['form'] }
+          meta: { title: 'menu.form.step-form.title', keepAlive: true }
         },
         {
           path: '/form/advanced-form',
           name: 'AdvanceForm',
           component: () => import('@/views/Home.vue'),
-          meta: { title: 'menu.form.advanced-form', keepAlive: true, permission: ['form'] }
+          meta: { title: 'menu.form.advanced-form', keepAlive: true }
         }
       ]
     },
@@ -81,44 +77,44 @@ export const example: Router =
           name: 'TableListWrapper',
           hideChildrenInMenu: true, // 强制显示 MenuItem 而不是 SubMenu
           component: () => import('@/views/Home.vue'),
-          meta: { title: 'menu.list.table-list', keepAlive: true, permission: ['table'] }
+          meta: { title: 'menu.list.table-list', keepAlive: true }
         },
         {
           path: '/list/basic-list',
           name: 'BasicList',
           component: () => import('@/views/Home.vue'),
-          meta: { title: 'menu.list.basic-list', keepAlive: true, permission: ['table'] }
+          meta: { title: 'menu.list.basic-list', keepAlive: true }
         },
         {
           path: '/list/card',
           name: 'CardList',
           component: () => import('@/views/Home.vue'),
-          meta: { title: 'menu.list.card-list', keepAlive: true, permission: ['table'] }
+          meta: { title: 'menu.list.card-list', keepAlive: true }
         },
         {
           path: '/list/search',
           name: 'SearchList',
           component: () => import('@/views/Home.vue'),
           redirect: '/list/search/article',
-          meta: { title: 'menu.list.search-list.title', keepAlive: true, permission: ['table'] },
+          meta: { title: 'menu.list.search-list.title', keepAlive: true },
           children: [
             {
               path: '/list/search/article',
               name: 'SearchArticles',
               component: () => import('@/views/Home.vue'),
-              meta: { title: 'menu.list.search-list.articles', permission: ['table'] }
+              meta: { title: 'menu.list.search-list.articles' }
             },
             {
               path: '/list/search/project',
               name: 'SearchProjects',
               component: () => import('@/views/Home.vue'),
-              meta: { title: 'menu.list.search-list.projects', permission: ['table'] }
+              meta: { title: 'menu.list.search-list.projects' }
             },
             {
               path: '/list/search/application',
               name: 'SearchApplications',
               component: () => import('@/views/Home.vue'),
-              meta: { title: 'menu.list.search-list.applications', permission: ['table'] }
+              meta: { title: 'menu.list.search-list.applications' }
             }
           ]
         }
@@ -131,19 +127,19 @@ export const example: Router =
       name: 'profile',
       component: RouteView,
       redirect: '/profile/basic',
-      meta: { title: 'menu.profile.title', icon: 'bx-analyse', permission: ['profile'] },
+      meta: { title: 'menu.profile.title', icon: 'bx-analyse' },
       children: [
         {
           path: '/profile/basic',
           name: 'ProfileBasic',
           component: () => import('@/views/Home.vue'),
-          meta: { title: 'menu.profile.basic', permission: ['profile'] }
+          meta: { title: 'menu.profile.basic' }
         },
         {
           path: '/profile/advanced',
           name: 'ProfileAdvanced',
           component: () => import('@/views/Home.vue'),
-          meta: { title: 'menu.profile.advanced', permission: ['profile'] }
+          meta: { title: 'menu.profile.advanced' }
         }
       ]
     },
@@ -154,48 +150,48 @@ export const example: Router =
       name: 'result',
       component: RouteView,
       redirect: '/result/success',
-      meta: { title: 'menu.result.title', icon: 'bx-analyse', permission: ['result'] },
+      meta: { title: 'menu.result.title', icon: 'bx-analyse' },
       children: [
         {
           path: '/result/success',
           name: 'ResultSuccess',
           component: () => import(/* webpackChunkName: "result" */ '@/views/Home.vue'),
-          meta: { title: 'menu.result.success', keepAlive: false, hiddenHeaderContent: true, permission: ['result'] }
+          meta: { title: 'menu.result.success', keepAlive: false, hiddenHeaderContent: true }
         },
         {
           path: '/result/fail',
           name: 'ResultFail',
           component: () => import(/* webpackChunkName: "result" */ '@/views/Home.vue'),
-          meta: { title: 'menu.result.fail', keepAlive: false, hiddenHeaderContent: true, permission: ['result'] }
+          meta: { title: 'menu.result.fail', keepAlive: false, hiddenHeaderContent: true }
         }
       ]
     },
 
-    // Exception
+    // exception
     {
       path: '/exception',
       name: 'exception',
       component: RouteView,
       redirect: '/exception/403',
-      meta: { title: 'menu.exception.title', icon: 'bx-analyse', permission: ['exception'] },
+      meta: { title: 'menu.exception.title', icon: 'bx-analyse' },
       children: [
         {
           path: '/exception/403',
-          name: 'Exception403',
-          component: () => import(/* webpackChunkName: "fail" */ '@/views/Home.vue'),
-          meta: { title: 'menu.exception.not-permission', permission: ['exception'] }
+          name: '403',
+          component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/403.vue'),
+          meta: { title: 'menu.exception.not-permission' }
         },
         {
           path: '/exception/404',
-          name: 'Exception404',
-          component: () => import(/* webpackChunkName: "fail" */ '@/views/Home.vue'),
-          meta: { title: 'menu.exception.not-find', permission: ['exception'] }
+          name: '404',
+          component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/404.vue'),
+          meta: { title: 'menu.exception.not-find' }
         },
         {
           path: '/exception/500',
-          name: 'Exception500',
-          component: () => import(/* webpackChunkName: "fail" */ '@/views/Home.vue'),
-          meta: { title: 'menu.exception.server-error', permission: ['exception'] }
+          name: '500',
+          component: () => import(/* webpackChunkName: "fail" */ '@/views/exception/500.vue'),
+          meta: { title: 'menu.exception.server-error' }
         }
       ]
     },
@@ -206,19 +202,19 @@ export const example: Router =
       component: RouteView,
       redirect: '/account/center',
       name: 'account',
-      meta: { title: 'menu.account.title', icon: 'bx-analyse', keepAlive: true, permission: ['user'] },
+      meta: { title: 'menu.account.title', icon: 'bx-analyse', keepAlive: true },
       children: [
         {
           path: '/account/center',
           name: 'center',
           component: () => import('@/views/Home.vue'),
-          meta: { title: 'menu.account.center', keepAlive: true, permission: ['user'] }
+          meta: { title: 'menu.account.center', keepAlive: true }
         },
         {
           path: '/account/settings',
           name: 'settings',
           component: () => import('@/views/Home.vue'),
-          meta: { title: 'menu.account.settings', hideHeader: true, permission: ['user'] },
+          meta: { title: 'menu.account.settings', hideHeader: true },
           redirect: '/account/settings/basic',
           hideChildrenInMenu: true,
           children: [
@@ -226,7 +222,7 @@ export const example: Router =
               path: '/account/settings/basic',
               name: 'BasicSettings',
               component: () => import('@/views/Home.vue'),
-              meta: { title: 'account.settings.menuMap.basic', hidden: true, permission: ['user'] }
+              meta: { title: 'account.settings.menuMap.basic', hidden: true }
             },
             {
               path: '/account/settings/security',
@@ -243,13 +239,13 @@ export const example: Router =
               path: '/account/settings/custom',
               name: 'CustomSettings',
               component: () => import('@/views/Home.vue'),
-              meta: { title: 'account.settings.menuMap.custom', hidden: true, keepAlive: true, permission: ['user'] }
+              meta: { title: 'account.settings.menuMap.custom', hidden: true, keepAlive: true }
             },
             {
               path: '/account/settings/binding',
               name: 'BindingSettings',
               component: () => import('@/views/Home.vue'),
-              meta: { title: 'account.settings.menuMap.binding', hidden: true, keepAlive: true, permission: ['user'] }
+              meta: { title: 'account.settings.menuMap.binding', hidden: true, keepAlive: true }
             },
             {
               path: '/account/settings/notification',

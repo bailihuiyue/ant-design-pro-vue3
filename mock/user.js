@@ -1,5 +1,5 @@
 // import Mock from 'mockjs'
-const { builder } = require('./mockUtils')
+const { builder, userNav } = require('./mockUtils')
 const { api, delay, mock, resp } = require("apite");
 
 // id: "@id",
@@ -23,10 +23,18 @@ api.get("/json", {
   msg: "json2",
 });
 
-api.post("/auth/login", () => {
+api.post("/auth/login", (ctx) => {
+  let permission = ''
+  if (ctx.post.username === 'admin') {
+    permission = 'admin'
+  } else if (ctx.post.username === 'ant.design') {
+    permission = 'user'
+  } else {
+    return resp.fail('用户名错误,只有admin和ant.design', 403)
+  }
   return {
     id: '4291d7da9005377ec9aec4a71ea837f',
-    name: '天野远子3',
+    name: permission,
     username: 'admin',
     password: '',
     avatar: '/avatar2.jpg',
@@ -38,45 +46,9 @@ api.post("/auth/login", () => {
     createTime: 1497160610259,
     merchantCode: 'TLif2btpzg079h15bk',
     deleted: 0,
-    roleId: 'admin',
-    role: ['admin'],
+    permission: [permission],
     token: '12312312',
-    menu: [
-      {
-        name: 'dashboard',
-        parentId: 0,
-        id: 1,
-        meta: {
-          icon: 'dashboard',
-          title: 'user.login.login',
-          show: true
-        },
-        component: 'RouteView',
-        redirect: '/dashboard/workplace'
-      },
-      {
-        name: 'workplace',
-        parentId: 1,
-        id: 7,
-        meta: {
-          title: '工作台',
-          show: true
-        },
-        component: 'Home'
-      },
-      {
-        name: 'monitor',
-        path: 'monitor',
-        parentId: 1,
-        id: 3,
-        meta: {
-          title: 'user.login.login',
-          show: true,
-          target: 'https://www.baidu.com',
-          blank: true
-        }
-      }
-    ],
+    menu: userNav,
   }
 });
 

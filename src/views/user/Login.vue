@@ -254,6 +254,13 @@ export default defineComponent({
           formRef.password = encryptByMd5(formRef.password)
           const res = await api.userLogin(formRef)
           if (res) {
+            // mock用,可删
+            if (res.code === 403) {
+              isLoginError.value = true
+              formRef.password = ''
+              state.loginBtn = false
+              return
+            }
             if (config.useAsyncRouter) {
               generateAsyncRoutes(router, res.menu)
             }

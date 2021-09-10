@@ -18,9 +18,10 @@ export interface Login {
   createTime: number;
   merchantCode: string;
   deleted: number;
-  roleId: string;
-  role: string[];
+  permission: string[];
   menu: Array<any>
+  code?: number
+  msg?: string
 }
 
 export interface GetSmsCaptcha extends Response {
