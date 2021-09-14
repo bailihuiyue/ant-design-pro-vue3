@@ -1,6 +1,6 @@
 import { BasicLayout, RouteView } from '@/layouts'
 import { Router } from './types'
-
+// TODO: 4.加一个刷新页面的按钮 5.原版只能同时展开一个菜单,现在都能展开
 export const example: Router = {
   path: '/',
   name: 'index',
@@ -17,19 +17,19 @@ export const example: Router = {
       meta: { title: 'menu.dashboard.title', icon: 'bx-analyse', keepAlive: true, permission: ['admin'] },
       children: [
         {
-          path: '/dashboard/analysis/:pageNo([1-9]\\d*)?',
+          path: 'analysis/:pageNo([1-9]\\d*)?',
           name: 'Analysis',
           component: () => import('@/views/About.tsx'),
           meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['admin'], hidden: false }
         },
         // 外部链接
         {
-          path: '/dashboard/monitor',
+          path: 'monitor',
           name: 'Monitor',
           meta: { title: 'menu.dashboard.monitor', target: 'http://www.baidu.com', permission: ['admin'], blank: true }
         },
         {
-          path: '/dashboard/workplace',
+          path: 'workplace',
           name: 'Workplace',
           component: () => import('@/views/Home.vue'),
           meta: { title: 'menu.dashboard.workplace', keepAlive: true, permission: ['admin'] }

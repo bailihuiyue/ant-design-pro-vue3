@@ -29,8 +29,7 @@
       <!-- span重复了吧?这就是template的弊端,jsx才是王道 -->
       <span>{{$t(menu.meta.title)}}</span>
     </a>
-    <!-- filterParams(menu.path) -->
-    <router-link :to="menu.name.toLowerCase()" v-else>
+    <router-link :to="filterParams(menu.path)" v-else>
       <span>{{$t(menu.meta.title)}}</span>
     </router-link>
   </a-menu-item>
@@ -57,13 +56,12 @@ export default defineComponent({
     }
 
     // info:todo:目前没有发现需要入口带参数的情况,一般这种跳转的都是二级页面,是从其他页面跳转过来的,不需要显示在菜单中,目前菜单中是这种路径的,点击也会报404,因为没有对:pageNo([1-9]\\d*)?进行翻译,直接当做了路径去匹配,目前做法是去掉后面的参数
-    // 由于性能原因,该方法暂不使用router-link的to属性改为menu.name,缺点就是每个路由必须带上name属性
-    // const filterParams = (menu) => {
-    //   return menu.indexOf(':') > 0 ? menu.split('/:')[0] : menu
-    // }
-    // return {
-    //   filterParams
-    // }
+    const filterParams = (menu) => {
+      return menu.indexOf('/:') > 0 ? menu.split('/:')[0] : menu
+    }
+    return {
+      filterParams
+    }
   }
 })
 </script>

@@ -39,15 +39,16 @@ const generateAsyncRoutes = (router, menu?: Array<unknown>) => {
   if (menuData) {
     menuNav = menuData
   } else {
+    // 后端的路由数据生成antv菜单所需要的结构,
+    // TODO:listToTree,menuToRouter和convertRoutes应该可以合并在一起,这样就能少一两次递归了
     listToTree(menu, childrenNav, 0);
     rootRouter.children = childrenNav;
     menuNav.push(rootRouter);
     // 让 path: '/',永远重定向到第一个子菜单
     menuNav[0].redirect = '/' + menuNav[0].children[0].key
     ls.set(MENU_NAV, menuNav)
-    console.log(MENU_NAV, menuNav);
   }
-  const routers = generate(menuNav);
+  const routers = menuToRouter(menuNav);
   // routers.push(notFoundRouter);
   // 当前addRoute方法只能add一个object,之前的算法返回的是包含一个object的数组,因此,取[0]
   router.addRoute(routers[0])
@@ -55,12 +56,12 @@ const generateAsyncRoutes = (router, menu?: Array<unknown>) => {
   // TOOD:如果有服务端路由,commonRoutes的path:'/'就不要写了
 }
 
-export const generate = (routerMap, parent?) => {
+export const menuToRouter = (routerMap, parent?) => {
   return routerMap.map(item => {
     const { title, show, hideChildren, hiddenHeaderContent, target, icon } = item.meta || {}
     const currentRouter: any = {
       // 如果路由设置了 path，则作为默认 path，否则 路由地址 动态拼接生成如 /dashboard/workplace
-      path: item.path || item.key, //`${(parent && parent.path) || ''}/${item.key}`,
+      path: item.path || `${(parent && parent.path) || ''}/${item.key}`,
       // 路由名称，建议唯一
       name: item.name || item.key || '',
       // 该路由对应页面的 组件 :方案1                                      必须写一个存在的component,否则会报错
@@ -75,7 +76,7 @@ export const generate = (routerMap, parent?) => {
         // PageView用的,控制PageHeader的,暂时没用上
         hiddenHeaderContent,
         target,
-        permission: item.name,
+        permission: item.meta.permission,
       },
     }
 
@@ -101,7 +102,7 @@ export const generate = (routerMap, parent?) => {
     // 是否有子菜单，并递归处理
     if (item.children && item.children.length > 0) {
       // Recursion
-      currentRouter.children = generate(item.children, currentRouter)
+      currentRouter.children = menuToRouter(item.children, currentRouter)
     }
     return currentRouter
   })
@@ -132,19 +133,13 @@ export default generateAsyncRoutes
 
 export function convertRoutes(nodes) {
   if (!nodes) return null
-
   nodes = cloneDeep(nodes)
-
   let queue = Array.isArray(nodes) ? nodes.concat() : [nodes]
-
   while (queue.length) {
     const levelSize = queue.length
-
     for (let i = 0; i < levelSize; i++) {
       const node = queue.shift()
-
       if (!node.children || !node.children.length) continue
-
       node.children.forEach(child => {
         // 转化相对路径
         if (child.path[0] !== '/' && !child.path.startsWith('http')) {
@@ -152,10 +147,8 @@ export function convertRoutes(nodes) {
           child.path = node.path.replace(/(\w*)[/]*$/, `$1/${child.path}`)
         }
       })
-
       queue = queue.concat(node.children)
     }
   }
-
   return nodes
 }

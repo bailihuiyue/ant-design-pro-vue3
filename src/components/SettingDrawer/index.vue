@@ -4,7 +4,7 @@
       width="320"
       placement="right"
       @close="onClose"
-      :closable="false"
+      :closable="isMobile"
       :visible="state.app.showSettings"
     >
       <div class="setting-drawer-index-content">
@@ -62,6 +62,7 @@ import ThemeColor from './components/ThemeColor.vue'
 import NavigationMode from './components/NavigationMode.vue'
 import LayoutSettings from './components/LayoutSettings.vue'
 import OtherSettings from './components/OtherSettings.vue'
+import { isMobile } from '@/utils/device'
 
 export default defineComponent({
   components: {
@@ -111,7 +112,8 @@ export default defineComponent({
       state,
       onClose,
       doCopy,
-      isDev
+      isDev,
+      isMobile
     }
   }
 })

@@ -1,8 +1,14 @@
 <template>
   <div class="footer">
-    <div class="links">
-      <a href="https://github.com/bailihuiyue/ant-design-pro-vue3/blob/main/README.md" target="_blank">Pro 首页</a>
-      <a href="https://github.com/bailihuiyue/ant-design-pro-vue3/blob/main/README.md" target="_blank">
+    <div :class="['links',isMobile?'lessMargin':'']">
+      <a
+        href="https://github.com/bailihuiyue/ant-design-pro-vue3/blob/main/README.md"
+        target="_blank"
+      >Pro 首页</a>
+      <a
+        href="https://github.com/bailihuiyue/ant-design-pro-vue3/blob/main/README.md"
+        target="_blank"
+      >
         <GithubOutlined />
       </a>
       <a href="https://ant.design/">Ant Design</a>
@@ -10,22 +16,27 @@
     </div>
     <div class="copyright">
       Copyright
-      <CopyrightOutlined />2018
+      <CopyrightOutlined />&nbsp;2021
       <span>Ones</span>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { CopyrightOutlined, GithubOutlined } from '@ant-design/icons-vue';
-import { defineComponent } from 'vue';
+import { CopyrightOutlined, GithubOutlined } from '@ant-design/icons-vue'
+import { defineComponent } from 'vue'
+import { isMobile } from '@/utils/device'
+
 export default defineComponent({
   name: 'GlobalFooter',
   components: {
     CopyrightOutlined,
-    GithubOutlined,
+    GithubOutlined
   },
-});
+  setup() {
+    return { isMobile }
+  }
+})
 </script>
 
 <style lang="less" scoped>
@@ -46,6 +57,14 @@ export default defineComponent({
 
       &:not(:last-child) {
         margin-right: 40px;
+      }
+    }
+
+    &.lessMargin {
+      a {
+        &:not(:last-child) {
+          margin-right: 20px;
+        }
       }
     }
   }

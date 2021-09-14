@@ -1,10 +1,10 @@
 vscode插件better-comments:
-TODO: 待完成
+注释TODO: 待完成
 bug:todo: bug
 info:todo: 发现的一些情况
 warn:todo: 可能有bug
 ques:todo: 疑问
-只有大写的TODO才表示未完成的功能,小写的todo只是为了方便搜索而已
+只有大写的'TODO'才表示未完成的功能,小写的todo只是为了方便搜索而已
 
 已完成:1.注册登录vue3 语法
 2.自动生成国际化(多层级文件夹使用.连接,比如tools.UserMenu)
@@ -47,8 +47,9 @@ import ids from 'virtual:svg-icons-names';
 
 TODO:
 1.详尽的文档(按照ant pro vue 文档对比一下,看看还有哪里没实现)
-2.测试手机是否显示正常,包括菜单和SettingDrawer等
+//2.测试手机是否显示正常,包括菜单和SettingDrawer等(已完成)
 3,写几个ant pro的页面,放在主页,要不太空了,菜单可以用完整的,大不了没有的页面点击就是404呗
+4.输入命令,生成一个view的模板
 
 项目为了保持了ant vue pro样式一致,部分代码引用自ant vue pro(链接),入global.less,部分插件和原理借鉴vben(链接),感谢两位大大
 

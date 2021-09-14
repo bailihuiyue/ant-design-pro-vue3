@@ -23,7 +23,7 @@
             <a href="_self">隐私</a>
             <a href="_self">条款</a>
           </div>
-          <div class="copyright">Copyright &copy; 2018 vueComponent</div>
+          <div class="copyright">Copyright &copy;&nbsp;2021 Ones</div>
         </div>
       </div>
     </div>

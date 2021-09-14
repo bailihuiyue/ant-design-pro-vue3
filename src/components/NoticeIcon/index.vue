@@ -1,12 +1,13 @@
 <template>
+  <!--placement="bottomRight"
+    :autoAdjustOverflow="false"
+  :arrowPointAtCenter="true"-->
   <a-popover
     v-model:visible="visible"
     trigger="click"
-    placement="bottomRight"
+    :placement="isMobile?'bottom':'bottomRight'"
     overlayClassName="header-notice-wrapper"
     :getPopupContainer="getPopupContainer"
-    :autoAdjustOverflow="false"
-    :arrowPointAtCenter="true"
     :overlayStyle="{ width: isMobile?'250px':'300px', top: '50px' }"
   >
     <template #content>
@@ -57,35 +58,35 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-import { BellOutlined } from '@ant-design/icons-vue';
-import { isMobile } from '@/utils/device';
+import { defineComponent, ref } from 'vue'
+import { BellOutlined } from '@ant-design/icons-vue'
+import { isMobile } from '@/utils/device'
 
 export default defineComponent({
   name: 'HeaderNotice',
   components: {
-    BellOutlined,
+    BellOutlined
   },
   setup() {
-    const loading = ref<boolean>(false);
-    const visible = ref<boolean>(false);
-    const noticeRef = ref(null);
+    const loading = ref<boolean>(false)
+    const visible = ref<boolean>(false)
+    const noticeRef = ref(null)
 
     const fetchNotice = () => {
       if (!visible.value) {
-        loading.value = true;
+        loading.value = true
         setTimeout(() => {
-          loading.value = false;
-        }, 300);
+          loading.value = false
+        }, 300)
       } else {
-        loading.value = false;
+        loading.value = false
       }
       // visible.value = !visible.value;
-    };
+    }
 
     const getPopupContainer = () => {
-      return noticeRef.value!.parentElement;
-    };
+      return noticeRef.value!.parentElement
+    }
     return {
       loading,
       visible,
@@ -93,9 +94,9 @@ export default defineComponent({
       noticeRef,
       getPopupContainer,
       isMobile
-    };
-  },
-});
+    }
+  }
+})
 </script>
 
 <style lang="css">
