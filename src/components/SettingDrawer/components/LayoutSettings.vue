@@ -25,7 +25,7 @@
       <!-- 固定 Header -->
       <a-list-item>
         <template #actions>
-          <a-switch size="small" v-model:checked="fixedHeader" @change="handleFixedHeader" />
+          <a-switch size="small" :checked="fixedHeader" @change="handleFixedHeader" />
         </template>
         <a-list-item-meta>
           <template #title>{{ $t('SettingDrawer.fixHeader') }}</template>
@@ -60,7 +60,7 @@
             slot="actions"
             size="small"
             :disabled="layoutMode === 'topmenu'"
-            v-model:checked="fixSiderbar"
+            :checked="fixSiderbar"
             @change="handleFixSiderbar"
           />
         </template>

@@ -14,7 +14,7 @@
   </a-menu>
 </template>
 <script lang="ts">
-import { defineComponent, reactive, computed, onMounted, watch, ref } from 'vue'
+import { defineComponent, reactive, computed, onMounted, watch, ref, ComputedRef } from 'vue'
 import { useRouter } from 'vue-router'
 import RenderSubMenu from './RenderSubMenu.vue'
 
@@ -49,9 +49,9 @@ export default defineComponent({
     const openKeys = reactive<any>({ value: [] })
     const selectedKeys = ref<any>([])
     const cachedOpenKeys = reactive<any>({ value: [] })
-    const rootSubmenuKeys = computed(() => {
-      const keys = []
-      props.menu.forEach((item) => keys.push(item.path))
+    const rootSubmenuKeys: ComputedRef<string[]> = computed(() => {
+      const keys: string[] = []
+      props.menu.forEach((item: any) => keys.push(item.path))
       return keys
     })
     onMounted(() => {
@@ -85,7 +85,9 @@ export default defineComponent({
         return
       }
       // 非水平模式时
-      const latestOpenKey = openKeysParams.find((key) => openKeys.value.includes(key))
+      const latestOpenKey: string = openKeysParams.find(
+        (key) => /*去掉这个!则可以全部打开菜单(目前只能打开一个菜单)*/ !openKeys.value.includes(key)
+      )
       if (!rootSubmenuKeys.value.includes(latestOpenKey)) {
         openKeys.value = openKeysParams
       } else {

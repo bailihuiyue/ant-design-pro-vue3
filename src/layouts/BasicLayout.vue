@@ -39,6 +39,7 @@
         :collapsed="collapsed"
         :device="device"
         @toggle="toggle"
+        @refresh="onRefresh"
       />
 
       <!-- layout content -->
@@ -48,7 +49,7 @@
         <multi-tab v-if="multiTab"></multi-tab>
         <transition name="page-transition">
           <section>
-            <route-view />
+            <route-view v-if="showRouter" />
           </section>
         </transition>
       </a-layout-content>
@@ -89,7 +90,8 @@ import {
 } from '@/store/useSiteSettings'
 import ls from '@/utils/Storage'
 import { useStore } from 'vuex'
-import { useRouter } from 'vue-router';
+import { useRouter } from 'vue-router'
+import emitter from '@/utils/eventBus'
 
 export default defineComponent({
   name: 'BasicLayout',
@@ -102,7 +104,7 @@ export default defineComponent({
     SettingDrawer
   },
   setup() {
-    const router = useRouter();
+    const router = useRouter()
     const collapsed = ref(false)
     const menus = ref([])
     const store = useStore()
@@ -162,6 +164,13 @@ export default defineComponent({
     const drawerClose = () => {
       collapsed.value = false
     }
+
+    const showRouter = ref(true)
+    const onRefresh = () => {
+      emitter.all.clear()
+      showRouter.value = false
+      nextTick(() => (showRouter.value = true))
+    }
     return {
       collapsed,
       menus,
@@ -179,7 +188,9 @@ export default defineComponent({
       fixedHeader,
       navTheme,
       isMobile,
-      isSideMenu
+      isSideMenu,
+      showRouter,
+      onRefresh
     }
   }
 })

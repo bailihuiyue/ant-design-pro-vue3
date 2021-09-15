@@ -5,7 +5,7 @@
         <!-- 内容区域宽度  -->
         <a-list-item>
           <template #actions>
-            <a-switch size="small" v-model:checked="colorWeak" @change="onColorWeak" />
+            <a-switch size="small" :checked="colorWeak" @change="onColorWeak" />
           </template>
           <a-list-item-meta>
             <template #title>{{ $t('SettingDrawer.colorBlindness') }}</template>
@@ -13,7 +13,7 @@
         </a-list-item>
         <a-list-item>
           <template #actions>
-            <a-switch size="small" v-model:checked="grayMode" @change="onGrayMode" />
+            <a-switch size="small" :checked="grayMode" @change="onGrayMode" />
           </template>
           <a-list-item-meta>
             <template #title>{{ $t('SettingDrawer.grayMode') }}</template>
@@ -21,7 +21,7 @@
         </a-list-item>
         <a-list-item>
           <template #actions>
-            <a-switch size="small" v-model:checked="multiTab" @change="onMultiTab" />
+            <a-switch size="small" :checked="multiTab" @change="onMultiTab" />
           </template>
           <a-list-item-meta>
             <template #title>{{ $t('SettingDrawer.multiTab') }}</template>

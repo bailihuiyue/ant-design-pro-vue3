@@ -1,6 +1,6 @@
 import { BasicLayout, RouteView } from '@/layouts'
 import { Router } from './types'
-// TODO: 4.加一个刷新页面的按钮 5.原版只能同时展开一个菜单,现在都能展开
+
 export const example: Router = {
   path: '/',
   name: 'index',
