@@ -1,8 +1,8 @@
 <template>
-  <SettingItem :title="$t('SettingDrawer.navigationMode')">
+  <SettingItem :title="$t('settingDrawer.navigationMode')">
     <div class="setting-drawer-index-blockChecbox">
       <a-tooltip>
-        <template #title>{{ $t('SettingDrawer.sidebarNavigater') }}</template>
+        <template #title>{{ $t('settingDrawer.sidebarNavigater') }}</template>
         <div class="setting-drawer-index-item" @click="handleLayout('sidemenu')">
           <img src="../icons/sideMenu.svg" alt="sidemenu" />
           <div class="setting-drawer-index-selectIcon" v-if="layoutMode === 'sidemenu'">
@@ -12,7 +12,7 @@
       </a-tooltip>
 
       <a-tooltip>
-        <template #title>{{ $t('SettingDrawer.topNavigater') }}</template>
+        <template #title>{{ $t('settingDrawer.topNavigater') }}</template>
         <div class="setting-drawer-index-item" @click="handleLayout('topmenu')">
           <img src="../icons/topMenu.svg" alt="topmenu" />
           <div class="setting-drawer-index-selectIcon" v-if="layoutMode !== 'sidemenu'">

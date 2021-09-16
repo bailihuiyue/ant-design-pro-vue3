@@ -15,7 +15,9 @@
     "crypto-js": "^4.1.0",
     "lodash.clonedeep": "^4.5.0",
     "lodash.debounce": "^4.0.8",
+    "lodash.pull": "^4.1.0",
     "mitt": "^3.0.0",
+    "moment": "^2.29.1",
     "nprogress": "^0.2.0",
     "tinycolor2": "^1.4.2",
     "vue": "^3.2.0",
@@ -36,6 +38,7 @@
     "@vue/compiler-sfc": "^3.2.6",
     "@vuedx/typecheck": "^0.6.3",
     "@vuedx/typescript-plugin-vue": "^0.6.3",
+    "apite": "^1.2.5",
     "eslint": "^7.24.0",
     "eslint-config-prettier": "^8.2.0",
     "eslint-plugin-prettier": "^3.4.0",
@@ -49,7 +52,6 @@
     "vite-plugin-components": "^0.13.2",
     "vite-plugin-svg-icons": "^1.0.4",
     "vite-plugin-theme": "^0.8.1",
-    "vue-eslint-parser": "^7.6.0",
-    "apite": "^1.2.5"
+    "vue-eslint-parser": "^7.6.0"
   }
 }

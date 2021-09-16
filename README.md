@@ -50,9 +50,12 @@ TODO:
 //2.测试手机是否显示正常,包括菜单和SettingDrawer等(已完成)
 3,写几个ant pro的页面,放在主页,要不太空了,菜单可以用完整的,大不了没有的页面点击就是404呗
 4.输入命令,生成一个view的模板
+5.加一个锁屏页面
 
 项目为了保持了ant vue pro样式一致,部分代码引用自ant vue pro(链接),入global.less,部分插件和原理借鉴vben(链接),感谢两位大大
 
 下次一定?给个赞也行啊
 
 使用reactiveState部分代替vuex
+
+viser-vue翻译成vue3 太麻烦了,回头再说吧

@@ -6,20 +6,87 @@ export const example: Router = {
   name: 'index',
   component: BasicLayout,
   meta: { title: 'menu.home' },
-  redirect: '/dashboard',
+  redirect: '/account',
   children: [
+    // account
+    {
+      path: '/account',
+      component: RouteView,
+      redirect: '/account/center',
+      name: 'account',
+      meta: { title: 'menu.account.title', icon: 'bx-analyse', keepAlive: true },
+      children: [
+        {
+          path: '/account/center',
+          name: 'center',
+          component: () => import('@/views/account/index.vue'),
+          meta: { title: 'menu.account.center', keepAlive: true }
+        },
+        {
+          path: '/account/settings',
+          name: 'settings',
+          component: () => import('@/views/Home.vue'),
+          meta: { title: 'menu.account.settings', hideHeader: true },
+          redirect: '/account/settings/basic',
+          hideChildrenInMenu: true,
+          children: [
+            {
+              path: '/account/settings/basic',
+              name: 'BasicSettings',
+              component: () => import('@/views/Home.vue'),
+              meta: { title: 'account.settings.menuMap.basic', hidden: true }
+            },
+            {
+              path: '/account/settings/security',
+              name: 'SecuritySettings',
+              component: () => import('@/views/Home.vue'),
+              meta: {
+                title: 'account.settings.menuMap.security',
+                hidden: true,
+                keepAlive: true,
+                permission: ['user']
+              }
+            },
+            {
+              path: '/account/settings/custom',
+              name: 'CustomSettings',
+              component: () => import('@/views/Home.vue'),
+              meta: { title: 'account.settings.menuMap.custom', hidden: true, keepAlive: true }
+            },
+            {
+              path: '/account/settings/binding',
+              name: 'BindingSettings',
+              component: () => import('@/views/Home.vue'),
+              meta: { title: 'account.settings.menuMap.binding', hidden: true, keepAlive: true }
+            },
+            {
+              path: '/account/settings/notification',
+              name: 'NotificationSettings',
+              component: () => import('@/views/Home.vue'),
+              meta: {
+                title: 'account.settings.menuMap.notification',
+                hidden: true,
+                keepAlive: true,
+                permission: ['user']
+              }
+            }
+          ]
+        }
+      ]
+    },
+
     // dashboard
     {
       path: '/dashboard',
       name: 'dashboard',
-      redirect: '/dashboard/workplace',
+      redirect: '/dashboard/analysis',
       component: RouteView,
       meta: { title: 'menu.dashboard.title', icon: 'bx-analyse', keepAlive: true, permission: ['admin'] },
       children: [
         {
           path: 'analysis/:pageNo([1-9]\\d*)?',
           name: 'Analysis',
-          component: () => import('@/views/About.tsx'),
+          component: () => import('@/views/Home.vue'),
           meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['admin'], hidden: false }
         },
         // 外部链接
@@ -36,6 +103,7 @@ export const example: Router = {
         }
       ]
     },
+
     // forms
     {
       path: '/form',
@@ -64,6 +132,7 @@ export const example: Router = {
         }
       ]
     },
+
     // list
     {
       path: '/list',
@@ -195,73 +264,6 @@ export const example: Router = {
         }
       ]
     },
-
-    // account
-    {
-      path: '/account',
-      component: RouteView,
-      redirect: '/account/center',
-      name: 'account',
-      meta: { title: 'menu.account.title', icon: 'bx-analyse', keepAlive: true },
-      children: [
-        {
-          path: '/account/center',
-          name: 'center',
-          component: () => import('@/views/Home.vue'),
-          meta: { title: 'menu.account.center', keepAlive: true }
-        },
-        {
-          path: '/account/settings',
-          name: 'settings',
-          component: () => import('@/views/Home.vue'),
-          meta: { title: 'menu.account.settings', hideHeader: true },
-          redirect: '/account/settings/basic',
-          hideChildrenInMenu: true,
-          children: [
-            {
-              path: '/account/settings/basic',
-              name: 'BasicSettings',
-              component: () => import('@/views/Home.vue'),
-              meta: { title: 'account.settings.menuMap.basic', hidden: true }
-            },
-            {
-              path: '/account/settings/security',
-              name: 'SecuritySettings',
-              component: () => import('@/views/Home.vue'),
-              meta: {
-                title: 'account.settings.menuMap.security',
-                hidden: true,
-                keepAlive: true,
-                permission: ['user']
-              }
-            },
-            {
-              path: '/account/settings/custom',
-              name: 'CustomSettings',
-              component: () => import('@/views/Home.vue'),
-              meta: { title: 'account.settings.menuMap.custom', hidden: true, keepAlive: true }
-            },
-            {
-              path: '/account/settings/binding',
-              name: 'BindingSettings',
-              component: () => import('@/views/Home.vue'),
-              meta: { title: 'account.settings.menuMap.binding', hidden: true, keepAlive: true }
-            },
-            {
-              path: '/account/settings/notification',
-              name: 'NotificationSettings',
-              component: () => import('@/views/Home.vue'),
-              meta: {
-                title: 'account.settings.menuMap.notification',
-                hidden: true,
-                keepAlive: true,
-                permission: ['user']
-              }
-            }
-          ]
-        }
-      ]
-    }
 
     // other
     /*

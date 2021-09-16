@@ -1,5 +1,5 @@
 <template>
-  <SettingItem :title="$t('SettingDrawer.otherSettings')">
+  <SettingItem :title="$t('settingDrawer.otherSettings')">
     <div>
       <a-list :split="false">
         <!-- 内容区域宽度  -->
@@ -8,7 +8,7 @@
             <a-switch size="small" :checked="colorWeak" @change="onColorWeak" />
           </template>
           <a-list-item-meta>
-            <template #title>{{ $t('SettingDrawer.colorBlindness') }}</template>
+            <template #title>{{ $t('settingDrawer.colorBlindness') }}</template>
           </a-list-item-meta>
         </a-list-item>
         <a-list-item>
@@ -16,7 +16,7 @@
             <a-switch size="small" :checked="grayMode" @change="onGrayMode" />
           </template>
           <a-list-item-meta>
-            <template #title>{{ $t('SettingDrawer.grayMode') }}</template>
+            <template #title>{{ $t('settingDrawer.grayMode') }}</template>
           </a-list-item-meta>
         </a-list-item>
         <a-list-item>
@@ -24,7 +24,7 @@
             <a-switch size="small" :checked="multiTab" @change="onMultiTab" />
           </template>
           <a-list-item-meta>
-            <template #title>{{ $t('SettingDrawer.multiTab') }}</template>
+            <template #title>{{ $t('settingDrawer.multiTab') }}</template>
           </a-list-item-meta>
         </a-list-item>
       </a-list>

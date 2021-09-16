@@ -66,6 +66,17 @@ export function scorePassword(pass) {
   return parseInt(score)
 }
 
+export const firstLetterIsUpperCase = function (str) {
+  var reg = /^[A-Z][A-z0-9]*$/;
+  return reg.test(str);
+};
+
+export const separator = ';'
+
+export const divisionStringToArray = (string, customSeparator) => {
+  return string ? string.split(customSeparator || separator) : []
+}
+
 const sitUrl = 'xxxxx'
 export const isDev = import.meta.env.DEV
 export const baseURL = isDev ? '/api/' : '生产地址'

@@ -217,7 +217,7 @@ export default defineComponent({
       username: [
         {
           required: true,
-          message: t('user.userName.required')
+          message: t('user.username.required')
         },
         {
           validator: handleUsernameOrEmail,

@@ -32,18 +32,18 @@
             <a-menu-item key="4" @click="showSystemSetting">
               <a>
                 <SettingOutlined />
-                <span>{{ $t('tools.UserMenu.systemConfig') }}</span>
+                <span>{{ $t('tools.userMenu.systemConfig') }}</span>
               </a>
             </a-menu-item>
             <!-- <a-menu-item key="2" disabled>
               <SettingOutlined />
-              <span>{{ $t('tools.UserMenu.test') }}</span>
+              <span>{{ $t('tools.userMenu.test') }}</span>
             </a-menu-item>-->
             <a-menu-divider />
             <a-menu-item key="3">
               <a href="javascript:;" @click="handleLogout">
                 <LogoutOutlined />
-                <span>{{ $t('tools.UserMenu.logout') }}</span>
+                <span>{{ $t('tools.userMenu.logout') }}</span>
               </a>
             </a-menu-item>
           </a-menu>
@@ -87,8 +87,8 @@ export default defineComponent({
     const store = useStore()
     const handleLogout = () => {
       Modal.confirm({
-        title: t('tools.UserMenu.tip'),
-        content: t('tools.UserMenu.checkLogout'),
+        title: t('tools.userMenu.tip'),
+        content: t('tools.userMenu.checkLogout'),
         onOk: () => {
           logout().then((res) => {
             clearUserInfo()

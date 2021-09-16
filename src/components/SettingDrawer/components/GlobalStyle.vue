@@ -1,8 +1,8 @@
 <template>
-  <SettingItem :title="$t('SettingDrawer.globalStyleSetting')">
+  <SettingItem :title="$t('settingDrawer.globalStyleSetting')">
     <div class="setting-drawer-index-blockChecbox">
       <a-tooltip>
-        <template #title>{{ $t('SettingDrawer.darkStyle') }}</template>
+        <template #title>{{ $t('settingDrawer.darkStyle') }}</template>
         <div class="setting-drawer-index-item" @click="handleMenuTheme('dark')">
           <img src="../icons/darkMenu.svg" alt="dark" />
           <div class="setting-drawer-index-selectIcon" v-if="navTheme === 'dark'&&!darkMode">
@@ -12,7 +12,7 @@
       </a-tooltip>
 
       <a-tooltip>
-        <template #title>{{ $t('SettingDrawer.lightStyle') }}</template>
+        <template #title>{{ $t('settingDrawer.lightStyle') }}</template>
         <div class="setting-drawer-index-item" @click="handleMenuTheme('light')">
           <img src="../icons/lightMenu.svg" alt="light" />
           <div class="setting-drawer-index-selectIcon" v-if="navTheme === 'light'">
@@ -22,7 +22,7 @@
       </a-tooltip>
 
       <a-tooltip>
-        <template #title>{{ $t('SettingDrawer.darkMode') }}</template>
+        <template #title>{{ $t('settingDrawer.darkMode') }}</template>
         <div class="setting-drawer-index-item" @click="handleDarkMode(true)">
           <img src="../icons/darkTheme.svg" alt="dark theme" />
           <div class="setting-drawer-index-selectIcon" v-if="darkMode">

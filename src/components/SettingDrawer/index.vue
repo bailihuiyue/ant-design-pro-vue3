@@ -24,13 +24,13 @@
         <a-button @click="doCopy" block>
           <template #icon>
             <CopyOutlined />
-            {{ $t('SettingDrawer.copySettings') }}
+            {{ $t('settingDrawer.copySettings') }}
           </template>
         </a-button>
         <a-alert type="warning" :style="{ marginTop: '24px' }" v-if="isDev">
           <template #message>
             <span>
-              {{ $t('SettingDrawer.words') }}
+              {{ $t('settingDrawer.words') }}
               <a
                 href="https://github.com/bailihuiyue/ant-design-pro-vue3/blob/main/src/config/defaultSettings.ts"
                 target="_blank"

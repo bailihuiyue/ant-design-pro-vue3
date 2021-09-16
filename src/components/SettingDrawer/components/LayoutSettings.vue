@@ -1,11 +1,11 @@
 <template>
-  <SettingItem :title="$t('SettingDrawer.layoutSettings')">
+  <SettingItem :title="$t('settingDrawer.layoutSettings')">
     <a-list :split="false">
       <!-- 内容区域宽度 -->
       <a-list-item>
         <template #actions>
           <a-tooltip>
-            <template #title>{{ $t('SettingDrawer.onlyValid') }}</template>
+            <template #title>{{ $t('settingDrawer.onlyValid') }}</template>
             <a-select
               size="small"
               style="width: 80px"
@@ -13,13 +13,13 @@
               @change="handleContentWidthChange"
               :disabled="layoutMode === 'sidemenu'"
             >
-              <a-select-option value="Fluid">{{$t('SettingDrawer.fluid')}}</a-select-option>
-              <a-select-option value="Fixed">{{ $t('SettingDrawer.fixation')}}</a-select-option>
+              <a-select-option value="Fluid">{{$t('settingDrawer.fluid')}}</a-select-option>
+              <a-select-option value="Fixed">{{ $t('settingDrawer.fixation')}}</a-select-option>
             </a-select>
           </a-tooltip>
         </template>
         <a-list-item-meta>
-          <template #title>{{ $t('SettingDrawer.contentWidth') }}</template>
+          <template #title>{{ $t('settingDrawer.contentWidth') }}</template>
         </a-list-item-meta>
       </a-list-item>
       <!-- 固定 Header -->
@@ -28,7 +28,7 @@
           <a-switch size="small" :checked="fixedHeader" @change="handleFixedHeader" />
         </template>
         <a-list-item-meta>
-          <template #title>{{ $t('SettingDrawer.fixHeader') }}</template>
+          <template #title>{{ $t('settingDrawer.fixHeader') }}</template>
         </a-list-item-meta>
       </a-list-item>
       <!-- 下滑时隐藏 Header -->
@@ -45,10 +45,10 @@
         <a-list-item-meta>
           <template #title>
             <a-tooltip placement="left">
-              <template #title>{{ $t('SettingDrawer.configurableWhenFixingHeaders') }}</template>
+              <template #title>{{ $t('settingDrawer.configurableWhenFixingHeaders') }}</template>
               <div
                 :style="{ opacity: !fixedHeader ? '0.5' : '1' }"
-              >{{ $t('SettingDrawer.hideHeaders') }}</div>
+              >{{ $t('settingDrawer.hideHeaders') }}</div>
             </a-tooltip>
           </template>
         </a-list-item-meta>
@@ -68,7 +68,7 @@
           <template
             #title
             :style="{ textDecoration: layoutMode === 'topmenu' ? 'line-through' : 'unset' }"
-          >{{ $t('SettingDrawer.fixedSideMenu') }}</template>
+          >{{ $t('settingDrawer.fixedSideMenu') }}</template>
         </a-list-item-meta>
       </a-list-item>
     </a-list>

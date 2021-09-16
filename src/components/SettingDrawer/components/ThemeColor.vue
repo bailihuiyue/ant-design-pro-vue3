@@ -1,5 +1,5 @@
 <template>
-  <SettingItem :title="$t('SettingDrawer.theme')">
+  <SettingItem :title="$t('settingDrawer.theme')">
     <div style="height: 20px">
       <a-tooltip
         class="setting-drawer-theme-color-colorBlock"
