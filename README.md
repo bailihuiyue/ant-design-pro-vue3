@@ -58,4 +58,4 @@ TODO:
 
 使用reactiveState部分代替vuex
 
-viser-vue翻译成vue3 太麻烦了,回头再说吧
+本想使用ant design一样的图标做首页的,但是用到了viser-vue插件,是vue2的,翻译成vue3 太麻烦了,回头再说吧
