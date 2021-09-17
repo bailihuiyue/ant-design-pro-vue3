@@ -1,14 +1,6 @@
 <template>
   <span class="AddNewTag">
-    <a-tag
-      closable
-      @close="onCloseTag(t)"
-      v-for="t in tags"
-      :key="t"
-      :class="size"
-    >
-      {{t}}
-    </a-tag>
+    <a-tag closable @close="onCloseTag(t)" v-for="t in tags" :key="t" :class="size">{{t}}</a-tag>
     <a-input
       v-if="tagInputVisible"
       ref="tagInputDomRef"
@@ -19,13 +11,8 @@
       @blur="handleTagInputConfirm"
       @keyup.enter="handleTagInputConfirm"
     />
-    <a-tag
-      v-if="!tagInputVisible&&tagAddVisible"
-      @click="showTagInput"
-      style="background: #fff; borderStyle: dashed;"
-      :class="size"
-    >
-    <PlusOutlined style="margin-right:5px"/>
+    <a-tag v-if="!tagInputVisible&&tagAddVisible" @click="showTagInput" :class="[size,'addTag']">
+      <PlusOutlined/>
     </a-tag>
   </span>
 </template>
@@ -39,22 +26,22 @@ export default {
   props: {
     max: {
       type: Number,
-      default: () => 5,
+      default: () => 5
     },
     type: {
       type: String,
-      default: () => '',
+      default: () => ''
     },
     defaultAdded: {
       type: Array,
-      default: () => [],
+      default: () => []
     },
     size: {
       type: String,
-      default: () => 'small',
-    },
+      default: () => 'small'
+    }
   },
-  components:{PlusOutlined},
+  components: { PlusOutlined },
   setup({ max, type, defaultAdded }, { emit }) {
     onMounted(() => {
       if (tags.value.length >= max) {
@@ -115,24 +102,38 @@ export default {
       tagInputDomRef,
       tagAddVisible,
       tags,
-      onCloseTag,
+      onCloseTag
     }
-  },
+  }
 }
 </script>
 
-<style lang="less" scoped>
-.middle {
-  height: 30px;
-  line-height: 28px;
-  font-size: 15px;
+<style lang="less">
+.AddNewTag {
+  .addTag {
+    background: #fff;
+    border-style: dashed;
+    cursor: pointer;
+  }
+  .middle {
+    height: 30px;
+    line-height: 28px;
+    font-size: 15px;
+  }
+  .smallIpt {
+    width: 78px;
+    height: 20px;
+  }
+  .middleIpt {
+    width: 90px;
+    height: 30px;
+  }
 }
-.smallIpt {
-  width: 78px;
-  height: 20px;
-}
-.middleIpt {
-  width: 90px;
-  height: 30px;
+.darkMode {
+  .AddNewTag {
+    .addTag {
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  }
 }
 </style>
