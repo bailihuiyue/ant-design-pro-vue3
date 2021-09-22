@@ -12,7 +12,7 @@ An out-of-box UI solution for enterprise applications as a Vue boilerplate. base
 ![dashboard](https://gitee.com/Onces/images/raw/master/ant-pro-vue3/2.png)
 
 #### 手机预览(最低支持iphone4)
-<img src="https://gitee.com/Onces/images/raw/master/ant-pro-vue3/3.png" alt="dashboard" style="zoom: 80%;" /><img src="https://gitee.com/Onces/images/raw/master/ant-pro-vue3/4.png" alt="dashboard" style="zoom: 80%;" /><img src="https://gitee.com/Onces/images/raw/master/ant-pro-vue3/5.png" alt="dashboard" style="zoom: 80%;" />
+<img src="https://gitee.com/Onces/images/raw/master/ant-pro-vue3/3.png"  width=250 /><img src="https://gitee.com/Onces/images/raw/master/ant-pro-vue3/4.png"  width=250/><img src="https://gitee.com/Onces/images/raw/master/ant-pro-vue3/5.png"  width=250 />
 
 项目下载和运行
 ----
@@ -153,6 +153,6 @@ Edge Chrome 等现代浏览器,目前只测试过Chrome,没有Mac所以Safari没
 
 ##### 落魄前端,在线要饭
 
-<img src="https://gitee.com/Onces/images/raw/master/money.png" alt="w" style="zoom: 25%;" />
+<img src="https://gitee.com/Onces/images/raw/master/money.png" width=200/>
 
 下次一定?给个Star也行啊
