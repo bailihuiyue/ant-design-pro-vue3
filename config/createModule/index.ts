@@ -1,5 +1,5 @@
 import { moduleTypes } from './type'
-import { copyFolder, log, templatePath, disPath, deleteFolder, modifyIndexVue } from './utils'
+import { copyFolder, log, templatePath, disPath, deleteFolder, modifyIndexVue, firstLetterUpperCase } from './utils'
 
 function run() {
   const argv = require('minimist')(process.argv.slice(2));
@@ -8,7 +8,7 @@ function run() {
     log.error('请输入组件/页面名称!')
     return false
   }
-  copyFolder(templatePath, disPath(type + '/' + moduleName))
+  copyFolder(templatePath, disPath(type + '/' + firstLetterUpperCase(moduleName)))
   // 修改index.vue的class名称为组件名称
   setTimeout(() => modifyIndexVue(type, moduleName), 300)
   if (type === moduleTypes.component) {

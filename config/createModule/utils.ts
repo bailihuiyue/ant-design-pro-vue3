@@ -92,7 +92,7 @@ export function modifyIndexVue(type, moduleName) {
   const filePath = disPath(type + '/' + moduleName + '/index.vue')
   fs.readFile(filePath, 'utf8', function (err, data) {
     if (err) throw err;
-    data = data.replace('${class}', firstLetterUpperCase(moduleName))
+    data = data.replace(/\${class}/g, firstLetterUpperCase(moduleName))
     fs.writeFileSync(filePath, data, 'utf8', (err) => {
       if (err) throw err;
       console.log('success done');

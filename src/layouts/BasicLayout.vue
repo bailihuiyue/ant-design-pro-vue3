@@ -58,7 +58,7 @@
       <a-layout-footer>
         <global-footer />
       </a-layout-footer>
-
+      <FastDevelopBall/>
       <setting-drawer></setting-drawer>
     </a-layout>
   </a-layout>
@@ -92,6 +92,7 @@ import ls from '@/utils/Storage'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import emitter from '@/utils/eventBus'
+import FastDevelopBall from "@/components/FastDevelopBall/index.vue";
 
 export default defineComponent({
   name: 'BasicLayout',
@@ -101,7 +102,8 @@ export default defineComponent({
     SideMenu,
     GlobalHeader,
     GlobalFooter,
-    SettingDrawer
+    SettingDrawer,
+    FastDevelopBall
   },
   setup() {
     const router = useRouter()

@@ -1,5 +1,7 @@
 <template>
-  <section class="${class}"></section>
+  <section class="${class}">
+
+  </section>
 </template>
 
 <script lang="ts">
@@ -16,4 +18,7 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
+.${class}{
+
+}
 </style>

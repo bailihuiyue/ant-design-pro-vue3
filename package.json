@@ -5,8 +5,8 @@
     "dev": "vite",
     "clean-dev": "vite --force",
     "build": "vite build",
-    "cv": "ts-node --project config/tsconfig.json config/createModule/index.ts --type=views",
-    "cc": "ts-node --project config/tsconfig.json config/createModule/index.ts --type=components"
+    "v": "ts-node --project config/tsconfig.json config/createModule/index.ts --type=views",
+    "c": "ts-node --project config/tsconfig.json config/createModule/index.ts --type=components"
   },
   "dependencies": {
     "@aesoper/normal-utils": "^0.1.5",
