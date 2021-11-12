@@ -2,7 +2,9 @@
 <div align="center">
 An out-of-box UI solution for enterprise applications as a Vue boilerplate. based on  <a href="https://vuecomponent.github.io/ant-design-vue/docs/vue/introduce-cn/" target="_blank">Ant Design of Vue</a>
 </div>
-基于 [ Vite2 Vue3 Ant-Design-of-Vue2 TS](https://github.com/bailihuiyue/ant-design-pro-vue3) 实现的 [Ant Design Pro](https://pro.ant.design/)
+
+基于 [Vite2 Vue3 Ant-Design-of-Vue2 TS](https://github.com/bailihuiyue/ant-design-pro-vue3) 实现的 [Ant Design Pro Vue](https://pro.antdv.com/docs/router-and-nav)
+
 
 预览图
 ----
@@ -38,7 +40,8 @@ yarn build
   - 后端路由:通过defaultSettings.ts中的useAsyncRouter来设置是否启用,后端路由的格式在mockUtils.ts的userNav中。
   - 后端路由对应的component自动引入逻辑在batchImportFiles,会自动引入view下面的,vue文件作为页面
   - 普通路由参照exampleRouterMap
-- 菜单生成根据路由配置来生成菜单。菜单项名称，嵌套路径与路由高度耦合,具体配置内容参照[Ant Design Pro Vue](https://pro.antdv.com/docs/router-and-nav)即可
+- 菜单生成根据路由配置来生成菜单。菜单项名称，嵌套路径与路由高度耦合,具体配置内容参照
+[Ant Design Pro Vue](https://pro.antdv.com/docs/router-and-nav) 即可
 - 菜单跳转第三方网址的写法meta: { title: 'user.login.login', icon: 'account-book', target: 'http://www.baidu.com', blank: false }如果不想在新窗口打卡,请写明blank: false否则blank不写或者任意值均表示true
 
 布局
@@ -139,13 +142,12 @@ yarn build
 2. 自动生成国际化(多层级文件夹使用.连接,比如tools.UserMenu)
 3. Storage(包含加密)
 4. vueuse响应式判断设备(手机,平板,pc)
-
+5. 输入命令,生成一个view/component的模板
 ## TODO
-1. 输入命令,生成一个view的模板
-2. 加一个锁屏页面
-3. 使用reactiveState部分代替vuex
-4. 本想使用ant design一样的图标做首页的,但是用到了viser-vue插件,是vue2的,翻译成vue3 太麻烦了,回头再说吧
-5. 详尽的文档
+1. 加一个锁屏页面
+2. 使用reactiveState部分代替vuex
+3. 本想使用ant design一样的图标做首页的,但是用到了viser-vue插件,是vue2的,翻译成vue3 太麻烦了,回头再说吧
+4. 详尽的文档
 
 ## 浏览器兼容
 

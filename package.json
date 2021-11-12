@@ -4,7 +4,9 @@
   "scripts": {
     "dev": "vite",
     "clean-dev": "vite --force",
-    "build": "vite build"
+    "build": "vite build",
+    "cv": "ts-node --project config/tsconfig.json config/createModule/index.ts --type=views",
+    "cc": "ts-node --project config/tsconfig.json config/createModule/index.ts --type=components"
   },
   "dependencies": {
     "@aesoper/normal-utils": "^0.1.5",
@@ -45,6 +47,9 @@
     "eslint-plugin-vue": "7.9.0",
     "less": "^4.1.1",
     "less-loader": "^10.0.1",
+    "minimist": "^1.2.5",
+    "colors-console": "^1.0.3",
+    "ts-node": "^10.4.0",
     "prettier": "^2.2.1",
     "sass": "^1.32.11",
     "typescript": "^4.3.5",

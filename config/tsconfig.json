@@ -1,0 +1,16 @@
+{
+  "include": [
+    "config/**/*.ts",
+  ],
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "strict": false,
+    "noUnusedLocals": false,
+    "noImplicitReturns": false,
+    "esModuleInterop": true,
+    "noImplicitAny": false,
+  }
+}
