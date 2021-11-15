@@ -69,7 +69,7 @@ const SelectLang = {
       </Menu>
     )
     return (
-      <Dropdown overlay={langMenu} class={this.prefixCls} placement="bottomRight" onClick={this.changeLang}>
+      <Dropdown overlay={langMenu} class={this.prefixCls} placement="bottomRight">
         <span>
           <GlobalOutlined />
         </span>

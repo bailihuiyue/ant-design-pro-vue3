@@ -29,7 +29,7 @@ export default {
   'register-result.view-mailbox': '查看邮箱',
   'email.required': '请输入邮箱地址！',
   'email.wrong-format': '邮箱地址格式错误！',
-  'userName.required': '请输入帐户名或邮箱地址',
+  'username.required': '请输入帐户名或邮箱地址',
   'password.required': '请输入密码！',
   'password.twice.msg': '两次输入的密码不匹配!',
   'password.strength.msg': '密码强度不够 ',

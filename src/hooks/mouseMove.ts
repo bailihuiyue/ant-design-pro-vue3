@@ -1,5 +1,9 @@
 // 可拖拽组件：pc和Mobile
 function useMove(el: any) {
+  if (!el){
+    throw new Error('useMove:未找到元素!')
+    return false
+  }
   el.style.position = 'fixed';
   let offsetX: number, offsetY: number, oL: number, oT: number, oLeft: number, oTop: number;
   const browser = {

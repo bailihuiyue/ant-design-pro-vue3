@@ -34,7 +34,7 @@ export const example: Router = {
               path: '/account/settings/basic',
               name: 'BasicSettings',
               component: () => import('@/views/Home.vue'),
-              meta: { title: 'account.settings.menuMap.basic', hidden: true }
+              meta: { title: 'menu.account.settings', hidden: true }
             },
             {
               path: '/account/settings/security',

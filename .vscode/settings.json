@@ -284,5 +284,6 @@
       "italic": false
     },
   ],
+  "editor.defaultFormatter": "octref.vetur",
   // "better-comments.highlightPlainText": true
 }

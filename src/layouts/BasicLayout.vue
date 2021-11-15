@@ -44,7 +44,11 @@
 
       <!-- layout content -->
       <a-layout-content
-        :style="{ height: '100%', margin: '24px 24px 0', paddingTop: fixedHeader ? '64px' : '0' }"
+        :style="{
+          height: '100%',
+          margin: '24px 24px 0',
+          paddingTop: fixedHeader ? '64px' : '0',
+        }"
       >
         <multi-tab v-if="multiTab"></multi-tab>
         <transition name="page-transition">
@@ -58,7 +62,7 @@
       <a-layout-footer>
         <global-footer />
       </a-layout-footer>
-      <FastDevelopBall/>
+      <FastDevelopBall />
       <setting-drawer></setting-drawer>
     </a-layout>
   </a-layout>
@@ -92,7 +96,7 @@ import ls from '@/utils/Storage'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import emitter from '@/utils/eventBus'
-import FastDevelopBall from "@/components/FastDevelopBall/index.vue";
+import FastDevelopBall from '@/components/FastDevelopBall/index.vue'
 
 export default defineComponent({
   name: 'BasicLayout',
@@ -128,6 +132,7 @@ export default defineComponent({
     )
 
     // created()
+    // bug:TODO:克隆时报警告[Vue warn]: Avoid app logic that relies on enumerating keys on a component instance. The keys will be empty in production mode to avoid performance overhead.目前还不知道解决方案
     const mainMenu = cloneDeep(router.getRoutes())
     const orginRoutes = filteRouterPermission(mainMenu, ls.get(PERMISSION))
     // 相对路径转绝对路径

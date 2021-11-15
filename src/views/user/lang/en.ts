@@ -30,7 +30,7 @@ export default {
   'register-result.view-mailbox': 'View mailbox',
   'email.required': 'Please enter your email!',
   'email.wrong-format': 'The email address is in the wrong format!',
-  'userName.required': 'Please enter account name or email address',
+  'username.required': 'Please enter account name or email address',
   'password.required': 'Please enter your password!',
   'password.twice.msg': 'The passwords entered twice do not match!',
   'password.strength.msg':
