@@ -26,7 +26,8 @@ cd ant-design-pro-vue3
 #安装依赖
 yarn install
 #开发模式运行
-yarn dev
+yarn dev 不带开发球
+yarn dev-ui 带开发球
 #编译项目
 yarn build
 ```
@@ -125,8 +126,10 @@ yarn build
 命令行工具
 ----
  用于自动生成一套模板,包括国际化,vue文件,service等文件
-- 输入yarn c --想要的组件名称 可以在src/components里生成一套组件模板
-- 输入yarn v --想要的页面名称 可以在src/views里生成一套页面模板
+- 输入yarn c --moduleName=想要的组件名称 可以在src/components里生成一套组件模板
+- 输入yarn v --moduleName=想要的页面名称 可以在src/views里生成一套页面模板
+- 输入create-module-be 用于前台页面一键生成模板所调用的后端接口
+- dev-ui 同时启动项目和模板后端,在开发球中输入想要创建的组件/页面名称,刷新页面(vite热更新自动)即表示创建成功
 
 其他说明
 ----
@@ -149,6 +152,7 @@ yarn build
 3. Storage(包含加密)
 4. vueuse响应式判断设备(手机,平板,pc)
 5. 输入命令,生成一个view/component的模板
+6. 页面存在一个开发球,点击按钮就可以创建view/component(yarn dev不要开发球,yarn dev-ui才需要开发球)
 ## TODO
 1. 加一个锁屏页面
 2. 使用reactiveState部分代替vuex

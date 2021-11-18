@@ -15,6 +15,7 @@ function run() {
     // components文件夹不需要再复制components文件夹了
     setTimeout(() => deleteFolder(disPath('components/' + moduleName + '/components')), 300)
   }
+  log.success('复制完成!')
 }
 
 run()

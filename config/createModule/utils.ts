@@ -23,7 +23,6 @@ export function copyFolder(from, to) {
         if (err) return
         if (stat.isFile()) {
           copyFile(newFromPath, newToPath)
-          console.log(newToPath)
         }
         if (stat.isDirectory()) {
           copyFolder(newFromPath, newToPath)
@@ -46,7 +45,8 @@ export const log = {
   error: (txt) => console.error(colors('red', txt)),
   warning: (txt) => console.error(colors('yellow', txt)),
   info: (txt) => console.error(colors('cyan', txt)),
-  default: (txt) => console.error(colors('bright', txt))
+  default: (txt) => console.error(colors('bright', txt)),
+  success: (txt) => console.error(colors('green', txt)),
 }
 
 export const templatePath = pathResolve('../template')
@@ -86,7 +86,10 @@ export function deleteFolder(url) {
   }
 }
 
-export const firstLetterUpperCase = (str) => str.replace(str[0], str[0].toUpperCase());
+export const firstLetterUpperCase = (str) => {
+  str = str.toString()
+  return str.replace(str[0], str[0].toUpperCase());
+}
 
 export function modifyIndexVue(type, moduleName) {
   const filePath = disPath(type + '/' + moduleName + '/index.vue')
