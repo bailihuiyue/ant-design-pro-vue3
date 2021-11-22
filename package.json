@@ -1,14 +1,14 @@
 {
   "name": "Ant_Design_Pro_Vue_3",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "scripts": {
     "dev": "vite",
+    "dev-ui": "concurrently \"vite -m UseFastDevelopBall\" \"npm run create-module-be\" ",
     "clean-dev": "vite --force",
     "build": "vite build",
     "v": "ts-node --project config/tsconfig.json config/createModule/index.ts --type=views",
     "c": "ts-node --project config/tsconfig.json config/createModule/index.ts --type=components",
-    "create-module-be": "ts-node --project config/tsconfig.json config/createModule/backend.ts",
-    "dev-ui": "concurrently \"npm run dev\" \"npm run create-module-be\" "
+    "create-module-be": "ts-node --project config/tsconfig.json config/createModule/backend.ts"
   },
   "dependencies": {
     "@aesoper/normal-utils": "^0.1.5",

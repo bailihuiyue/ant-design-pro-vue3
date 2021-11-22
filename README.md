@@ -152,7 +152,7 @@ yarn build
 3. Storage(包含加密)
 4. vueuse响应式判断设备(手机,平板,pc)
 5. 输入命令,生成一个view/component的模板
-6. 页面存在一个开发球,点击按钮就可以创建view/component(yarn dev不要开发球,yarn dev-ui才需要开发球)
+6. 页面存在一个开发球,点击按钮就可以创建view/component(yarn dev没有开发球,dev-ui才有)
 ## TODO
 1. 加一个锁屏页面
 2. 使用reactiveState部分代替vuex
