@@ -6,8 +6,36 @@ export const example: Router = {
   name: 'index',
   component: BasicLayout,
   meta: { title: 'menu.home' },
-  redirect: '/account',
+  redirect: '/dashboard',
   children: [
+    // dashboard
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      redirect: '/dashboard/analysis',
+      component: RouteView,
+      meta: { title: 'menu.dashboard.title', icon: 'bx-analyse', keepAlive: true, permission: ['admin'] },
+      children: [
+        {
+          path: 'analysis/:pageNo([1-9]\\d*)?',
+          name: 'Analysis',
+          component: () => import('@/views/dashboard/Index.vue'),
+          meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['admin'], hidden: false }
+        },
+        // 外部链接
+        {
+          path: 'monitor',
+          name: 'Monitor',
+          meta: { title: 'menu.dashboard.monitor', target: 'http://www.baidu.com', permission: ['admin'], blank: true }
+        },
+        {
+          path: 'workplace',
+          name: 'Workplace',
+          component: () => import('@/views/Home.vue'),
+          meta: { title: 'menu.dashboard.workplace', keepAlive: true, permission: ['admin'] }
+        }
+      ]
+    },
     // account
     {
       path: '/account',
@@ -74,36 +102,6 @@ export const example: Router = {
         }
       ]
     },
-
-    // dashboard
-    {
-      path: '/dashboard',
-      name: 'dashboard',
-      redirect: '/dashboard/analysis',
-      component: RouteView,
-      meta: { title: 'menu.dashboard.title', icon: 'bx-analyse', keepAlive: true, permission: ['admin'] },
-      children: [
-        {
-          path: 'analysis/:pageNo([1-9]\\d*)?',
-          name: 'Analysis',
-          component: () => import('@/views/Home.vue'),
-          meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['admin'], hidden: false }
-        },
-        // 外部链接
-        {
-          path: 'monitor',
-          name: 'Monitor',
-          meta: { title: 'menu.dashboard.monitor', target: 'http://www.baidu.com', permission: ['admin'], blank: true }
-        },
-        {
-          path: 'workplace',
-          name: 'Workplace',
-          component: () => import('@/views/Home.vue'),
-          meta: { title: 'menu.dashboard.workplace', keepAlive: true, permission: ['admin'] }
-        }
-      ]
-    },
-
     // forms
     {
       path: '/form',

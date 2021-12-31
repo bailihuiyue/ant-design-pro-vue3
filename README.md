@@ -157,6 +157,8 @@ yarn build
 1. 加一个锁屏页面
 2. 使用reactiveState部分代替vuex
 3. 本想使用ant design一样的图标做首页的,但是用到了viser-vue插件,是vue2的,翻译成vue3 太麻烦了,回头再说吧
+( 如果不需要,删除这俩库就行了   "@antv/g2plot": "^2.4.5",
+    "@vue/babel-plugin-jsx": "^1.1.1",)
 4. 详尽的文档
 
 ## 浏览器兼容

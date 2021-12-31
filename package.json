@@ -13,6 +13,8 @@
   "dependencies": {
     "@aesoper/normal-utils": "^0.1.5",
     "@ant-design/icons-vue": "^6.0.1",
+    "@antv/g2plot": "^2.4.5",
+    "@vue/babel-plugin-jsx": "^1.1.1",
     "@vueuse/core": "^5.2.0",
     "ant-design-vue": "^3.0.0-alpha.11",
     "axios": "^0.21.1",
