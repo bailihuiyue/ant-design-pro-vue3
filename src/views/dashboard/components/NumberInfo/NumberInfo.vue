@@ -1,12 +1,12 @@
 <template>
   <div :class="[prefixCls]">
-    <span style="color: rgba(0,0,0,.65);">
+    <span style="color: rgba(0,0,0,.65);" class="subtitle">
       <slot name="subtitle"></slot>
     </span>
     <div class="number-info-value">
-      <span>{{ total }}</span>
+      <span class="total">{{ total }}</span>
       <span class="sub-total">
-        {{ subTotal }}
+        <span class="txt">{{ subTotal }}</span>
         <icon :type="`caret-${status}`" />
         <caret-up-outlined v-if="status==='up'" />
         <caret-down-outlined v-else />

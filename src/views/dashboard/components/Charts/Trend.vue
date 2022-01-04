@@ -1,9 +1,12 @@
 <template>
   <div class="chart-trend">
-    <span style="color: rgba(0,0,0,.65);">
+    <span class="term" style="color: rgba(0,0,0,.65);">
       <slot name="term"></slot>
     </span>
-    <span style="display: inline-block;margin-left: 8px;color: rgba(0,0,0,.85);">{{ rate }}%</span>
+    <span
+      style="display: inline-block;margin-left: 8px;color: rgba(0,0,0,.85);"
+      class="rate"
+    >{{ rate }}%</span>
     <span :class="['trend-icon', trend]">
       <caret-up-outlined v-if="trend==='up'" />
       <caret-down-outlined v-else />
@@ -65,6 +68,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+@import '@/style/index.less';
 .chart-trend {
   display: inline-block;
   font-size: 14px;
@@ -92,6 +96,12 @@ export default {
       color: #52c41a;
       top: -1px;
     }
+  }
+}
+.darkMode {
+  .term,
+  .rate {
+    color: @dark-active-font-color !important;
   }
 }
 </style>

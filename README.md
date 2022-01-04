@@ -9,6 +9,8 @@ An out-of-box UI solution for enterprise applications as a Vue boilerplate. base
 预览图
 ----
 #### 首页
+![dashboard](https://gitee.com/Onces/images/raw/master/ant-pro-vue3/6.png)
+个人中心
 ![dashboard](https://gitee.com/Onces/images/raw/master/ant-pro-vue3/1.png)
 #### 夜间模式
 ![dashboard](https://gitee.com/Onces/images/raw/master/ant-pro-vue3/2.png)
@@ -153,13 +155,12 @@ yarn build
 4. vueuse响应式判断设备(手机,平板,pc)
 5. 输入命令,生成一个view/component的模板
 6. 页面存在一个开发球,点击按钮就可以创建view/component(yarn dev没有开发球,dev-ui才有)
+7. 由于viser-vue不支持vue3,于是使用g2-plot重写,并且已支持夜间模式
+( 如果不需要该页面,除了删除dashboard文件夹,也不要忘记删除"@antv/g2plot","@vue/babel-plugin-jsx"这俩库)
 ## TODO
 1. 加一个锁屏页面
 2. 使用reactiveState部分代替vuex
-3. 本想使用ant design一样的图标做首页的,但是用到了viser-vue插件,是vue2的,翻译成vue3 太麻烦了,回头再说吧
-( 如果不需要,删除这俩库就行了   "@antv/g2plot": "^2.4.5",
-    "@vue/babel-plugin-jsx": "^1.1.1",)
-4. 详尽的文档
+3. 详尽的文档
 
 ## 浏览器兼容
 

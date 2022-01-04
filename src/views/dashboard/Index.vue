@@ -274,14 +274,11 @@ import MiniBar from './components/Charts/MiniBar.vue'
 import MiniProgress from './components/Charts/MiniProgress.vue'
 import RankList from './components/Charts/RankList.vue'
 import Bar from './components/Charts/Bar.vue'
-import NumberInfo from '@/components/NumberInfo/NumberInfo.vue'
+import NumberInfo from './components/NumberInfo/NumberInfo.vue'
 import MiniSmoothArea from './components/Charts/MiniSmoothArea.vue'
 import Pie from './components/Charts/Pie.vue'
 
-//info: 当g2设置 {yAxis: false,smooth: true}时,会出现最高点显示不全的问题,官网示例也是如此,解决方法:设置中加padding: [5, 0, 0, 0]
-// bug:todo:dropdown菜单样式不正常,不跟随主题变换颜色,字体颜色过黑
-// TODO:表格hover时颜色不正常
-// TODO:更新.readme文档
+// info:todo:当g2设置 {yAxis: false,smooth: true}时,会出现最高点显示不全的问题,官网示例也是如此,解决方法:设置中加padding: [5, 0, 0, 0]
 export default defineComponent({
   name: 'Analysis',
   components: {
@@ -417,6 +414,8 @@ export default defineComponent({
 </script>
 
 <style lang="less" scoped>
+@import '@/style/index.less';
+
 .extra-wrapper {
   line-height: 55px;
   padding-right: 24px;
@@ -451,7 +450,6 @@ export default defineComponent({
     color: rgba(0, 0, 0, 0.45);
     cursor: pointer;
     transition: color 0.32s;
-    color: black;
   }
 }
 .analysis-salesTypeRadio {
@@ -462,7 +460,31 @@ export default defineComponent({
 ::v-deep(.ant-table-row) {
   color: rgba(0, 0, 0, 0.65);
   &:hover {
-    background-color: #fff1f0 !important;
+    background-color: #fff1f0;
+  }
+}
+::v-deep(.ant-table-tbody) {
+  & > tr.ant-table-row:hover {
+    & > td {
+      background-color: #fff1f0;
+    }
+  }
+}
+.darkMode {
+  .dashboard-analysis-iconGroup {
+    i {
+      color: @dark-deactive-font-color;
+    }
+  }
+  .ant-table-wrapper {
+    ::v-deep(.ant-table-cell) {
+      color: @dark-deactive-font-color;
+    }
+    ::v-deep(.ant-table-tbody) {
+      .ant-table-row:hover {
+        background-color: rgb(38, 38, 38) !important;
+      }
+    }
   }
 }
 </style>

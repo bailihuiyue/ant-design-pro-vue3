@@ -1,4 +1,6 @@
 // 这是一个被改造的NumberInfo组件,要是使用原版请自行下载ant vue pro的组件
+@import '@/style/index.less';
+
 .ant-pro-number-info {
 
   .ant-pro-number-info-subtitle {
@@ -49,5 +51,14 @@
         color: #52c41a;
       }
     }
+  }
+}
+
+.darkMode {
+
+  .subtitle,
+  .total,
+  .txt {
+    color: @dark-active-font-color  !important;
   }
 }
