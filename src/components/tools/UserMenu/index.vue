@@ -35,6 +35,12 @@
                 <span>{{ $t('tools.userMenu.systemConfig') }}</span>
               </a>
             </a-menu-item>
+            <a-menu-item key="5" @click="onLockScreen">
+              <a>
+                <LockOutlined />
+                <span>{{ $t('tools.userMenu.lockScreen') }}</span>
+              </a>
+            </a-menu-item>
             <!-- <a-menu-item key="2" disabled>
               <SettingOutlined />
               <span>{{ $t('tools.userMenu.test') }}</span>
@@ -62,7 +68,12 @@ import NoticeIcon from '@/components/NoticeIcon/index.vue'
 import { logout } from '@/views/user/service'
 import { USER_INFO } from '@/store/mutation-types'
 import { Modal } from 'ant-design-vue'
-import { QuestionCircleOutlined, SettingOutlined, LogoutOutlined } from '@ant-design/icons-vue'
+import {
+  QuestionCircleOutlined,
+  SettingOutlined,
+  LogoutOutlined,
+  LockOutlined
+} from '@ant-design/icons-vue'
 import { useI18n } from 'vue-i18n'
 import { useStore } from 'vuex'
 import SelectLang from '@/components/SelectLang'
@@ -78,7 +89,8 @@ export default defineComponent({
     QuestionCircleOutlined,
     SettingOutlined,
     LogoutOutlined,
-    SelectLang
+    SelectLang,
+    LockOutlined
   },
   setup(props) {
     const { t } = useI18n()
@@ -102,11 +114,16 @@ export default defineComponent({
       store.commit('SET_SETTING_DRAWER', true)
     }
 
+    const onLockScreen = () => {
+      store.commit('SET_LOCK_SCREEN', true)
+    }
+
     return {
       avatar: UserInfo.avatar,
       nickname: UserInfo.name,
       handleLogout,
-      showSystemSetting
+      showSystemSetting,
+      onLockScreen
     }
   }
 })

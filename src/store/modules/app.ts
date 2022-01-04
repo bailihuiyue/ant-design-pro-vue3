@@ -16,7 +16,8 @@ import {
   TOGGLE_THEME,
   TOGGLE_LAYOUT_MODE,
   CLOSE_SIDEBAR,
-  SET_DARK_MODE
+  SET_DARK_MODE,
+  SET_LOCK_SCREEN
 } from '@/store/mutation-types'
 
 const app = {
@@ -35,6 +36,7 @@ const app = {
     multiTab: false,
     showSettings: false,
     darkMode: false,
+    lockScreen: false
   },
   mutations: {
     [SET_SIDEBAR_TYPE]: (state, type) => {
@@ -110,7 +112,11 @@ const app = {
     },
     [SET_SETTING_DRAWER]: (state, type) => {
       state.showSettings = type
-    }
+    },
+    [SET_LOCK_SCREEN]: (state, type) => {
+      state.lockScreen = type
+    },
+
   }
 }
 

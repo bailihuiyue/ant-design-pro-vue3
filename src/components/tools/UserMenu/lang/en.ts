@@ -3,5 +3,6 @@ export default {
   systemConfig: 'System config',
   logout: 'Logout',
   tip: 'Tip',
-  checkLogout: 'Want to logout ?'
+  checkLogout: 'Want to logout ?',
+  lockScreen:'Lock screen'
 }
