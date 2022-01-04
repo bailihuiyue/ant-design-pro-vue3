@@ -115,6 +115,7 @@ const app = {
     },
     [SET_LOCK_SCREEN]: (state, type) => {
       state.lockScreen = type
+      document.getElementById('app')!.style.overflow = type ? 'hidden' :'visible'
     },
 
   }
