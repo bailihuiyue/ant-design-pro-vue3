@@ -79,7 +79,7 @@ yarn build
 
 -
 
-- 想使用antv自带的图标请拷贝node_modules\@ant-design\icons-svg\inline-svg到图标文件夹,会自动引入,名称为 文件夹名-文件名 例如a下的b.svg,SvgIcon组件传入name="a-b"即可: <SvgIcon name="a-b"/>
+- 想使用antv自带的图标请拷贝node_modules\@ant-design\icons-svg\inline-svg到图标文件夹,会自动引入,名称为 文件夹名-文件名 例如a下的b.svg,SvgIcon组件传入name="a-b"即可: <SvgIcon name="a-b" color="#fff"/>
 
   想获取所有已添加的icon:
 

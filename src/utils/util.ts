@@ -77,6 +77,36 @@ export const divisionStringToArray = (string, customSeparator) => {
   return string ? string.split(customSeparator || separator) : []
 }
 
+export const getWeek = (week: number, useZhou) => {
+  let txt = ''
+  switch (week) {
+    case 1:
+      txt = '一'
+      break
+    case 2:
+      txt = '二'
+      break
+    case 3:
+      txt = '三'
+      break
+    case 4:
+      txt = '四'
+      break
+    case 5:
+      txt = '五'
+      break
+    case 6:
+      txt = '六'
+      break
+    case 0:
+      txt = '日'
+      break
+    default:
+      return 'getWeekError'
+  }
+  return useZhou ? '周' : '星期' + txt
+}
+
 const sitUrl = 'xxxxx'
 export const isDev = import.meta.env.DEV
 export const baseURL = isDev ? '/api/' : '生产地址'
