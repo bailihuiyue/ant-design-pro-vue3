@@ -113,9 +113,10 @@ const app = {
     [SET_SETTING_DRAWER]: (state, type) => {
       state.showSettings = type
     },
-    [SET_LOCK_SCREEN]: (state, type) => {
-      state.lockScreen = type
-      document.getElementById('app')!.style.overflow = type ? 'hidden' :'visible'
+    [SET_LOCK_SCREEN]: (state, flag) => {
+      state.lockScreen = flag
+      cache({ [SET_LOCK_SCREEN]: flag })
+      document.getElementById('app')!.style.overflow = flag ? 'hidden' :'visible'
     },
 
   }

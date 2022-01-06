@@ -35,7 +35,7 @@ api.post("/auth/login", (ctx) => {
   return {
     id: '4291d7da9005377ec9aec4a71ea837f',
     name: permission,
-    username: 'admin',
+    username: 'Ones@github',
     password: '',
     avatar: '/avatar2.jpg',
     status: 1,
@@ -62,4 +62,8 @@ api.post("/account/sms", (ctx) => {
 
 api.get("/auth/logout", (ctx) => {
   return builder({}, '[测试接口] 注销成功1')
+});
+
+api.post("/auth/unlock", (ctx) => {
+  return mock({ unlocked: true })
 });
