@@ -163,7 +163,7 @@ yarn build
 6. 页面存在一个开发球,点击按钮就可以创建view/component(yarn dev没有开发球,dev-ui才有)
 7. 由于viser-vue不支持vue3,于是使用g2-plot重写,并且已支持夜间模式
 ( 如果不需要该页面,除了删除dashboard文件夹,也不要忘记删除"@antv/g2plot","@vue/babel-plugin-jsx"这俩库)
-8. 仿win10锁屏页面,动态显示是否联网,是否充电,可自由更换壁纸(存在indexedDB中,建议图片别太大,容易卡),点击右下角所有按钮出现密码框或换壁纸按钮
+8. 仿win10锁屏页面,动态显示是否联网,是否充电,可自由更换壁纸(存在indexedDB中,建议图片别太大,容易卡),点击右下角锁头按钮出现密码框或换壁纸按钮
 ## TODO
 2. 使用reactiveState部分代替vuex
 3. 详尽的文档
