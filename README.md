@@ -165,8 +165,8 @@ yarn build
 ( 如果不需要该页面,除了删除dashboard文件夹,也不要忘记删除"@antv/g2plot","@vue/babel-plugin-jsx"这俩库)
 8. 仿win10锁屏页面,动态显示是否联网,是否充电,可自由更换壁纸(存在indexedDB中,建议图片别太大,容易卡),点击右下角锁头按钮出现密码框或换壁纸按钮
 ## TODO
-2. 使用reactiveState部分代替vuex
-3. 详尽的文档
+1. 使用reactiveState部分代替vuex
+2. 详尽的文档
 
 ## 浏览器兼容
 

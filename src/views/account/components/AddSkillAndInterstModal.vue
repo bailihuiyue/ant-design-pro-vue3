@@ -28,45 +28,23 @@
 </template>
 
 <script lang="ts">
-import { ref, reactive, onMounted, toRefs } from 'vue'
+import { ref, reactive } from 'vue'
 import SelectSkillAndInterst from './SelectSkillAndInterst.vue'
 import * as api from '../service'
 import { separator } from '@/utils/util'
 import { useMessage } from '@/hooks/useMessage'
-import { getPersonDetail } from '../hooks'
 import { UpdateUserLabel, UserInfo } from '../types'
-import { PERMISSION } from '@/store/mutation-types'
-import Vue from 'vue'
 
 export default {
   components: {
     SelectSkillAndInterst
   },
-  setup(props, { root }) {
+  setup() {
     const loading = ref(false)
     const visible = ref(false)
     const allSkills = ref([])
     const allInterest = ref([])
     let userInfo = reactive<Partial<UserInfo>>({})
-
-    onMounted(() => {
-      // TODO:在login页面(未登录)时,不获取personDetail,需要优化方案,不使用setTimeout
-      setTimeout(async () => {
-        if (location.pathname.indexOf('user/login') < 0) {
-          const v: any = Vue
-          const permisson = v.ls.get(PERMISSION)
-          loading.value = true
-          const res = await getPersonDetail()
-          if (!res.userInfo.skills.length) {
-            allSkills.value = res.allSkills
-            allInterest.value = res.allInterest
-            userInfo = res.userInfo
-            visible.value = true
-          }
-          loading.value = false
-        }
-      }, 500)
-    })
 
     const savedData: Partial<UpdateUserLabel> = {}
     const onAddSuccess = (data, type) => {
