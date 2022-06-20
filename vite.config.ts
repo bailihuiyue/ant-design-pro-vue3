@@ -1,6 +1,7 @@
 import { UserConfig, ConfigEnv } from 'vite';
 import vue from '@vitejs/plugin-vue'
-import ViteComponents, { AntDesignVueResolver } from 'vite-plugin-components'
+import Components from 'unplugin-vue-components/vite';
+import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 import vueJsx from '@vitejs/plugin-vue-jsx'
 import path from 'path';
 import legacy from '@vitejs/plugin-legacy'
@@ -21,10 +22,10 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
     plugins: [
       vue(),
       vueJsx(),
-      ViteComponents({
-        customComponentResolvers: [
-          AntDesignVueResolver(),
-        ]
+      Components({
+        dts: true,
+        resolvers: [AntDesignVueResolver()],
+        include: [/\.vue$/,/\.tsx$/],
       }),
       vite2Ext({
         dir: 'mock'
