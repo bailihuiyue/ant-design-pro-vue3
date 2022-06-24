@@ -5,6 +5,7 @@ An out-of-box UI solution for enterprise applications as a Vue boilerplate. base
 
 基于 [Vite2 Vue3 Ant-Design-of-Vue2 TS](https://github.com/bailihuiyue/ant-design-pro-vue3) 实现的 [Ant Design Pro Vue](https://pro.antdv.com/docs/router-and-nav)
 
+码云地址: https://gitee.com/Onces/ant-design-pro-vue3
 
 预览图
 ----
