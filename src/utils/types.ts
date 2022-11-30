@@ -15,3 +15,7 @@ export interface ResponseBody {
   result,
   code: number
 }
+
+export interface StoreFile {
+  [x: string]: string
+}

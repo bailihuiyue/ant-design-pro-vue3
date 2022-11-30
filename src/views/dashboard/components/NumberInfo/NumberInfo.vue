@@ -7,7 +7,6 @@
       <span class="total">{{ total }}</span>
       <span class="sub-total">
         <span class="txt">{{ subTotal }}</span>
-        <icon :type="`caret-${status}`" />
         <caret-up-outlined v-if="status==='up'" />
         <caret-down-outlined v-else />
       </span>

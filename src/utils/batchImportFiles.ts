@@ -1,4 +1,4 @@
-import { LangFile, I18nMsg } from './types'
+import { LangFile, I18nMsg, StoreFile } from './types'
 import { firstLetterIsUpperCase } from './util'
 
 export function genLangs(module: Record<string, any>, include: Array<string> | null, exclude?: string) {
@@ -93,4 +93,18 @@ const getFileName = (path: string) => {
     return routeName
   }
   return matched[1]
+}
+
+export function genStore() {
+  const module = import.meta.globEager('/src/**/*.store.ts')
+  const obj = {};
+  Object.keys(module).forEach((item) => {
+    const name = item.match(/(?<=\/)[a-zA-Z]+(?=\.)/g)![0]
+    const content: StoreFile = module[item].default;
+    if (!content) {
+      throw new Error('Please export default in ' + item)
+    }
+    Object.assign(obj, { [name]: content })
+  });
+  return obj;
 }

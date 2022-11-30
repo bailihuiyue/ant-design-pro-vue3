@@ -263,7 +263,7 @@
 
 <script lang="ts">
 import { ref, computed, defineComponent } from 'vue'
-import moment from 'moment'
+import dayjs from 'dayjs'
 import { useI18n } from 'vue-i18n'
 import { isMobile } from '@/utils/device'
 import { InfoCircleOutlined, EllipsisOutlined } from '@ant-design/icons-vue'
@@ -327,7 +327,7 @@ export default defineComponent({
     const searchUserData: any = []
     for (let i = 0; i < 7; i++) {
       searchUserData.push({
-        x: moment().add(i, 'days').format('YYYY-MM-DD'),
+        x: dayjs().add(i, 'days').format('YYYY-MM-DD'),
         y: Math.ceil((Math.random() + 1) * 10)
       })
     }

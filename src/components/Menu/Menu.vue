@@ -5,7 +5,7 @@
     :openKeys="openKeys.value"
     :selectedKeys="selectedKeys"
     @openChange="onOpenChange"
-    @select="onSelect"
+    @click="onSelect"
     class="SysMenu"
   >
     <template v-for="m in menu" :key="m.path">
@@ -96,7 +96,7 @@ export default defineComponent({
     }
     const onSelect = ({ item, key, selectedKeys: selectedKeysParams }) => {
       selectedKeys.value = selectedKeysParams
-      emit('select', { item, key, selectedKeys })
+      emit('menuSelect', { item, key, selectedKeys })
     }
     const updateMenu = () => {
       const routes = route.value.matched.concat()

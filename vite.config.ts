@@ -9,6 +9,9 @@ import { vite2Ext } from "apite";
 import viteSvgIcons from 'vite-plugin-svg-icons';
 import { viteThemePlugin } from 'vite-plugin-theme';
 import { getThemeColors } from './src/utils/themeUtil'
+import OptimizationPersist from 'vite-plugin-optimize-persist'
+import PkgConfig from 'vite-plugin-package-config'
+import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 
 const pathResolve = (pathStr: string) => {
   return path.resolve(__dirname, pathStr);
@@ -17,7 +20,35 @@ const pathResolve = (pathStr: string) => {
 export default ({ command, mode }: ConfigEnv): UserConfig => {
   return {
     server: {
-      host: '0.0.0.0'
+      host: '0.0.0.0',
+      port: 8000
+    },
+    build: {
+      // 清除console和debugger
+      terserOptions: {
+        compress: {
+          drop_console: true,
+          drop_debugger: true,
+        },
+      },
+      chunkSizeWarningLimit: 650,
+      // sourcemap: true,
+      rollupOptions: {
+        output: {
+          // manualChunks: {
+          //   vendor
+          // },
+          chunkFileNames: 'js/[name]-[hash].js',
+          entryFileNames: 'js/[name]-[hash].js',
+          assetFileNames: '[ext]/[name]-[hash].[ext]',
+          manualChunks(id) { //静态资源分拆打包
+            // 可参考https://www.cnblogs.com/jyk/p/16029074.html
+            if (id.includes('node_modules')) {
+              return 'vendors'
+            }
+          }
+        },
+      },
     },
     plugins: [
       vue(),
@@ -25,7 +56,7 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       Components({
         dts: true,
         resolvers: [AntDesignVueResolver()],
-        include: [/\.vue$/,/\.tsx$/],
+        include: [/\.vue$/, /\.tsx$/],
       }),
       vite2Ext({
         dir: 'mock'
@@ -42,6 +73,9 @@ export default ({ command, mode }: ConfigEnv): UserConfig => {
       viteThemePlugin({
         colorVariables: [...getThemeColors()],
       }),
+      PkgConfig(),
+      OptimizationPersist(),
+      vueSetupExtend()
     ],
     resolve: {
       alias: [

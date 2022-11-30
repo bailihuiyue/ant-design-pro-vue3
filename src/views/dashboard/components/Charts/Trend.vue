@@ -26,7 +26,7 @@ export default {
     term: {
       type: String,
       default: '',
-      required: true
+      required: false
     },
     percentage: {
       type: Number,

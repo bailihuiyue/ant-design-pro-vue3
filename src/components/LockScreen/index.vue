@@ -72,7 +72,7 @@ import { useStore } from 'vuex'
 import { lockScreen } from '@/store/useSiteSettings'
 import { SET_LOCK_SCREEN } from '@/store/mutation-types'
 import indexdb from '@/utils/indexDB'
-import moment from 'moment'
+import dayjs from 'dayjs';
 import { getWeek } from '@/utils/util'
 import { useBattery, useNetwork } from '@vueuse/core'
 import SvgIcon from '@/components/SvgIcon/index.vue'
@@ -122,16 +122,16 @@ export default defineComponent({
 
     // 获取左下角日期时间
     const getDateTime = () => {
-      const week = moment().weekday()
+      const week = dayjs().weekday()
       const formatedWeek = getWeek(week, false)
-      const day = moment().date()
-      const month = moment().month() + 1
+      const day = dayjs().date()
+      const month = dayjs().month() + 1
       return month + '月' + day + '日' + ', ' + formatedWeek
     }
     const dateTime = ref(getDateTime())
-    const currentTime = ref(moment().format('HH:mm'))
+    const currentTime = ref(dayjs().format('HH:mm'))
     setInterval(() => {
-      currentTime.value = moment().format('HH:mm')
+      currentTime.value = dayjs().format('HH:mm')
       dateTime.value = getDateTime()
     }, 1000)
 

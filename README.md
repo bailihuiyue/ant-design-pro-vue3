@@ -165,10 +165,11 @@ yarn build
 7. 由于viser-vue不支持vue3,于是使用g2-plot重写,并且已支持夜间模式
 ( 如果不需要该页面,除了删除dashboard文件夹,也不要忘记删除"@antv/g2plot","@vue/babel-plugin-jsx"这俩库)
 8. 仿win10锁屏页面,动态显示是否联网,是否充电,可自由更换壁纸(存在indexedDB中,建议图片别太大,容易卡),点击右下角锁头按钮出现密码框或换壁纸按钮
+9. 在views文件夹中可以创建 user.store.ts作为vuex的文件,其中文件名.store.ts之前的user将会作为模块名实现,具体实现请看genStore方法
 ## TODO
 1. 使用reactiveState部分代替vuex
 2. 详尽的文档
-
+3. antv最新版(3.2.14)已经可以支持通过css变量进行动态主题更换,该项目暂未使用该特性实现
 ## 浏览器兼容
 
 Edge Chrome 等现代浏览器,目前只测试过Chrome,没有Mac所以Safari没有测试

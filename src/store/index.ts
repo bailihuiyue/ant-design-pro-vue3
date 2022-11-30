@@ -1,13 +1,12 @@
-import { state } from './state';
-import app from './modules/app'
+import app from './modules/global'
 import { createStore } from 'vuex';
+import { genStore } from '@/utils/batchImportFiles'
 
+const allStores = genStore()
 const store = createStore({
-  state,
-  mutations: {},
-  actions: {},
   modules: {
-    app
+    app,
+    ...allStores
   },
 });
 
