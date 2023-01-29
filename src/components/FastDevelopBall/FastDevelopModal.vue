@@ -1,5 +1,11 @@
 <template>
-  <a-modal v-model:visible="isShow" title="快速开发面板" :footer="null" @cancel="onCancel" width="60%">
+  <a-modal
+    v-model:visible="childIsShow"
+    title="快速开发面板"
+    :footer="null"
+    @cancel="onCancel"
+    width="60%"
+  >
     <a-spin :spinning="loading">
       <section :style="{ height: '400px' }">
         <a-tabs>
@@ -56,13 +62,16 @@ export default {
         alert('请输入组件名称')
       }
     }
+    // const childIsShow = ref(false)
+    const childIsShow = props.isShow
     return {
       onCancel,
       createV,
       createC,
       c,
       v,
-      loading
+      loading,
+      childIsShow
     }
   }
 }
