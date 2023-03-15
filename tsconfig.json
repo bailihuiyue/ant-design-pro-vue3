@@ -31,7 +31,7 @@
     "noImplicitReturns": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
-    "noImplicitAny":false,
+    "noImplicitAny": false,
     "plugins": [
       {
         "name": "@vuedx/typescript-plugin-vue"
@@ -50,5 +50,17 @@
         "types/*"
       ]
     }
-  }
+  },
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.node.json"
+    },
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.vitest.json"
+    }
+  ]
 }

@@ -96,7 +96,7 @@ const getFileName = (path: string) => {
 }
 
 export function genStore() {
-  const module = import.meta.globEager('/src/**/*.store.ts')
+  const module = import.meta.glob('/src/**/*.store.ts', { eager: true })
   const obj = {};
   Object.keys(module).forEach((item) => {
     const name = item.match(/(?<=\/)[a-zA-Z]+(?=\.)/g)![0]

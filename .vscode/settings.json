@@ -285,5 +285,8 @@
     },
   ],
   "editor.defaultFormatter": "octref.vetur",
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
+  },
   // "better-comments.highlightPlainText": true
 }

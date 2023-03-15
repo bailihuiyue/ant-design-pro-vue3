@@ -1,18 +1,18 @@
 <template>
-  <a-modal v-model:visible="isShow" title="快速开发面板" :footer="null" @cancel="onCancel" width="60%">
+  <a-modal v-model:visible="showModal" title="快速开发面板" :footer="null" @cancel="onCancel" width="60%">
     <a-spin :spinning="loading">
       <section :style="{ height: '400px' }">
         <a-tabs>
           <a-tab-pane tab="模板">
             <div style="margin-bottom:20px">
               <a-space>
-                <a-input v-model:value="v" placeholder="请输入页面名称" :style="{width:'200px'}" />
+                <a-input v-model:value="v" placeholder="请输入页面名称" :style="{ width: '200px' }" />
                 <a-button type="primary" @click="createV">创建view</a-button>
               </a-space>
             </div>
             <div>
               <a-space>
-                <a-input v-model:value="c" placeholder="请输入组件名称" :style="{width:'200px'}" />
+                <a-input v-model:value="c" placeholder="请输入组件名称" :style="{ width: '200px' }" />
                 <a-button type="primary" @click="createC">创建component</a-button>
               </a-space>
             </div>
@@ -23,7 +23,7 @@
   </a-modal>
 </template>
 <script lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import * as api from './service'
 
 export default {
@@ -56,15 +56,29 @@ export default {
         alert('请输入组件名称')
       }
     }
+
+    const showModal = ref<boolean>(false)
+    watch(
+      () => props.isShow,
+      (newVal) => {
+        showModal.value = newVal
+      },
+      {
+        immediate: true,
+      },
+    );
+
     return {
       onCancel,
       createV,
       createC,
       c,
       v,
-      loading
+      loading,
+      showModal
     }
   }
 }
 </script>
-<style lang="less"></style>
+<style lang="less">
+</style>
