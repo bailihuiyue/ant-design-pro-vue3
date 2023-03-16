@@ -8,7 +8,12 @@ import '@/utils/components_use'
 import 'virtual:svg-icons-register';
 import setupDefaultSetting from '@/utils/setupDefaultSetting'
 
+import Antd from 'ant-design-vue';
+// 用来切换主题
+import 'ant-design-vue/dist/antd.variable.min.css'
+
 const app = createApp(App)
+app.use(Antd)
 app.use(router)
 app.use(store)
 app.use(i18n)

@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "vite",
+    "debug-vite": "cross-env vite --mode localhost --debug",
     "build": "run-p type-check build-only",
     "preview": "vite preview",
     "test:unit": "vitest",
@@ -32,8 +33,10 @@
     "lodash.pull": "^4.1.0",
     "mitt": "^3.0.0",
     "nprogress": "^0.2.0",
+    "rollup-plugin-visualizer": "^5.9.0",
     "sass": "^1.59.3",
     "tinycolor2": "^1.6.0",
+    "vite-plugin-vue-setup-extend": "^0.4.0",
     "vue": "^3.2.47",
     "vue-clipboard3": "^2.0.0",
     "vue-i18n": "^9.2.2",
@@ -62,7 +65,6 @@
     "vite-plugin-optimize-persist": "^0.1.2",
     "vite-plugin-package-config": "^0.1.1",
     "vite-plugin-svg-icons": "^2.0.1",
-    "vite-plugin-theme": "^0.8.6",
     "vitest": "^0.29.1",
     "vue-tsc": "^1.2.0"
   }
