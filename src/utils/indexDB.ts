@@ -32,6 +32,10 @@ class EasyDB {
         });
         objectStore.createIndex('key', 'key');
         objectStore.createIndex('value', 'value');
+
+        // info:todo:暴力修复首次使用该插件时需要初始化库的bug,初始化后强制刷新
+        // 否则报错(Uncaught (in promise) TypeError: this.db.transaction is not a function)
+        window.location.reload()
       };
       return true;
     }
