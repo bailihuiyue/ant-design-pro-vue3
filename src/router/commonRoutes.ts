@@ -1,6 +1,7 @@
 import { UserLayout } from '@/layouts'
 import { Router } from './types'
 import { example } from './exampleRouterMap'
+import errorPage from '@/views/Exception/500.vue'
 
 // info:todo:1.如果使用服务端获取路由,path: '/',这块路由再写就会被覆盖
 // 2.router.addRoute(parent, routeObj),添加parent,它就会自动加上/parent/xxx,直接写parent即可,就算嵌套多层也没事,自动变成/xxxx/xxxx/parent/xxxxx
@@ -38,6 +39,11 @@ export default [
         component: undefined
       },
     ]
+  },
+  {
+    path: '/exception/500',
+    name: 'error',
+    component: errorPage,
   },
   {
     path: '/:path(.*)',

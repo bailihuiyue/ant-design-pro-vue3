@@ -5,6 +5,7 @@ import { hasPermission } from './permission'
 import ls from '@/utils/Storage'
 import { setDocumentTitle } from '@/utils/domUtil'
 import type { Router } from 'vue-router';
+import { notification } from 'ant-design-vue';
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -37,6 +38,18 @@ export const setupBeforeEach = (router: Router) => {
         next({ path: '/user/login', query: { redirect: to.fullPath } })
         NProgress.done() // if current page is login will not trigger afterEach hook, so manually handle it
       }
+    }
+  })
+
+  // 路由懒加载失败时的提示
+  router.onError((error) => {
+    if (window.env === 'localhost') {
+      notification.error({
+        message: 'Dynamic import error',
+        description: error.stack,
+      });
+    } else {
+      router.push({ name: 'error', params: { errorMsg: error.stack } })
     }
   })
 }
