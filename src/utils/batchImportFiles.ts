@@ -63,7 +63,7 @@ function replaceDot(c: LangFile) {
 }
 
 export const getRoutePages = () => {
-  const pages = import.meta.glob('/src/views/**/*.vue')
+  const pages = import.meta.glob('/src/views/**/*.vue', { import: 'default', eager: true })
   const files = {}
   for (let p in pages) {
     const name = getFileName(p)

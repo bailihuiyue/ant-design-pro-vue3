@@ -19,7 +19,7 @@ export const example: Router = {
         {
           path: 'analysis/:pageNo([1-9]\\d*)?',
           name: 'Analysis',
-          component: () => import('@/views/dashboard/Index.vue'),
+          component: () => import('@/views/dashboard/Workplace.vue'),
           meta: { title: 'menu.dashboard.analysis', keepAlive: false, permission: ['admin'], hidden: false }
         },
         // 外部链接

@@ -31,9 +31,9 @@ module.exports = {
       'parentId': 0,
       'id': 1,
       'meta': {
-        'icon': 'dashboard',
+        'icon': 'bx-analyse',
         'title': '仪表盘',
-        'show': true
+        'show': true,
       },
       'component': 'RouteView',
       'redirect': '/dashboard/workplace'
@@ -68,7 +68,7 @@ module.exports = {
         'title': '分析页',
         'show': true
       },
-      'component': 'Analysis',
+      'component': 'Home',
       'path': '/dashboard/analysis'
     },
     {

@@ -8,4 +8,5 @@ declare module '*.vue' {
 declare interface Window {
   env: string
   pagetitle: string
+  __hasGenConstantRouterComponents: any
 }

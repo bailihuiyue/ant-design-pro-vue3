@@ -5,14 +5,23 @@ import { BasicLayout, RouteView, BlankLayout } from '@/layouts'//, BlankLayout, 
 import { getRoutePages } from '@/utils/batchImportFiles'
 import { MENU_NAV } from '@/store/mutation-types'
 
-// 前端路由表
-const constantRouterComponents: { [x: string]: Function } = {
-  // 基础页面 layout 必须引入
-  BasicLayout,
-  BlankLayout,
-  RouteView,
-  // PageView,
-  ...getRoutePages()
+// 设置为单例模式避免多次生成影响效率
+window.__hasGenConstantRouterComponents = undefined
+const constantRouterComponents = () => {
+  if (!window.__hasGenConstantRouterComponents) {
+    const data = {
+      // 基础页面 layout 必须引入
+      BasicLayout,
+      BlankLayout,
+      RouteView,
+      // PageView,
+      ...getRoutePages()
+    }
+    window.__hasGenConstantRouterComponents = data
+    return data
+  } else {
+    return window.__hasGenConstantRouterComponents
+  }
 }
 
 // 根级菜单
@@ -30,6 +39,7 @@ export const rootRouter: any = {
 
 // info:todo:退出账号后,换权限登录,左侧菜单变化时路由如果由/开始,会替换之前/里面的内容
 const generateAsyncRoutes = (router, menu?: Array<unknown>) => {
+  // TODO:使用后端路由时,generateAsyncRoutes方法会被调用10余次,待优化
   let menuNav: Array<any> = [];
   let childrenNav: Array<unknown> = [];
   // 后端数据, 根级树数组,  根级 PID
@@ -65,8 +75,8 @@ export const menuToRouter = (routerMap, parent?) => {
       // 路由名称，建议唯一
       name: item.name || item.key || '',
       // 该路由对应页面的 组件 :方案1                                      必须写一个存在的component,否则会报错
-      // 一般情况下,每一级路由都会存在component
-      component: constantRouterComponents[item.component || item.key] || constantRouterComponents['404'],
+      // 一般情况下,每一级路由都会存在component(
+      component: constantRouterComponents()[item.component || item.key] || constantRouterComponents()['404'],
       // 该路由对应页面的 组件 :方案2 (动态加载)(vite 不支持)
       // component: (() => import(`@/views/${item.component}`)),
       // meta: 页面标题, 菜单图标, 页面权限(供指令权限用，可去掉)
@@ -81,7 +91,7 @@ export const menuToRouter = (routerMap, parent?) => {
     }
 
     // 找不到页面文件并且不是外链
-    if (!constantRouterComponents[item.component || item.key] && !item.path?.startsWith('http')) {
+    if (!constantRouterComponents()[item.component || item.key] && !item.path?.startsWith('http')) {
       console.warn('Can not find Component: ' + (item.component || item.key) + ' in path: ' + (item.path || item.key))
     }
 
