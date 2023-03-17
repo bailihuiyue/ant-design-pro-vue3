@@ -3,8 +3,8 @@ import { message } from 'ant-design-vue'
 import { ACCESS_TOKEN, USER_INFO } from '@/store/mutation-types'
 import { baseURL } from '@/utils/util'
 import ls from '@/utils/Storage'
-import { useRouter } from 'vue-router'
 import { globalLoading } from '@/store/reactiveState'
+import emitter from '@/utils/eventBus'
 
 const ContentType = {
   urlencoded: 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -56,8 +56,7 @@ baseService.interceptors.response.use(
       return false
     } else if (res.status === 406) {
       message.error('登陆超时请重新登录!')
-      const router = useRouter()
-      router.push({ name: 'login' })
+      emitter.emit('axios_goto_login')
       return false
     } else {
       if (window.localStorage.getItem('lang') === 'en') {

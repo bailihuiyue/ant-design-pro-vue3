@@ -11,6 +11,8 @@ import zh_CN from 'ant-design-vue/es/locale/zh_CN'
 import en_US from 'ant-design-vue/lib/locale-provider/en_US'
 import { setDeviceType } from '@/utils/device'
 import LockScreen from '@/components/LockScreen/index.vue'
+import emitter from '@/utils/eventBus'
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   components: { LockScreen },
@@ -20,6 +22,11 @@ export default defineComponent({
 
     window.onresize = setDeviceType
     setDeviceType()
+
+    const router = useRouter()
+    emitter.once('axios_goto_login', () => {
+      router.push({ name: 'login' })
+    })
 
     return {
       proxy,

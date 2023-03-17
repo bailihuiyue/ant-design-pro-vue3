@@ -20,3 +20,5 @@ app.use(i18n)
 app.mount('#app');
 
 setupDefaultSetting()
+
+window.env = import.meta.env.MODE

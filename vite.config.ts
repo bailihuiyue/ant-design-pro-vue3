@@ -19,6 +19,45 @@ const lifecycle = process.env.npm_lifecycle_event;
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  build: {
+    sourcemap: true,
+    // terserOptions: {
+    //   compress: {
+    //     drop_console: false,
+    //     drop_debugger: false,
+    //   },
+    // },
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        // manualChunks: {
+        //   vendor
+        // },
+        chunkFileNames: 'js/[name]-[hash].js',
+        entryFileNames: 'js/[name]-[hash].js',
+        assetFileNames: '[ext]/[name]-[hash].[ext]',
+        manualChunks(id) { //静态资源分拆打包
+          // 可参考https://www.cnblogs.com/jyk/p/16029074.html
+          // node包插件打包在一起
+          if (id.includes('node_modules')) {
+            const arr = id.toString().split('node_modules/')[1].split('/')
+            switch (arr[0]) {
+              // logicflow是例外,和页面文件打包在一起
+              case '@logicflow':
+                // if (arr[1] === 'core') {
+                //   return 'logicflow_core'
+                // } else {
+                //   return 'logicflow_extension'
+                // }
+                break;
+              default:
+                return 'vendors'
+            }
+          }
+        }
+      },
+    },
+  },
   plugins: [
     vue(),
     vueJsx(),

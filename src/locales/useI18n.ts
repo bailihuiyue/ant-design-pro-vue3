@@ -24,8 +24,9 @@ import { genLangs } from '@/utils/batchImportFiles'
 // const cn = { ...cnU, ...cnV, ...cnC }
 
 const includePath = ['locales', 'views', 'components']
-let en = import.meta.globEager('/src/**/en.ts')
-let cn = import.meta.globEager('/src/**/cn.ts')
+let en = import.meta.glob('/src/**/en.ts', { eager: true })
+let cn = import.meta.glob('/src/**/cn.ts', { eager: true })
+
 en = genLangs(en, includePath)
 cn = genLangs(cn, includePath)
 
@@ -40,7 +41,3 @@ const i18n = createI18n({
 })
 
 export default i18n
-
-export const getLocale = () => {
-  return i18n.global.locale
-}
