@@ -1,6 +1,7 @@
 <template>
   <section class="LockScreen" v-if="lockScreen" :class="afterUnlock">
     <div
+    v-if="lockImg"
       class="bg"
       :class="isClickedUnlockBtn?'unlockClicked':''"
       :style="{backgroundImage: `url(${lockImg})`}"
@@ -210,6 +211,7 @@ export default defineComponent({
   transition: opacity 0.3s;
 }
 .LockScreen {
+  background-color: rgba(0,0,0,0.6);
   opacity: 1;
   position: absolute;
   top: 0;
