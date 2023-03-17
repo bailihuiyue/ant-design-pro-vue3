@@ -69,7 +69,7 @@
 <script>
 import { defineComponent, onMounted, ref } from 'vue'
 import { useStore } from 'vuex'
-import { lockScreen } from '@/store/useSiteSettings'
+import useSiteSettings from '@/store/useSiteSettings'
 import { SET_LOCK_SCREEN } from '@/store/mutation-types'
 import indexdb from '@/utils/indexDB'
 import dayjs from 'dayjs';
@@ -104,6 +104,7 @@ export default defineComponent({
   setup() {
     const { state, commit } = useStore()
     const isClickedUnlockBtn = ref(false)
+    const { lockScreen } = useSiteSettings()
     const onClickUnlockBtn = () => {
       isClickedUnlockBtn.value = true
     }

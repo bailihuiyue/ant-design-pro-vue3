@@ -1,22 +1,29 @@
 import { computed } from 'vue';
-import store from '@/store'
-const state = store.state
+import { useStore } from 'vuex'
 
-export const layoutMode = computed(() => state.app.layout)
-export const navTheme = computed(() => state.app.theme)
-export const primaryColor = computed(() => state.app.color)
-export const colorWeak = computed(() => state.app.weak)
-export const grayMode = computed(() => state.app.gray)
-export const fixedHeader = computed(() => state.app.fixedHeader)
-export const fixSiderbar = computed(() => state.app.fixSiderbar)
-export const fixSidebar = computed(() => state.app.fixSiderbar)
-export const contentWidth = computed(() => state.app.contentWidth)
-export const autoHideHeader = computed(() => state.app.autoHideHeader)
-export const sidebarOpened = computed(() => state.app.sidebar)
-export const multiTab = computed(() => state.app.multiTab)
-export const device = computed(() => state.app.device)
-export const darkMode = computed(() => state.app.darkMode)
-export const lockScreen = computed(() => state.app.lockScreen)
+export default () => {
+  const { state } = useStore()
 
-export const isTopMenu = () => layoutMode.value === 'topmenu'
-export const isSideMenu = () => !isTopMenu()
+  const layoutMode = computed(() => state.app.layout)
+  const navTheme = computed(() => state.app.theme)
+  const primaryColor = computed(() => state.app.color)
+  const colorWeak = computed(() => state.app.weak)
+  const grayMode = computed(() => state.app.gray)
+  const fixedHeader = computed(() => state.app.fixedHeader)
+  const fixSiderbar = computed(() => state.app.fixSiderbar)
+  const fixSidebar = computed(() => state.app.fixSiderbar)
+  const contentWidth = computed(() => state.app.contentWidth)
+  const autoHideHeader = computed(() => state.app.autoHideHeader)
+  const sidebarOpened = computed(() => state.app.sidebar)
+  const multiTab = computed(() => state.app.multiTab)
+  const device = computed(() => state.app.device)
+  const darkMode = computed(() => state.app.darkMode)
+  const lockScreen = computed(() => state.app.lockScreen)
+
+  const isTopMenu = () => layoutMode.value === 'topmenu'
+  const isSideMenu = () => !isTopMenu()
+
+  return {
+    layoutMode, navTheme, primaryColor, colorWeak, grayMode, fixedHeader, fixSiderbar, fixSidebar, contentWidth, autoHideHeader, sidebarOpened, multiTab, device, darkMode, lockScreen, isTopMenu, isSideMenu
+  }
+}

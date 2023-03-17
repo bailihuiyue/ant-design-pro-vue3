@@ -35,7 +35,7 @@
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { TOGGLE_WEAK, TOGGLE_GRAY, TOGGLE_MULTI_TAB } from '@/store/mutation-types'
-import { colorWeak, grayMode, multiTab } from '@/store/useSiteSettings'
+import useSiteSettings from '@/store/useSiteSettings'
 import { CheckOutlined } from '@ant-design/icons-vue'
 import { updateColorWeak, updateGrayMode } from '../settingConfig'
 import SettingItem from './SettingItem.vue'
@@ -47,6 +47,7 @@ export default defineComponent({
   },
   setup() {
     const { commit } = useStore()
+    const { colorWeak, grayMode, multiTab } = useSiteSettings()
 
     const onColorWeak = (checked) => {
       commit(TOGGLE_WEAK, checked)

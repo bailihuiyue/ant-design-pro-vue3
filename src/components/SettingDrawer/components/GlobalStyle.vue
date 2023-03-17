@@ -37,7 +37,7 @@
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { TOGGLE_THEME, SET_DARK_MODE } from '@/store/mutation-types'
-import { navTheme, darkMode } from '@/store/useSiteSettings'
+import useSiteSettings from '@/store/useSiteSettings'
 import { CheckOutlined } from '@ant-design/icons-vue'
 import SettingItem from './SettingItem.vue'
 
@@ -48,6 +48,7 @@ export default defineComponent({
   },
   setup() {
     const { commit } = useStore()
+    const { navTheme, darkMode } = useSiteSettings()
 
     const handleMenuTheme = (theme) => {
       commit(TOGGLE_THEME, theme)

@@ -16,7 +16,7 @@ import { defineComponent } from 'vue'
 import Logo from '@/components/tools/Logo.vue'
 import Menu from './Menu.vue'
 import { isDesktop } from '@/utils/device'
-import { fixSiderbar } from '@/store/useSiteSettings'
+import useSiteSettings from '@/store/useSiteSettings'
 
 export default defineComponent({
   name: 'SideMenu',
@@ -51,6 +51,7 @@ export default defineComponent({
     const onSelect = (obj) => {
       emit('menuSelect', obj)
     }
+    const { fixSiderbar } = useSiteSettings()
 
     return {
       onSelect,

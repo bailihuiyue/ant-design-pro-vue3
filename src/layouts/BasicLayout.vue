@@ -81,17 +81,7 @@ import { convertRoutes } from '@/router/generateAsyncRoutes'
 import { filteRouterPermission } from '@/router/permission'
 import { PERMISSION, SET_SIDEBAR_TYPE } from '@/store/mutation-types'
 import cloneDeep from 'lodash.clonedeep'
-import {
-  fixSidebar,
-  sidebarOpened,
-  multiTab,
-  device,
-  layoutMode,
-  contentWidth,
-  fixedHeader,
-  navTheme,
-  isSideMenu
-} from '@/store/useSiteSettings'
+import useSiteSettings from '@/store/useSiteSettings'
 import ls from '@/utils/Storage'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
@@ -114,6 +104,8 @@ export default defineComponent({
     const collapsed = ref(false)
     const menus = ref([])
     const store = useStore()
+    const { fixSidebar, sidebarOpened, multiTab, device, layoutMode, contentWidth, fixedHeader, navTheme, isSideMenu } = useSiteSettings()
+    
     const contentPaddingLeft = computed(() => {
       if (!fixSidebar.value || isMobile.value) {
         return '0'

@@ -59,7 +59,7 @@
 <script lang="ts">
 import { defineComponent, reactive, onMounted, onUpdated, toRefs, ref } from 'vue'
 import PageHeader from '@/components/PageHeader/index.vue'
-import { multiTab } from '@/store/useSiteSettings'
+import useSiteSettings from '@/store/useSiteSettings'
 import { useRouter } from 'vue-router'
 // info:todo:用处不大,尚未完成
 export default defineComponent({
@@ -86,8 +86,8 @@ export default defineComponent({
     }
   },
   setup(props,t) {
-    console.log(t)
     const router = useRouter()
+    const { multiTab } = useSiteSettings()
     const state = reactive<any>({
       pageTitle: null,
       description: null,

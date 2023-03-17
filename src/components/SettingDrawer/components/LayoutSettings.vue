@@ -83,13 +83,7 @@ import {
   TOGGLE_FIXED_HEADER_HIDDEN,
   TOGGLE_FIXED_SIDERBAR
 } from '@/store/mutation-types'
-import {
-  contentWidth,
-  layoutMode,
-  fixedHeader,
-  autoHideHeader,
-  fixSiderbar
-} from '@/store/useSiteSettings'
+import useSiteSettings from '@/store/useSiteSettings'
 import { CheckOutlined } from '@ant-design/icons-vue'
 import SettingItem from './SettingItem.vue'
 
@@ -100,7 +94,8 @@ export default defineComponent({
   },
   setup() {
     const { state, commit } = useStore()
-
+    const {contentWidth, layoutMode, fixedHeader, autoHideHeader, fixSiderbar} = useSiteSettings()
+    
     const handleContentWidthChange = (type) => {
       commit(TOGGLE_CONTENT_WIDTH, type)
     }

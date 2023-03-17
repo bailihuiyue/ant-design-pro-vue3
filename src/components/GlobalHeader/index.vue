@@ -1,14 +1,12 @@
 <template>
   <transition name="showHeader">
     <div v-if="visible" class="header-animat">
-      <a-layout-header
-        v-if="visible"
-        :class="[fixedHeader && 'ant-header-fixedHeader', sidebarOpened ? 'ant-header-side-opened' : 'ant-header-side-closed', ]"
-        :style="{ padding: '0' }"
-      >
+      <a-layout-header v-if="visible"
+        :class="[fixedHeader && 'ant-header-fixedHeader', sidebarOpened ? 'ant-header-side-opened' : 'ant-header-side-closed',]"
+        :style="{ padding: '0' }">
         <div v-if="mode === 'sidemenu'" class="header">
           <span @click="toggle">
-            <template v-if="device==='mobile'">
+            <template v-if="device === 'mobile'">
               <MenuFoldOutlined v-if="collapsed" class="trigger" />
               <MenuUnfoldOutlined v-else class="trigger" />
             </template>
@@ -17,7 +15,7 @@
               <MenuFoldOutlined v-else class="trigger" />
             </template>
           </span>
-          <ReloadOutlined  class="trigger" style="" @click="refreshPage"/>
+          <ReloadOutlined class="trigger" style="" @click="refreshPage" />
           <user-menu :theme="theme"></user-menu>
         </div>
         <div v-else :class="['top-nav-header-index', theme]">
@@ -26,8 +24,8 @@
               <logo class="top-nav-header" :show-title="device !== 'mobile'" />
               <s-menu v-if="device !== 'mobile'" mode="horizontal" :menu="menus" :theme="theme" />
               <span v-else @click="toggle">
-                <MenuFoldOutlined v-if="collapsed==='menu-fold'" class="trigger" />
-                <MenuUnfoldOutlined v-if="collapsed==='menu-unfold'" class="trigger" />
+                <MenuFoldOutlined v-if="collapsed === 'menu-fold'" class="trigger" />
+                <MenuUnfoldOutlined v-if="collapsed === 'menu-unfold'" class="trigger" />
               </span>
             </div>
             <user-menu class="header-index-right" :theme="theme"></user-menu>
@@ -43,8 +41,8 @@ import UserMenu from '../tools/UserMenu/index.vue'
 import SMenu from '../Menu/Menu.vue'
 import Logo from '../tools/Logo.vue'
 import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue'
-import { MenuFoldOutlined, MenuUnfoldOutlined,ReloadOutlined } from '@ant-design/icons-vue'
-import { sidebarOpened, device, fixedHeader, autoHideHeader } from '@/store/useSiteSettings'
+import { MenuFoldOutlined, MenuUnfoldOutlined, ReloadOutlined } from '@ant-design/icons-vue'
+import useSiteSettings from '@/store/useSiteSettings'
 
 export default defineComponent({
   name: 'GlobalHeader',
@@ -86,6 +84,8 @@ export default defineComponent({
     const visible = ref<boolean>(true)
     const oldScrollTop = ref<number>(0)
     const ticking = ref<boolean>(false)
+
+    const { sidebarOpened, device, fixedHeader, autoHideHeader } = useSiteSettings()
     // 下滑时隐藏 Header
     const handleScroll = () => {
       if (!autoHideHeader.value) {
@@ -144,12 +144,15 @@ export default defineComponent({
   position: relative;
   z-index: @ant-global-header-zindex;
 }
+
 .showHeader-enter-active {
   transition: all 0.25s ease;
 }
+
 .showHeader-leave-active {
   transition: all 0.5s ease;
 }
+
 .showHeader-enter,
 .showHeader-leave-to {
   opacity: 0;

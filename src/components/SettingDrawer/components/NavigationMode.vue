@@ -27,7 +27,7 @@
 import { defineComponent } from 'vue'
 import { useStore } from 'vuex'
 import { TOGGLE_LAYOUT_MODE, TOGGLE_FIXED_SIDERBAR } from '@/store/mutation-types'
-import { layoutMode } from '@/store/useSiteSettings'
+import useSiteSettings from '@/store/useSiteSettings'
 import { CheckOutlined } from '@ant-design/icons-vue'
 import SettingItem from './SettingItem.vue'
 
@@ -38,7 +38,7 @@ export default defineComponent({
   },
   setup() {
     const { state, commit } = useStore()
-
+    const { layoutMode } = useSiteSettings()
     const handleLayout = (mode) => {
       commit(TOGGLE_LAYOUT_MODE, mode)
       // 因为顶部菜单不能固定左侧菜单栏，所以强制关闭

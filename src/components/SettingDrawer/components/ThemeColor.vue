@@ -30,7 +30,7 @@ import { TOGGLE_COLOR } from '@/store/mutation-types'
 import { CheckOutlined } from '@ant-design/icons-vue'
 import { colorList } from '../settingConfig'
 import { updateTheme } from '../updateTheme'
-import { primaryColor } from '@/store/useSiteSettings'
+import useSiteSettings from '@/store/useSiteSettings'
 import SettingItem from './SettingItem.vue'
 import ColorPicker from '@/components/ColorPicker/index.vue'
 
@@ -42,7 +42,8 @@ export default defineComponent({
   },
   setup() {
     const { state, commit } = useStore()
-
+    const { primaryColor } = useSiteSettings()
+    
     const changeColor = (color) => {
       commit(TOGGLE_COLOR, color)
       updateTheme(color)
