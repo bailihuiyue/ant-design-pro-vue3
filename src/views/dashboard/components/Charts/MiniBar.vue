@@ -6,11 +6,11 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, onMounted } from 'vue'
+<script lang="ts" setup name="MiniBar">
+import { onMounted } from 'vue'
 import { Column } from '@antv/g2plot'
 import dayjs from 'dayjs'
-const data = []
+const data: any = []
 const beginDay = new Date().getTime()
 
 for (let i = 0; i < 10; i++) {
@@ -19,27 +19,21 @@ for (let i = 0; i < 10; i++) {
     y: Math.round((Math.random() + 0.1) * 10)
   })
 }
-
-export default defineComponent({
-  name: 'MiniBar',
-  props: ['id'],
-  setup(props) {
-    onMounted(() => {
-      const columnPlot = new Column(props.id, {
-        data,
-        xField: 'x',
-        yField: 'y',
-        yAxis: false,
-        xAxis: {
-          range: [0.038, 1],
-          label: null
-        },
-        height: 50,
-        color: '#38A0FF'
-      })
-      columnPlot.render()
-    })
-  }
+const props = defineProps(['id'])
+onMounted(() => {
+  const columnPlot = new Column(props.id, {
+    data,
+    xField: 'x',
+    yField: 'y',
+    yAxis: false,
+    xAxis: {
+      range: [0.038, 1],
+      label: null
+    },
+    height: 50,
+    color: '#38A0FF'
+  })
+  columnPlot.render()
 })
 </script>
 

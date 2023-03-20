@@ -1,11 +1,7 @@
 <template>
   <SettingItem :title="$t('settingDrawer.theme')">
     <div style="height: 20px">
-      <a-tooltip
-        class="setting-drawer-theme-color-colorBlock"
-        v-for="(item, index) in colorList"
-        :key="index"
-      >
+      <a-tooltip class="setting-drawer-theme-color-colorBlock" v-for="(item, index) in colorList" :key="index">
         <template #title>{{ item.key }}</template>
         <a-tag :color="item.color" @click="changeColor(item.color)">
           <CheckOutlined v-if="item.color === primaryColor" />
@@ -16,15 +12,15 @@
         <template #content>
           <ColorPicker @change="changeColor" format="hex" disableHistory disableAlpha />
         </template>
-        <a-tag :color="isCustomColor?primaryColor:''" class="setting-drawer-theme-color-colorBlock">
+        <a-tag :color="isCustomColor ? primaryColor : ''" class="setting-drawer-theme-color-colorBlock">
           <CheckOutlined v-if="isCustomColor" />
         </a-tag>
       </a-popover>
     </div>
   </SettingItem>
 </template>
-<script lang="ts">
-import { defineComponent, computed } from 'vue'
+<script lang="ts" setup name="ThemeColor">
+import { computed } from 'vue'
 import { useStore } from 'vuex'
 import { TOGGLE_COLOR } from '@/store/mutation-types'
 import { CheckOutlined } from '@ant-design/icons-vue'
@@ -34,33 +30,17 @@ import useSiteSettings from '@/store/useSiteSettings'
 import SettingItem from './SettingItem.vue'
 import ColorPicker from '@/components/ColorPicker/index.vue'
 
-export default defineComponent({
-  components: {
-    CheckOutlined,
-    SettingItem,
-    ColorPicker
-  },
-  setup() {
-    const { state, commit } = useStore()
-    const { primaryColor } = useSiteSettings()
-    
-    const changeColor = (color) => {
-      commit(TOGGLE_COLOR, color)
-      updateTheme(color)
-    }
+const { state, commit } = useStore()
+const { primaryColor } = useSiteSettings()
 
-    const colorArr = colorList.map((item) => item.color)
-    const isCustomColor = computed(() => {
-      return !colorArr.includes(state.app.color)
-    })
+const changeColor = (color) => {
+  commit(TOGGLE_COLOR, color)
+  updateTheme(color)
+}
 
-    return {
-      colorList,
-      changeColor,
-      primaryColor,
-      isCustomColor
-    }
-  }
+const colorArr = colorList.map((item) => item.color)
+const isCustomColor = computed(() => {
+  return !colorArr.includes(state.app.color)
 })
 </script>
 <style lang="less" scoped>

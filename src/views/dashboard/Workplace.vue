@@ -3,14 +3,10 @@
     <a-row :gutter="24">
       <!-- 总销售额 -->
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
-        <chart-card
-          :loading="loading"
-          :title="$t('dashboard.analysis.total-sales')"
-          total="￥126,560"
-        >
+        <chart-card :loading="loading" :title="$t('dashboard.analysis.total-sales')" total="￥126,560">
           <template #action>
             <a-tooltip>
-              <template #title>{{$t('dashboard.analysis.introduce')}}</template>
+              <template #title>{{ $t('dashboard.analysis.introduce') }}</template>
               <info-circle-outlined />
             </a-tooltip>
           </template>
@@ -37,14 +33,14 @@
         <chart-card :loading="loading" :title="$t('dashboard.analysis.visits')" total="8,846">
           <template #action>
             <a-tooltip>
-              <template #title>{{$t('dashboard.analysis.introduce')}}</template>
+              <template #title>{{ $t('dashboard.analysis.introduce') }}</template>
               <info-circle-outlined />
             </a-tooltip>
           </template>
           <mini-area id="day-visits" />
           <template #footer>
             {{ $t('dashboard.analysis.day-visits') }}
-            <span>{{ '1,234'}}</span>
+            <span>{{ '1,234' }}</span>
           </template>
         </chart-card>
       </a-col>
@@ -53,7 +49,7 @@
         <chart-card :loading="loading" :title="$t('dashboard.analysis.payments')" total="6,560">
           <template #action>
             <a-tooltip>
-              <template #title>{{$t('dashboard.analysis.introduce')}}</template>
+              <template #title>{{ $t('dashboard.analysis.introduce') }}</template>
               <info-circle-outlined />
             </a-tooltip>
           </template>
@@ -68,14 +64,10 @@
       </a-col>
       <!-- 运营活动效果 -->
       <a-col :sm="24" :md="12" :xl="6" :style="{ marginBottom: '24px' }">
-        <chart-card
-          :loading="loading"
-          :title="$t('dashboard.analysis.operational-effect')"
-          total="78%"
-        >
+        <chart-card :loading="loading" :title="$t('dashboard.analysis.operational-effect')" total="78%">
           <template #action>
             <a-tooltip>
-              <template #title>{{$t('dashboard.analysis.introduce')}}</template>
+              <template #title>{{ $t('dashboard.analysis.introduce') }}</template>
               <info-circle-outlined />
             </a-tooltip>
           </template>
@@ -95,13 +87,9 @@
     </a-row>
 
     <!-- 销售额.访问量 -->
-    <a-card :loading="loading" :bordered="false" :body-style="{padding: '0'}">
+    <a-card :loading="loading" :bordered="false" :body-style="{ padding: '0' }">
       <div class="salesCard">
-        <a-tabs
-          default-active-key="1"
-          size="large"
-          :tab-bar-style="{marginBottom: '24px', paddingLeft: '16px'}"
-        >
+        <a-tabs default-active-key="1" size="large" :tab-bar-style="{ marginBottom: '24px', paddingLeft: '16px' }">
           <template #rightExtra>
             <div class="extra-wrapper">
               <div class="extra-item">
@@ -110,7 +98,7 @@
                 <a>{{ $t('dashboard.analysis.all-month') }}</a>
                 <a>{{ $t('dashboard.analysis.all-year') }}</a>
               </div>
-              <a-range-picker :style="{width: '256px'}" />
+              <a-range-picker :style="{ width: '256px' }" />
             </div>
           </template>
           <a-tab-pane loading="true" :tab="$t('dashboard.analysis.sales')" key="1">
@@ -141,12 +129,8 @@
       <a-row :gutter="24" type="flex" :style="{ marginTop: '24px' }">
         <!-- 线上热门搜索 -->
         <a-col :xl="12" :lg="24" :md="24" :sm="24" :xs="24">
-          <a-card
-            :loading="loading"
-            :bordered="false"
-            :title="$t('dashboard.analysis.online-top-search')"
-            :style="{ height: '100%' }"
-          >
+          <a-card :loading="loading" :bordered="false" :title="$t('dashboard.analysis.online-top-search')"
+            :style="{ height: '100%' }">
             <template #extra>
               <a-dropdown :trigger="['click']" placement="bottomLeft">
                 <a class="ant-dropdown-link" href="#">
@@ -165,12 +149,12 @@
               </a-dropdown>
             </template>
             <a-row :gutter="68">
-              <a-col :xs="24" :sm="12" :style="{ marginBottom: ' 24px'}">
+              <a-col :xs="24" :sm="12" :style="{ marginBottom: ' 24px' }">
                 <number-info :total="12321" :sub-total="17.1">
                   <template #subtitle>
                     <span>{{ $t('dashboard.analysis.search-users') }}</span>
                     <a-tooltip>
-                      <template #title>{{$t('dashboard.analysis.introduce')}}</template>
+                      <template #title>{{ $t('dashboard.analysis.introduce') }}</template>
                       <info-circle-outlined :style="{ marginLeft: '8px' }" />
                     </a-tooltip>
                   </template>
@@ -179,13 +163,13 @@
                   <mini-smooth-area :data="searchUserData" id="search-users" />
                 </div>
               </a-col>
-              <a-col :xs="24" :sm="12" :style="{ marginBottom: ' 24px'}">
+              <a-col :xs="24" :sm="12" :style="{ marginBottom: ' 24px' }">
                 <number-info :total="2.7" :sub-total="26.2" status="down">
                   <template #subtitle>
                     <span>{{ $t('dashboard.analysis.per-capita-search') }}</span>
                     <template>
                       <a-tooltip>
-                        <template #title>{{$t('dashboard.analysis.introduce')}}</template>
+                        <template #title>{{ $t('dashboard.analysis.introduce') }}</template>
                         <info-circle-outlined :style="{ marginLeft: '8px' }" />
                       </a-tooltip>
                     </template>
@@ -197,13 +181,8 @@
               </a-col>
             </a-row>
             <div class="ant-table-wrapper">
-              <a-table
-                row-key="index"
-                size="small"
-                :columns="searchTableColumns"
-                :dataSource="searchData"
-                :pagination="{ pageSize: 5 }"
-              >
+              <a-table row-key="index" size="small" :columns="searchTableColumns" :dataSource="searchData"
+                :pagination="{ pageSize: 5 }">
                 <template #bodyCell="{ column, text }">
                   <template v-if="column.key === 'range'">
                     <trend :type="text.status !== 0" :percentage="text.range" />
@@ -215,13 +194,8 @@
         </a-col>
         <!-- 销售额类别占比 -->
         <a-col :xl="12" :lg="24" :md="24" :sm="24" :xs="24">
-          <a-card
-            class="antd-pro-pages-dashboard-analysis-salesCard"
-            :loading="loading"
-            :bordered="false"
-            :title="$t('dashboard.analysis.the-proportion-of-sales')"
-            :style="{ height: '100%' }"
-          >
+          <a-card class="antd-pro-pages-dashboard-analysis-salesCard" :loading="loading" :bordered="false"
+            :title="$t('dashboard.analysis.the-proportion-of-sales')" :style="{ height: '100%' }">
             <template #extra>
               <div style="height: inherit;">
                 <span class="dashboard-analysis-iconGroup">
@@ -261,8 +235,8 @@
   </div>
 </template>
 
-<script lang="ts">
-import { ref, computed, defineComponent } from 'vue'
+<script lang="ts" setup name="Analysis">
+import { ref, computed } from 'vue'
 import dayjs from 'dayjs'
 import { useI18n } from 'vue-i18n'
 import { isMobile } from '@/utils/device'
@@ -279,138 +253,97 @@ import MiniSmoothArea from './components/Charts/MiniSmoothArea.vue'
 import Pie from './components/Charts/Pie.vue'
 
 // info:todo:当g2设置 {yAxis: false,smooth: true}时,会出现最高点显示不全的问题,官网示例也是如此,解决方法:设置中加padding: [5, 0, 0, 0]
-export default defineComponent({
-  name: 'Analysis',
-  components: {
-    ChartCard,
-    Trend,
-    MiniArea,
-    MiniBar,
-    MiniProgress,
-    RankList,
-    Bar,
-    NumberInfo,
-    MiniSmoothArea,
-    Pie,
-    InfoCircleOutlined,
-    EllipsisOutlined
+const { t } = useI18n()
+// created
+const loading = ref<boolean>(true)
+setTimeout(() => {
+  loading.value = !loading.value
+}, 500)
+
+const barData: any = []
+const barData2: any = []
+for (let i = 0; i < 12; i += 1) {
+  barData.push({
+    x: `${i + 1}月`,
+    y: Math.floor(Math.random() * 1000) + 200
+  })
+  barData2.push({
+    x: `${i + 1}月`,
+    y: Math.floor(Math.random() * 1000) + 200
+  })
+}
+
+const rankList: any = []
+for (let i = 0; i < 7; i++) {
+  rankList.push({
+    name: '白鹭岛 ' + (i + 1) + ' 号店',
+    total: 1234.56 - i * 100
+  })
+}
+
+const searchUserData: any = []
+for (let i = 0; i < 7; i++) {
+  searchUserData.push({
+    x: dayjs().add(i, 'days').format('YYYY-MM-DD'),
+    y: Math.ceil((Math.random() + 1) * 10)
+  })
+}
+const searchUserScale = [
+  {
+    dataKey: 'x',
+    alias: '时间'
   },
-  setup() {
-    const { t } = useI18n()
-    // created
-    const loading = ref<boolean>(true)
-    setTimeout(() => {
-      loading.value = !loading.value
-    }, 500)
-
-    const barData: any = []
-    const barData2: any = []
-    for (let i = 0; i < 12; i += 1) {
-      barData.push({
-        x: `${i + 1}月`,
-        y: Math.floor(Math.random() * 1000) + 200
-      })
-      barData2.push({
-        x: `${i + 1}月`,
-        y: Math.floor(Math.random() * 1000) + 200
-      })
-    }
-
-    const rankList: any = []
-    for (let i = 0; i < 7; i++) {
-      rankList.push({
-        name: '白鹭岛 ' + (i + 1) + ' 号店',
-        total: 1234.56 - i * 100
-      })
-    }
-
-    const searchUserData: any = []
-    for (let i = 0; i < 7; i++) {
-      searchUserData.push({
-        x: dayjs().add(i, 'days').format('YYYY-MM-DD'),
-        y: Math.ceil((Math.random() + 1) * 10)
-      })
-    }
-    const searchUserScale = [
-      {
-        dataKey: 'x',
-        alias: '时间'
-      },
-      {
-        dataKey: 'y',
-        alias: '用户数',
-        min: 0,
-        max: 10
-      }
-    ]
-
-    const searchData: any = []
-    for (let i = 0; i < 50; i += 1) {
-      searchData.push({
-        index: i + 1,
-        keyword: `搜索关键词-${i}`,
-        count: Math.floor(Math.random() * 1000),
-        range: Math.floor(Math.random() * 100),
-        status: Math.floor((Math.random() * 10) % 2)
-      })
-    }
-
-    const sourceData = [
-      { item: '家用电器', count: 32.2 },
-      { item: '食用酒水', count: 21 },
-      { item: '个护健康', count: 17 },
-      { item: '服饰箱包', count: 13 },
-      { item: '母婴产品', count: 9 },
-      { item: '其他', count: 7.8 }
-    ]
-
-    const searchTableColumns = computed(() => [
-      {
-        dataIndex: 'index',
-        title: t('dashboard.analysis.table.rank'),
-        width: 90
-      },
-      {
-        dataIndex: 'keyword',
-        title: t('dashboard.analysis.table.search-keyword')
-      },
-      {
-        dataIndex: 'count',
-        title: t('dashboard.analysis.table.users')
-      },
-      {
-        key: 'range',
-        title: t('dashboard.analysis.table.weekly-range'),
-        align: 'right',
-        sorter: (a, b) => a.range - b.range
-      }
-    ])
-
-    const salesTypeRadio = ref<string>('a')
-
-    return {
-      loading,
-      rankList,
-
-      // 搜索用户数
-      searchUserData,
-      searchUserScale,
-      searchData,
-
-      barData,
-      barData2,
-
-      sourceData,
-      pieStyle: {
-        stroke: '#fff',
-        lineWidth: 1
-      },
-      searchTableColumns,
-      isMobile,
-      salesTypeRadio
-    }
+  {
+    dataKey: 'y',
+    alias: '用户数',
+    min: 0,
+    max: 10
   }
-})
+]
+
+const searchData: any = []
+for (let i = 0; i < 50; i += 1) {
+  searchData.push({
+    index: i + 1,
+    keyword: `搜索关键词-${i}`,
+    count: Math.floor(Math.random() * 1000),
+    range: Math.floor(Math.random() * 100),
+    status: Math.floor((Math.random() * 10) % 2)
+  })
+}
+
+const sourceData = [
+  { item: '家用电器', count: 32.2 },
+  { item: '食用酒水', count: 21 },
+  { item: '个护健康', count: 17 },
+  { item: '服饰箱包', count: 13 },
+  { item: '母婴产品', count: 9 },
+  { item: '其他', count: 7.8 }
+]
+
+const searchTableColumns = computed(() => [
+  {
+    dataIndex: 'index',
+    title: t('dashboard.analysis.table.rank'),
+    width: 90
+  },
+  {
+    dataIndex: 'keyword',
+    title: t('dashboard.analysis.table.search-keyword')
+  },
+  {
+    dataIndex: 'count',
+    title: t('dashboard.analysis.table.users')
+  },
+  {
+    key: 'range',
+    title: t('dashboard.analysis.table.weekly-range'),
+    align: 'right',
+    sorter: (a, b) => a.range - b.range
+  }
+])
+
+const salesTypeRadio = ref<string>('a')
 </script>
 
 <style lang="less" scoped>
@@ -439,6 +372,7 @@ export default defineComponent({
 
 .antd-pro-pages-dashboard-analysis-salesCard {
   height: calc(100% - 24px);
+
   ::v-deep(.ant-card-head) {
     position: relative;
   }
@@ -452,34 +386,41 @@ export default defineComponent({
     transition: color 0.32s;
   }
 }
+
 .analysis-salesTypeRadio {
   position: absolute;
   right: 54px;
   bottom: 12px;
 }
+
 ::v-deep(.ant-table-row) {
   color: rgba(0, 0, 0, 0.65);
+
   &:hover {
     background-color: #fff1f0;
   }
 }
+
 ::v-deep(.ant-table-tbody) {
-  & > tr.ant-table-row:hover {
-    & > td {
+  &>tr.ant-table-row:hover {
+    &>td {
       background-color: #fff1f0;
     }
   }
 }
+
 .darkMode {
   .dashboard-analysis-iconGroup {
     i {
       color: @dark-deactive-font-color;
     }
   }
+
   .ant-table-wrapper {
     ::v-deep(.ant-table-cell) {
       color: @dark-deactive-font-color;
     }
+
     ::v-deep(.ant-table-tbody) {
       .ant-table-row:hover {
         background-color: rgb(38, 38, 38) !important;

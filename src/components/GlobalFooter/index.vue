@@ -16,27 +16,15 @@
     </div>
     <div class="copyright">
       Copyright
-      <CopyrightOutlined />&nbsp;2021
+      <CopyrightOutlined />&nbsp;2023
       <span>Ones</span>
     </div>
   </div>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup name="GlobalFooter">
 import { CopyrightOutlined, GithubOutlined } from '@ant-design/icons-vue'
-import { defineComponent } from 'vue'
 import { isMobile } from '@/utils/device'
-
-export default defineComponent({
-  name: 'GlobalFooter',
-  components: {
-    CopyrightOutlined,
-    GithubOutlined
-  },
-  setup() {
-    return { isMobile }
-  }
-})
 </script>
 
 <style lang="less" scoped>

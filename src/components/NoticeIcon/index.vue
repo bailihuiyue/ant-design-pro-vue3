@@ -2,14 +2,9 @@
   <!--placement="bottomRight"
     :autoAdjustOverflow="false"
   :arrowPointAtCenter="true"-->
-  <a-popover
-    v-model:visible="visible"
-    trigger="click"
-    :placement="isMobile?'bottom':'bottomRight'"
-    overlayClassName="header-notice-wrapper"
-    :getPopupContainer="getPopupContainer"
-    :overlayStyle="{ width: isMobile?'250px':'300px', top: '50px' }"
-  >
+  <a-popover v-model:visible="visible" trigger="click" :placement="isMobile ? 'bottom' : 'bottomRight'"
+    overlayClassName="header-notice-wrapper" :getPopupContainer="getPopupContainer"
+    :overlayStyle="{ width: isMobile ? '250px' : '300px', top: '50px' }">
     <template #content>
       <a-spin :spinning="loading">
         <a-tabs>
@@ -17,29 +12,20 @@
             <a-list>
               <a-list-item>
                 <a-list-item-meta title="你收到了 14 份新周报" description="一年前">
-                  <a-avatar
-                    style="background-color: white"
-                    slot="avatar"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png"
-                  />
+                  <a-avatar style="background-color: white" slot="avatar"
+                    src="https://gw.alipayobjects.com/zos/rmsportal/ThXAXghbEsBCCSDihZxY.png" />
                 </a-list-item-meta>
               </a-list-item>
               <a-list-item>
                 <a-list-item-meta title="你推荐的 曲妮妮 已通过第三轮面试" description="一年前">
-                  <a-avatar
-                    style="background-color: white"
-                    slot="avatar"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/OKJXDXrmkNshAMvwtvhu.png"
-                  />
+                  <a-avatar style="background-color: white" slot="avatar"
+                    src="https://gw.alipayobjects.com/zos/rmsportal/OKJXDXrmkNshAMvwtvhu.png" />
                 </a-list-item-meta>
               </a-list-item>
               <a-list-item>
                 <a-list-item-meta title="这种模板可以区分多种通知类型" description="一年前">
-                  <a-avatar
-                    style="background-color: white"
-                    slot="avatar"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/kISTdvpyTAhtGxpovNWd.png"
-                  />
+                  <a-avatar style="background-color: white" slot="avatar"
+                    src="https://gw.alipayobjects.com/zos/rmsportal/kISTdvpyTAhtGxpovNWd.png" />
                 </a-list-item-meta>
               </a-list-item>
             </a-list>
@@ -57,46 +43,30 @@
   </a-popover>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from 'vue'
+<script lang="ts" setup name="HeaderNotice">
+import { ref } from 'vue'
 import { BellOutlined } from '@ant-design/icons-vue'
 import { isMobile } from '@/utils/device'
 
-export default defineComponent({
-  name: 'HeaderNotice',
-  components: {
-    BellOutlined
-  },
-  setup() {
-    const loading = ref<boolean>(false)
-    const visible = ref<boolean>(false)
-    const noticeRef = ref(null)
+const loading = ref<boolean>(false)
+const visible = ref<boolean>(false)
+const noticeRef = ref(null)
 
-    const fetchNotice = () => {
-      if (!visible.value) {
-        loading.value = true
-        setTimeout(() => {
-          loading.value = false
-        }, 300)
-      } else {
-        loading.value = false
-      }
-      // visible.value = !visible.value;
-    }
-
-    const getPopupContainer = () => {
-      return noticeRef.value!.parentElement
-    }
-    return {
-      loading,
-      visible,
-      fetchNotice,
-      noticeRef,
-      getPopupContainer,
-      isMobile
-    }
+const fetchNotice = () => {
+  if (!visible.value) {
+    loading.value = true
+    setTimeout(() => {
+      loading.value = false
+    }, 300)
+  } else {
+    loading.value = false
   }
-})
+  // visible.value = !visible.value;
+}
+
+const getPopupContainer = () => {
+  return noticeRef.value!.parentElement
+}
 </script>
 
 <style lang="css">

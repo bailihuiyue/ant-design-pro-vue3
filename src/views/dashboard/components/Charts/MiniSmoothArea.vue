@@ -6,35 +6,30 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, onMounted } from 'vue'
+<script lang="ts" setup name="MiniSmoothArea">
+import { onMounted } from 'vue'
 import { Area } from '@antv/g2plot'
 
-export default defineComponent({
-  name: 'MiniSmoothArea',
-  props: ['id', 'data'],
-  setup(props) {
-    onMounted(() => {
-      const area = new Area(props.id, {
-        data: props.data,
-        xField: 'x',
-        yField: 'y',
-        smooth: true,
-        yAxis: false,
-        xAxis: {
-          range: [0, 1],
-          label: null
-        },
-        height: 60,
-        areaStyle: {
-          fill: '#74BCFF',
-          fillOpacity: 0.9
-        },
-        padding: [5, 0, 0, 0]
-      })
-      area.render()
-    })
-  }
+const props = defineProps(['id', 'data'])
+onMounted(() => {
+  const area = new Area(props.id, {
+    data: props.data,
+    xField: 'x',
+    yField: 'y',
+    smooth: true,
+    yAxis: false,
+    xAxis: {
+      range: [0, 1],
+      label: null
+    },
+    height: 60,
+    areaStyle: {
+      fill: '#74BCFF',
+      fillOpacity: 0.9
+    },
+    padding: [5, 0, 0, 0]
+  })
+  area.render()
 })
 </script>
 

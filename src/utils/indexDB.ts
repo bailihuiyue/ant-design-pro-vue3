@@ -10,7 +10,6 @@ const initDB = () => {
   if (!inited) {
     return new Promise((resolve, reject) => {
       DBOpenRequest.onsuccess = (event) => {
-        console.log('onsuccess')
         db = DBOpenRequest.result;
         inited = true
         resolve(true)

@@ -23,42 +23,28 @@
     </div>
   </SettingItem>
 </template>
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup name="NavigationMode">
 import { useStore } from 'vuex'
 import { TOGGLE_LAYOUT_MODE, TOGGLE_FIXED_SIDERBAR } from '@/store/mutation-types'
 import useSiteSettings from '@/store/useSiteSettings'
 import { CheckOutlined } from '@ant-design/icons-vue'
 import SettingItem from './SettingItem.vue'
 
-export default defineComponent({
-  components: {
-    CheckOutlined,
-    SettingItem
-  },
-  setup() {
-    const { state, commit } = useStore()
-    const { layoutMode } = useSiteSettings()
-    const handleLayout = (mode) => {
-      commit(TOGGLE_LAYOUT_MODE, mode)
-      // 因为顶部菜单不能固定左侧菜单栏，所以强制关闭
-      handleFixSiderbar(false)
-    }
+const { state, commit } = useStore()
+const { layoutMode } = useSiteSettings()
+const handleLayout = (mode) => {
+  commit(TOGGLE_LAYOUT_MODE, mode)
+  // 因为顶部菜单不能固定左侧菜单栏，所以强制关闭
+  handleFixSiderbar(false)
+}
 
-    const handleFixSiderbar = (fixed) => {
-      if (state.app.layoutMode === 'topmenu') {
-        commit(TOGGLE_FIXED_SIDERBAR, false)
-        return
-      }
-      commit(TOGGLE_FIXED_SIDERBAR, fixed)
-    }
-
-    return {
-      handleLayout,
-      layoutMode
-    }
+const handleFixSiderbar = (fixed) => {
+  if (state.app.layoutMode === 'topmenu') {
+    commit(TOGGLE_FIXED_SIDERBAR, false)
+    return
   }
-})
+  commit(TOGGLE_FIXED_SIDERBAR, fixed)
+}
 </script>
 <style lang="less" scoped>
 </style>

@@ -36,105 +36,85 @@
   </transition>
 </template>
 
-<script lang="ts">
+<script lang="ts" setup name="GlobalHeader">
 import UserMenu from '../tools/UserMenu/index.vue'
 import SMenu from '../Menu/Menu.vue'
 import Logo from '../tools/Logo.vue'
-import { defineComponent, ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount } from 'vue'
 import { MenuFoldOutlined, MenuUnfoldOutlined, ReloadOutlined } from '@ant-design/icons-vue'
 import useSiteSettings from '@/store/useSiteSettings'
-
-export default defineComponent({
-  name: 'GlobalHeader',
-  components: {
-    UserMenu,
-    SMenu,
-    Logo,
-    MenuFoldOutlined,
-    MenuUnfoldOutlined,
-    ReloadOutlined
+const props = defineProps({
+  mode: {
+    type: String,
+    // sidemenu, topmenu
+    default: 'sidemenu'
   },
-  props: {
-    mode: {
-      type: String,
-      // sidemenu, topmenu
-      default: 'sidemenu'
-    },
-    menus: {
-      type: Array,
-      required: true
-    },
-    theme: {
-      type: String,
-      required: false,
-      default: 'dark'
-    },
-    collapsed: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-    device: {
-      type: String,
-      required: false,
-      default: 'desktop'
-    }
+  menus: {
+    type: Array,
+    required: true
   },
-  setup(props, { emit }) {
-    const visible = ref<boolean>(true)
-    const oldScrollTop = ref<number>(0)
-    const ticking = ref<boolean>(false)
-
-    const { sidebarOpened, device, fixedHeader, autoHideHeader } = useSiteSettings()
-    // 下滑时隐藏 Header
-    const handleScroll = () => {
-      if (!autoHideHeader.value) {
-        return
-      }
-
-      const scrollTop = document.body.scrollTop + document.documentElement.scrollTop
-      if (!ticking.value) {
-        ticking.value = true
-        requestAnimationFrame(() => {
-          if (oldScrollTop.value > scrollTop) {
-            visible.value = true
-          } else if (scrollTop > 200 && visible.value) {
-            visible.value = false
-          } else if (scrollTop < 200 && !visible.value) {
-            visible.value = true
-          }
-          oldScrollTop.value = scrollTop
-          ticking.value = false
-        })
-      }
-    }
-
-    const toggle = () => {
-      emit('toggle')
-    }
-
-    onMounted(() => {
-      document.addEventListener('scroll', handleScroll, { passive: true })
-    })
-
-    onBeforeUnmount(() => {
-      document.body.removeEventListener('scroll', handleScroll, true)
-    })
-
-    const refreshPage = () => {
-      emit('refresh')
-    }
-
-    return {
-      visible,
-      fixedHeader,
-      sidebarOpened,
-      toggle,
-      device,
-      refreshPage
-    }
+  theme: {
+    type: String,
+    required: false,
+    default: 'dark'
+  },
+  collapsed: {
+    type: Boolean,
+    required: false,
+    default: false
+  },
+  device: {
+    type: String,
+    required: false,
+    default: 'desktop'
   }
 })
+const visible = ref<boolean>(true)
+const oldScrollTop = ref<number>(0)
+const ticking = ref<boolean>(false)
+
+const { sidebarOpened, device, fixedHeader, autoHideHeader } = useSiteSettings()
+// 下滑时隐藏 Header
+const handleScroll = () => {
+  if (!autoHideHeader.value) {
+    return
+  }
+
+  const scrollTop = document.body.scrollTop + document.documentElement.scrollTop
+  if (!ticking.value) {
+    ticking.value = true
+    requestAnimationFrame(() => {
+      if (oldScrollTop.value > scrollTop) {
+        visible.value = true
+      } else if (scrollTop > 200 && visible.value) {
+        visible.value = false
+      } else if (scrollTop < 200 && !visible.value) {
+        visible.value = true
+      }
+      oldScrollTop.value = scrollTop
+      ticking.value = false
+    })
+  }
+}
+
+
+const emit = defineEmits(['toggle', 'refresh'])
+const toggle = () => {
+  emit('toggle')
+}
+
+onMounted(() => {
+  document.addEventListener('scroll', handleScroll, { passive: true })
+})
+
+onBeforeUnmount(() => {
+  document.body.removeEventListener('scroll', handleScroll, true)
+})
+
+const refreshPage = () => {
+  emit('refresh')
+}
+
 </script>
 
 <style lang="less">

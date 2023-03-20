@@ -1,10 +1,7 @@
 <template>
   <div class="user-wrapper">
     <div class="content-box">
-      <a
-        href="https://github.com/bailihuiyue/ant-design-pro-vue3/blob/main/README.md"
-        target="_blank"
-      >
+      <a href="https://github.com/bailihuiyue/ant-design-pro-vue3/blob/main/README.md" target="_blank">
         <span class="action">
           <QuestionCircleOutlined />
         </span>
@@ -12,8 +9,8 @@
       <notice-icon class="action" />
       <a-dropdown>
         <span class="action ant-dropdown-link user-dropdown-menu">
-          <a-avatar class="avatar" size="small" :src="avatar" />
-          <span class="nickname">{{ nickname }}</span>
+          <a-avatar class="avatar" size="small" :src="UserInfo.avatar" />
+          <span class="nickname">{{ UserInfo.name }}</span>
         </span>
         <template #overlay>
           <a-menu class="user-dropdown-menu-wrapper">
@@ -62,8 +59,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup name="UserMenu">
 import NoticeIcon from '@/components/NoticeIcon/index.vue'
 import { logout } from '@/views/user/service'
 import { USER_INFO } from '@/store/mutation-types'
@@ -81,52 +77,32 @@ import ls from '@/utils/Storage'
 import { useRouter } from 'vue-router'
 import { clearUserInfo } from '@/utils/util'
 
-export default defineComponent({
-  name: 'UserMenu',
-  props: ['theme'],
-  components: {
-    NoticeIcon,
-    QuestionCircleOutlined,
-    SettingOutlined,
-    LogoutOutlined,
-    SelectLang,
-    LockOutlined
-  },
-  setup(props) {
-    const { t } = useI18n()
-    const router = useRouter()
-    const UserInfo = ls.get(USER_INFO)
-    const store = useStore()
-    const handleLogout = () => {
-      Modal.confirm({
-        title: t('tools.userMenu.tip'),
-        content: t('tools.userMenu.checkLogout'),
-        onOk: () => {
-          logout().then((res) => {
-            clearUserInfo()
-            router.push({ path: '/user/login' })
-          })
-        },
-        onCancel() {}
+
+const props = defineProps(['theme'])
+const { t } = useI18n()
+const router = useRouter()
+const UserInfo = ls.get(USER_INFO)
+const store = useStore()
+const handleLogout = () => {
+  Modal.confirm({
+    title: t('tools.userMenu.tip'),
+    content: t('tools.userMenu.checkLogout'),
+    onOk: () => {
+      logout().then((res) => {
+        clearUserInfo()
+        router.push({ path: '/user/login' })
       })
-    }
-    const showSystemSetting = () => {
-      store.commit('SET_SETTING_DRAWER', true)
-    }
+    },
+    onCancel() { }
+  })
+}
+const showSystemSetting = () => {
+  store.commit('SET_SETTING_DRAWER', true)
+}
 
-    const onLockScreen = () => {
-      store.commit('SET_LOCK_SCREEN', true)
-    }
-
-    return {
-      avatar: UserInfo.avatar,
-      nickname: UserInfo.name,
-      handleLogout,
-      showSystemSetting,
-      onLockScreen
-    }
-  }
-})
+const onLockScreen = () => {
+  store.commit('SET_LOCK_SCREEN', true)
+}
 </script>
 <style lang="less">
 .user-dropdown-menu-wrapper {

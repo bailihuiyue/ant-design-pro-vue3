@@ -1,12 +1,6 @@
 <template>
   <div class="setting-drawer">
-    <a-drawer
-      width="320"
-      placement="right"
-      @close="onClose"
-      :closable="isMobile"
-      :visible="state.app.showSettings"
-    >
+    <a-drawer width="320" placement="right" @close="onClose" :closable="isMobile" :visible="state.app.showSettings">
       <div class="setting-drawer-index-content">
         <!-- 整体风格设置 -->
         <GlobalStyle />
@@ -23,18 +17,17 @@
       <div :style="{ marginBottom: '24px' }">
         <a-button @click="doCopy" block>
           <template #icon>
-            <CopyOutlined />
-            {{ $t('settingDrawer.copySettings') }}
+            <span>
+              <CopyOutlined style="margin-right:5px" /> {{ $t('settingDrawer.copySettings') }}
+            </span>
           </template>
         </a-button>
         <a-alert type="warning" :style="{ marginTop: '24px' }" v-if="isDev">
           <template #message>
             <span>
               {{ $t('settingDrawer.words') }}
-              <a
-                href="https://github.com/bailihuiyue/ant-design-pro-vue3/blob/main/src/config/defaultSettings.ts"
-                target="_blank"
-              >src/config/defaultSettings.ts</a>
+              <a href="https://github.com/bailihuiyue/ant-design-pro-vue3/blob/main/src/config/defaultSettings.ts"
+                target="_blank">src/config/defaultSettings.ts</a>
             </span>
           </template>
         </a-alert>
@@ -49,8 +42,7 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup name="SettingDrawer">
 import { useStore } from 'vuex'
 import { CloseOutlined, CopyOutlined } from '@ant-design/icons-vue'
 import { SET_SETTING_DRAWER } from '@/store/mutation-types'
@@ -64,26 +56,15 @@ import LayoutSettings from './components/LayoutSettings.vue'
 import OtherSettings from './components/OtherSettings.vue'
 import { isMobile } from '@/utils/device'
 
-export default defineComponent({
-  components: {
-    CloseOutlined,
-    CopyOutlined,
-    GlobalStyle,
-    ThemeColor,
-    NavigationMode,
-    LayoutSettings,
-    OtherSettings
-  },
-  setup() {
-    const { state, commit } = useStore()
-    const { toClipboard } = useClipboard()
+const { state, commit } = useStore()
+const { toClipboard } = useClipboard()
 
-    const onClose = () => {
-      commit(SET_SETTING_DRAWER, false)
-    }
-    const doCopy = () => {
-      // get current settings from mixin or this.$store.state.app, pay attention to the property name
-      const text = `export default {
+const onClose = () => {
+  commit(SET_SETTING_DRAWER, false)
+}
+const doCopy = () => {
+  // get current settings from mixin or this.$store.state.app, pay attention to the property name
+  const text = `export default {
   primaryColor: '${state.app.primaryColor}', // primary color of ant design
   navTheme: '${state.app.navTheme}', // theme for nav menu
   layout: '${state.app.layoutMode}', // nav menu position: sidemenu or topmenu
@@ -99,28 +80,19 @@ export default defineComponent({
     namespace: 'PRO_'
   },
 }`
-      toClipboard(text)
-        .then((msg) => {
-          message.success('复制完毕')
-        })
-        .catch((err) => {
-          message.error('复制失败' + err)
-        })
-    }
-
-    return {
-      state,
-      onClose,
-      doCopy,
-      isDev,
-      isMobile
-    }
-  }
-})
+  toClipboard(text)
+    .then((msg) => {
+      message.success('复制完毕')
+    })
+    .catch((err) => {
+      message.error('复制失败' + err)
+    })
+}
 </script>
 
 <style lang="less" scoped>
 @import '../../style/index.less';
+
 .setting-drawer-index-content {
   ::v-deep(.setting-drawer-index-blockChecbox) {
     display: flex;

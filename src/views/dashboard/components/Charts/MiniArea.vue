@@ -6,11 +6,11 @@
   </div>
 </template>
 
-<script>
-import { defineComponent, onMounted } from 'vue'
+<script lang="ts" setup name="MiniArea">
+import { onMounted } from 'vue'
 import { Area } from '@antv/g2plot'
 import dayjs from 'dayjs'
-const data = []
+const data: any = []
 const beginDay = new Date().getTime()
 
 for (let i = 0; i < 10; i++) {
@@ -20,34 +20,29 @@ for (let i = 0; i < 10; i++) {
   })
 }
 
-export default defineComponent({
-  name: 'MiniArea',
-  props: ['id'],
-  setup(props) {
-    onMounted(() => {
-      const area = new Area(props.id, {
-        data,
-        xField: 'x',
-        yField: 'y',
-        smooth: true,
-        yAxis: false,
-        xAxis: {
-          range: [0, 1],
-          label: null
-        },
-        height: 50,
-        areaStyle: {
-          fill: '#74BCFF',
-          fillOpacity: 1
-        },
-        line: {
-          color: '#74BCFF'
-        },
-        padding: [5, 0, 0, 0]
-      })
-      area.render()
-    })
-  }
+const props = defineProps(['id'])
+onMounted(() => {
+  const area = new Area(props.id, {
+    data,
+    xField: 'x',
+    yField: 'y',
+    smooth: true,
+    yAxis: false,
+    xAxis: {
+      range: [0, 1],
+      label: null
+    },
+    height: 50,
+    areaStyle: {
+      fill: '#74BCFF',
+      fillOpacity: 1
+    },
+    line: {
+      color: '#74BCFF'
+    },
+    padding: [5, 0, 0, 0]
+  })
+  area.render()
 })
 </script>
 

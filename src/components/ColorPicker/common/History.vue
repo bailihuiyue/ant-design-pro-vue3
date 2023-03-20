@@ -1,45 +1,32 @@
 <template>
   <div class="bee-colorPicker__record">
     <div class="color-list">
-      <div
-        class="color-item transparent"
-        :class="{ 'color-item__round': round }"
-        v-for="(v, i) in colorList"
-        :key="i"
-        @click="onClickRecord(v)"
-      >
+      <div class="color-item transparent" :class="{ 'color-item__round': round }" v-for="(v, i) in colorList" :key="i"
+        @click="onClickRecord(v)">
         <div class="color-item__display" :style="{ backgroundColor: v }"></div>
       </div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, PropType } from "vue";
-
-export default defineComponent({
-  name: "History",
-  props: {
-    colorList: {
-      type: Array as PropType<string[]>,
-      default: () => {
-        return [];
-      }
-    },
-    round: {
-      type: Boolean,
-      default: true
+<script lang="ts" setup name="History">
+import { PropType } from "vue";
+const props = defineProps({
+  colorList: {
+    type: Array as PropType<string[]>,
+    default: () => {
+      return [];
     }
   },
-  emits: ["change"],
-  setup(props, { emit }) {
-    const onClickRecord = (color: string) => {
-      emit("change", color);
-    };
-
-    return { onClickRecord };
+  round: {
+    type: Boolean,
+    default: true
   }
-});
+})
+const emit = defineEmits(["change"])
+const onClickRecord = (color: string) => {
+  emit("change", color);
+};
 </script>
 
 <style lang="scss" scoped>

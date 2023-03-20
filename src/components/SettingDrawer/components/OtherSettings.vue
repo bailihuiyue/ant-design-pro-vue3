@@ -31,47 +31,29 @@
     </div>
   </SettingItem>
 </template>
-<script lang="ts">
-import { defineComponent } from 'vue'
+<script lang="ts" setup name="OtherSettings">
 import { useStore } from 'vuex'
 import { TOGGLE_WEAK, TOGGLE_GRAY, TOGGLE_MULTI_TAB } from '@/store/mutation-types'
 import useSiteSettings from '@/store/useSiteSettings'
-import { CheckOutlined } from '@ant-design/icons-vue'
 import { updateColorWeak, updateGrayMode } from '../settingConfig'
 import SettingItem from './SettingItem.vue'
 
-export default defineComponent({
-  components: {
-    CheckOutlined,
-    SettingItem
-  },
-  setup() {
-    const { commit } = useStore()
-    const { colorWeak, grayMode, multiTab } = useSiteSettings()
+const { commit } = useStore()
+const { colorWeak, grayMode, multiTab } = useSiteSettings()
 
-    const onColorWeak = (checked) => {
-      commit(TOGGLE_WEAK, checked)
-      updateColorWeak(checked)
-    }
+const onColorWeak = (checked) => {
+  commit(TOGGLE_WEAK, checked)
+  updateColorWeak(checked)
+}
 
-    const onGrayMode = (checked) => {
-      commit(TOGGLE_GRAY, checked)
-      updateGrayMode(checked)
-    }
+const onGrayMode = (checked) => {
+  commit(TOGGLE_GRAY, checked)
+  updateGrayMode(checked)
+}
 
-    const onMultiTab = (checked) => {
-      commit(TOGGLE_MULTI_TAB, checked)
-    }
-    return {
-      onColorWeak,
-      onGrayMode,
-      colorWeak,
-      grayMode,
-      multiTab,
-      onMultiTab
-    }
-  }
-})
+const onMultiTab = (checked) => {
+  commit(TOGGLE_MULTI_TAB, checked)
+}
 </script>
 <style lang="less">
 </style>
