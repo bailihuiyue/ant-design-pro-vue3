@@ -268,6 +268,12 @@ export const example: Router = {
       component: () => import('@/views/dynamicForm/index.vue'),
       meta: { title: 'menu.dynamicForm', icon: 'bx-analyse' }
     },
+    {
+      path: '/logicflow',
+      name: 'logicflow',
+      component: () => import('@/views/logicflow/index.vue'),
+      meta: { title: 'menu.logicflow', icon: 'bx-analyse' }
+    },
     // other
     /*
     {
