@@ -1,5 +1,11 @@
 import ls from '@/utils/Storage'
 import { ACCESS_TOKEN, PERMISSION, USER_INFO, MENU_NAV } from '@/store/mutation-types'
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc'
+import timezone from 'dayjs/plugin/timezone'
+
+dayjs.extend(utc)
+dayjs.extend(timezone)
 
 export function clearUserInfo() {
   ls.remove(ACCESS_TOKEN)
@@ -110,3 +116,57 @@ export const getWeek = (week: number, useZhou) => {
 const sitUrl = 'xxxxx'
 export const isDev = import.meta.env.DEV
 export const baseURL = isDev ? '/api/' : '生产地址'
+
+export function toLocalTimeStr({ date, format = 'YYYY-MM-DD HH:mm:ss' }) {
+  if (!date) return null;
+  return dayjs(date).format(format)
+}
+
+export function objToArr(obj) {
+  let arr: any = []
+  for (const o in obj) {
+    arr.push({ label: o, txt: obj[o] })
+  }
+  return arr
+}
+
+export function clearObj(obj) {
+  for (const key in obj) {
+    obj[key] = undefined
+  }
+}
+
+export function delArrItem(arr, item) {
+  const index = arr.indexOf(item);
+  arr.splice(index, 1);
+}
+
+export const useImageUrl = (name: string, type: string = 'png'): string => {
+  /**
+   * @method vite动态引入图片
+   * @params folder 文件夹名称 name 文件名称 type 文件格式 一般为png/jpg/webp/gif等...
+   * @returns 图片
+   */
+  return new URL(`../assets/images/${name}.${type}`, import.meta.url).href
+}
+
+export const batchDispatch = (dispatch, arr) => {
+  arr.forEach(item => {
+    dispatch(item)
+  });
+}
+
+export const createFormData = (formDatas, file) => {
+  const formData = new FormData()
+  if (file.length) {
+    file.map(item => {
+      formData.append('file', item)
+    })
+  } else {
+    formData.append('file', file)
+  }
+  for (const item in formDatas) {
+    formData.append(item, formDatas[item] || '')
+  }
+  return formData
+}

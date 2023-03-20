@@ -24,8 +24,8 @@
               <logo class="top-nav-header" :show-title="device !== 'mobile'" />
               <s-menu v-if="device !== 'mobile'" mode="horizontal" :menu="menus" :theme="theme" />
               <span v-else @click="toggle">
-                <MenuFoldOutlined v-if="collapsed === 'menu-fold'" class="trigger" />
-                <MenuUnfoldOutlined v-if="collapsed === 'menu-unfold'" class="trigger" />
+                <MenuFoldOutlined v-if="!collapsed" class="trigger" />
+                <MenuUnfoldOutlined v-else class="trigger" />
               </span>
             </div>
             <user-menu class="header-index-right" :theme="theme"></user-menu>

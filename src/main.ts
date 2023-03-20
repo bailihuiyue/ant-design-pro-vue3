@@ -11,6 +11,7 @@ import setupDefaultSetting from '@/utils/setupDefaultSetting'
 import Antd from 'ant-design-vue';
 // 用来切换主题
 import 'ant-design-vue/dist/antd.variable.min.css'
+import "@/utils/default-passive-events"
 
 const app = createApp(App)
 app.use(Antd)

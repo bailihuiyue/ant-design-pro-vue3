@@ -35,5 +35,6 @@ export default {
   'account.center': '个人中心',
   'account.settings': '个人设置',
   'account.trigger': '触发报错',
-  'account.logout': '退出登录'
+  'account.logout': '退出登录',
+  'dynamicForm': '动态表单'
 }

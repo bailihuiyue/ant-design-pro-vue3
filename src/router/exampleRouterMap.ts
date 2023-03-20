@@ -262,7 +262,12 @@ export const example: Router = {
         }
       ]
     },
-
+    {
+      path: '/dynamicForm',
+      name: 'dynamicForm',
+      component: () => import('@/views/dynamicForm/index.vue'),
+      meta: { title: 'menu.dynamicForm', icon: 'bx-analyse' }
+    },
     // other
     /*
     {
