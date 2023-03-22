@@ -10,23 +10,23 @@ An out-of-box UI solution for enterprise applications as a Vue boilerplate. base
 预览图
 ----
 #### 首页
-![dashboard](https://gitee.com/Onces/images/raw/master/ant-pro-vue3/6.png)
+![dashboard](https://i.imgtg.com/2023/03/22/9tUVs.png)
 个人中心
-![dashboard](https://gitee.com/Onces/images/raw/master/ant-pro-vue3/1.png)
+![dashboard](https://i.imgtg.com/2023/03/22/9tBbg.png)
 
 #### 夜间模式
-![dashboard](https://gitee.com/Onces/images/raw/master/ant-pro-vue3/2.png)
+![dashboard](https://i.imgtg.com/2023/03/22/9tTmB.png)
 
 #### 锁屏界面
-![dashboard](https://gitee.com/Onces/images/raw/master/ant-pro-vue3/8.png)
+![dashboard](https://i.imgtg.com/2023/03/22/9tkAa.png)
 
 #### 流程图
-![dashboard](https://gitee.com/Onces/images/raw/master/ant-pro-vue3/9.png)
+![dashboard](https://i.imgtg.com/2023/03/22/9tbqK.png)
 
 可点击右下角锁头按钮进行解锁
 
 #### 手机预览(最低支持iphone4)
-<img src="https://gitee.com/Onces/images/raw/master/ant-pro-vue3/3.png"  width=250 /><img src="https://gitee.com/Onces/images/raw/master/ant-pro-vue3/4.png"  width=250/><img src="https://gitee.com/Onces/images/raw/master/ant-pro-vue3/5.png"  width=250 />
+<img src="https://i.imgtg.com/2023/03/22/9tq2l.png"  width=250 /><img src="https://i.imgtg.com/2023/03/22/9taiP.png"  width=250/><img src="https://i.imgtg.com/2023/03/22/9to4b.png"  width=250 />
 
 项目下载和运行
 ----
