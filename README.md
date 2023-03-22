@@ -18,7 +18,7 @@ An out-of-box UI solution for enterprise applications as a Vue boilerplate. base
 ![dashboard](https://i.imgtg.com/2023/03/22/9tTmB.png)
 
 #### 锁屏界面
-![dashboard](https://i.imgtg.com/2023/03/22/9tkAa.png)
+![dashboard](https://i.imgtg.com/2023/03/22/9thiC.png)
 
 #### 流程图
 ![dashboard](https://i.imgtg.com/2023/03/22/9tbqK.png)
@@ -185,6 +185,6 @@ Edge Chrome 等现代浏览器,目前只测试过Chrome,没有Mac所以Safari没
 
 ##### 落魄前端,在线要饭
 
-<img src="https://gitee.com/Onces/images/raw/master/money.png" width=200/>
+<img src="https://i.imgtg.com/2023/03/22/9tzCN.jpg" width=200/>
 
 下次一定?给个Star也行啊
