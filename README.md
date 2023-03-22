@@ -3,7 +3,7 @@
 An out-of-box UI solution for enterprise applications as a Vue boilerplate. based on  <a href="https://vuecomponent.github.io/ant-design-vue/docs/vue/introduce-cn/" target="_blank">Ant Design of Vue</a>
 </div>
 
-基于 [Vite2 Vue3 Ant-Design-of-Vue2 TS](https://github.com/bailihuiyue/ant-design-pro-vue3) 实现的 [Ant Design Pro Vue](https://pro.antdv.com/docs/router-and-nav)
+基于 [Vite4 Vue3 Ant-Design-of-Vue2 TS](https://github.com/bailihuiyue/ant-design-pro-vue3) 实现的 [Ant Design Pro Vue](https://pro.antdv.com/docs/router-and-nav)
 
 码云地址: https://gitee.com/Onces/ant-design-pro-vue3
 
@@ -18,7 +18,10 @@ An out-of-box UI solution for enterprise applications as a Vue boilerplate. base
 ![dashboard](https://gitee.com/Onces/images/raw/master/ant-pro-vue3/2.png)
 
 #### 锁屏界面
-![dashboard](https://gitee.com/Onces/images/raw/master/ant-pro-vue3/7.png)
+![dashboard](https://gitee.com/Onces/images/raw/master/ant-pro-vue3/8.png)
+
+#### 流程图
+![dashboard](https://gitee.com/Onces/images/raw/master/ant-pro-vue3/9.png)
 
 可点击右下角锁头按钮进行解锁
 
@@ -112,19 +115,22 @@ yarn build
  1. 提前传入需要改变的颜色变量和值入例如:@primary-color:[#0094ff,#fff,#000等...],然后正在webpack编译时读取这些变量,然后静态生成这些css文件,
      - 优点,1.切换主题时只是加载不同的css文件,节约性能,
      - 缺点:1.耗费服务端空间,2.只能订制提前定义好的几种主题3.需要动态写入要修改的变量名入,@primary-color,@success-colo等,替换不完全
- 2. 本项目使用了第二种方案,基于vite-plugin-theme插件,
-      - 优点
+ 2. 第二种方案,基于vite-plugin-theme插件,
 
-      		1. 可以任意在生产环境下选择主题颜色;
+- 优点
 
-      		2. 没有上一中法案的问题3,主题更改比较全面
+		1. 可以任意在生产环境下选择主题颜色;
+
+		2. 没有上一中法案的问题3,主题更改比较全面
 
       - 缺点:
         1. 由于是动态生成主题颜色,会有性能损耗
         2. 必须先找到antv主颜色的色号,否则替换主题功能失效,所以当antv主色更改时,需要代码中跟着一起更改,建议锁定antv版本,避免该问题;
         - 猜测原理,根据该插件说明和代码运行现象猜测,是以主颜色生成几个临近颜色然后对应找到整个项目中包含这些颜色的css样式然后对比替换比如原来是[a,b,c,d],现在是[1,2,3,4],那么a变成1,b变成2这样对应着替换,然后把提换完成的css写入到body底部,完成主题切换,不需要根据@primary-color这种定义去查找,这样靠颜色替换比较完整
-
 ***黑夜模式目前使用了antv官网的黑夜css,采用动态添加link完成,不能适配所有页面,因此在darkModePatch.less写下一些兼容样式***
+
+**3.本项目使用了第三种方案: 使用官方antv V3版本的css变量进行主题修改,达到了性能和体积的最优解**
+
 
 权限管理
 ----
@@ -166,10 +172,13 @@ yarn build
 ( 如果不需要该页面,除了删除dashboard文件夹,也不要忘记删除"@antv/g2plot","@vue/babel-plugin-jsx"这俩库)
 8. 仿win10锁屏页面,动态显示是否联网,是否充电,可自由更换壁纸(存在indexedDB中,建议图片别太大,容易卡),点击右下角锁头按钮出现密码框或换壁纸按钮
 9. 在views文件夹中可以创建 user.store.ts作为vuex的文件,其中文件名.store.ts之前的user将会作为模块名实现,具体实现请看genStore方法
+10. 全新升级vite4,全部替换为setup写法
+11. 项目报错时的全局路由提示/全局错误提示
+12. 增加两个新页面:动态表单和流程图
 ## TODO
 1. 使用reactiveState部分代替vuex
 2. 详尽的文档
-3. antv最新版(3.2.14)已经可以支持通过css变量进行动态主题更换,该项目暂未使用该特性实现
+3. 项目中的import i18n from '@/locales/useI18n' 全部删除掉
 ## 浏览器兼容
 
 Edge Chrome 等现代浏览器,目前只测试过Chrome,没有Mac所以Safari没有测试

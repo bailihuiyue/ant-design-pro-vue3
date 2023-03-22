@@ -33,7 +33,6 @@ const props = defineProps({
   }
 })
 const router = useRouter()
-// ques:todo:router.currentRoute就保留了响应式router.currentRoute.value响应式就没了?难道.value等于取值了?,如果是响应没了,为什么点击菜单就显示正常,而使用代码跳转路由就不正常呢,难道是vue-router4的bug?
 const route = router.currentRoute
 const openKeys = reactive<any>({ value: [] })
 const selectedKeys = ref<any>([])

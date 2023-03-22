@@ -18,7 +18,7 @@ const languageLabels = {
   // 'pt-BR': 'Português'
 }
 // eslint-disable-next-line
-const languageIcons = {
+const languageIcons:any = {
   'zh-CN': '🇨🇳',
   // 'zh-TW': '🇭🇰',
   'en-US': '🇺🇸',
@@ -78,6 +78,3 @@ const SelectLang = {
 }
 
 export default defineComponent(SelectLang)
-
-// info:todo:之前render里面的函数全部写在setup中,导致出现了bug:https://github.com/vueComponent/ant-design-vue/issues/4441
-// 经作者回复之后bug修复,但是要写在render函数中,感觉这样和模板没什么区别了,可是HelloWord.jsx却不用写在render中,不知道为什么
