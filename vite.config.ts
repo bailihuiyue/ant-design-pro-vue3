@@ -19,6 +19,9 @@ const lifecycle = process.env.npm_lifecycle_event;
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  esbuild: {
+    drop: [],
+  },
   build: {
     sourcemap: true,
     // terserOptions: {

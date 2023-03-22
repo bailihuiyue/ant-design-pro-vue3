@@ -37,6 +37,7 @@
         "name": "@vuedx/typescript-plugin-vue"
       }
     ],
+    // "composite": true,
     "baseUrl": ".",
     "typeRoots": [
       "./node_modules/@types/",
@@ -51,16 +52,16 @@
       ]
     }
   },
-  "files": [],
-  "references": [
-    {
-      "path": "./tsconfig.node.json"
-    },
-    {
-      "path": "./tsconfig.app.json"
-    },
-    {
-      "path": "./tsconfig.vitest.json"
-    }
-  ]
+  // "files": [],
+  // "references": [
+  //   {
+  //     "path": "./tsconfig.node.json"
+  //   },
+  //   {
+  //     "path": "./tsconfig.app.json"
+  //   },
+  //   {
+  //     "path": "./tsconfig.vitest.json"
+  //   }
+  // ]
 }

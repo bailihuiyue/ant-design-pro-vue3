@@ -11,7 +11,7 @@
   "editor.minimap.showSlider": "always",
   "editor.smoothScrolling": true,
   "editor.cursorBlinking": "phase",
-  "editor.cursorSmoothCaretAnimation": true,
+  "editor.cursorSmoothCaretAnimation": "on",
   "editor.detectIndentation": false,
   "diffEditor.ignoreTrimWhitespace": false,
   "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
