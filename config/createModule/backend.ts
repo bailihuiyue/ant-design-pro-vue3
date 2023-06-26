@@ -22,7 +22,10 @@ server.get('/createModule/addComponent', (req, res) => {
 
 function doCopy(cmd, res) {
   shelljs.cd(rootPath);
-  shelljs.exec(cmd)
+  const shellRes = shelljs.exec(cmd)
+  if (shellRes) {
+    return res.status(200).send({ error: 0, msg: '创建成功' });
+  }
   // 只有创建失败时才会有返回值,因为vite检测到创建文件后会自动刷新页面
   res.status(500).send({ error: 1, msg: '创建失败,具体问题请看控制台' });
 }
