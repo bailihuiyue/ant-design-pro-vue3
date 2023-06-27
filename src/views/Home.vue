@@ -1,13 +1,12 @@
 <template>
   <section class="Home">
     <h1>Home</h1>
-    <h1>{{ store.state.title }}</h1>
+    <h1>{{ systemConfig.state.title }}</h1>
   </section>
 </template>
 
 <script lang="ts" setup name="Home">
-import { useStore } from 'vuex'
-const store = useStore()
+import { systemConfig } from '@/store/reactiveState'
 </script>
 
 <style scoped lang="less">

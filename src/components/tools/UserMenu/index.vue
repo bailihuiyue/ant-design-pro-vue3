@@ -71,7 +71,7 @@ import {
   LockOutlined
 } from '@ant-design/icons-vue'
 import { useI18n } from 'vue-i18n'
-import { useStore } from 'vuex'
+import { systemConfig } from '@/store/reactiveState'
 import SelectLang from '@/components/SelectLang'
 import ls from '@/utils/Storage'
 import { useRouter } from 'vue-router'
@@ -82,7 +82,6 @@ const props = defineProps(['theme'])
 const { t } = useI18n()
 const router = useRouter()
 const UserInfo = ls.get(USER_INFO)
-const store = useStore()
 const handleLogout = () => {
   Modal.confirm({
     title: t('tools.userMenu.tip'),
@@ -97,11 +96,11 @@ const handleLogout = () => {
   })
 }
 const showSystemSetting = () => {
-  store.commit('SET_SETTING_DRAWER', true)
+  systemConfig.commit('SET_SETTING_DRAWER', true)
 }
 
 const onLockScreen = () => {
-  store.commit('SET_LOCK_SCREEN', true)
+  systemConfig.commit('SET_LOCK_SCREEN', true)
 }
 </script>
 <style lang="less">

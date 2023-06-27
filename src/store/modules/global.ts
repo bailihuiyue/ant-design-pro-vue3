@@ -1,3 +1,4 @@
+// 该文件暂时无用了,关于主题的全局设置已移至reactiveState中
 import ls from '@/utils/Storage'
 import { updateDarkMode } from '@/components/SettingDrawer/settingConfig'
 import {

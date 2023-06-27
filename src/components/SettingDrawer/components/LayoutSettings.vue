@@ -48,15 +48,17 @@
             @change="handleFixSiderbar" />
         </template>
         <a-list-item-meta>
-          <template #title :style="{ textDecoration: layoutMode === 'topmenu' ? 'line-through' : 'unset' }">{{
-            $t('settingDrawer.fixedSideMenu') }}</template>
+          <template #title >
+            <!-- { textDecoration: layoutMode === 'topmenu' ? 'line-through' : 'unset' } -->
+            <div :style="{ opacity: layoutMode === 'topmenu' ? '0.5' : '1' }">{{$t('settingDrawer.fixedSideMenu') }}</div>
+            </template>
         </a-list-item-meta>
       </a-list-item>
     </a-list>
   </SettingItem>
 </template>
 <script lang="ts" setup name="LayoutSettings">
-import { useStore } from 'vuex'
+import { systemConfig } from '@/store/reactiveState'
 import {
   TOGGLE_CONTENT_WIDTH,
   TOGGLE_FIXED_HEADER,
@@ -67,27 +69,26 @@ import useSiteSettings from '@/store/useSiteSettings'
 import { CheckOutlined } from '@ant-design/icons-vue'
 import SettingItem from './SettingItem.vue'
 
-const { state, commit } = useStore()
 const { contentWidth, layoutMode, fixedHeader, autoHideHeader, fixSiderbar } = useSiteSettings()
 
 const handleContentWidthChange = (type) => {
-  commit(TOGGLE_CONTENT_WIDTH, type)
+  systemConfig.commit(TOGGLE_CONTENT_WIDTH, type)
 }
 
 const handleFixedHeader = (fixed) => {
-  commit(TOGGLE_FIXED_HEADER, fixed)
+  systemConfig.commit(TOGGLE_FIXED_HEADER, fixed)
 }
 
 const handleFixedHeaderHidden = (autoHidden) => {
-  commit(TOGGLE_FIXED_HEADER_HIDDEN, autoHidden)
+  systemConfig.commit(TOGGLE_FIXED_HEADER_HIDDEN, autoHidden)
 }
 
 const handleFixSiderbar = (fixed) => {
-  if (state.app.layoutMode === 'topmenu') {
-    commit(TOGGLE_FIXED_SIDERBAR, false)
+  if (systemConfig.state.layout === 'topmenu') {
+    systemConfig.commit(TOGGLE_FIXED_SIDERBAR, false)
     return
   }
-  commit(TOGGLE_FIXED_SIDERBAR, fixed)
+  systemConfig.commit(TOGGLE_FIXED_SIDERBAR, fixed)
 }
 </script>
 <style lang="less">

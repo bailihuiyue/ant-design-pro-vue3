@@ -21,7 +21,7 @@
 </template>
 <script lang="ts" setup name="ThemeColor">
 import { computed } from 'vue'
-import { useStore } from 'vuex'
+import { systemConfig } from '@/store/reactiveState'
 import { TOGGLE_COLOR } from '@/store/mutation-types'
 import { CheckOutlined } from '@ant-design/icons-vue'
 import { colorList } from '../settingConfig'
@@ -30,17 +30,16 @@ import useSiteSettings from '@/store/useSiteSettings'
 import SettingItem from './SettingItem.vue'
 import ColorPicker from '@/components/ColorPicker/index.vue'
 
-const { state, commit } = useStore()
 const { primaryColor } = useSiteSettings()
 
 const changeColor = (color) => {
-  commit(TOGGLE_COLOR, color)
+  systemConfig.commit(TOGGLE_COLOR, color)
   updateTheme(color)
 }
 
 const colorArr = colorList.map((item) => item.color)
 const isCustomColor = computed(() => {
-  return !colorArr.includes(state.app.color)
+  return !colorArr.includes(systemConfig.state.color+'')
 })
 </script>
 <style lang="less" scoped>

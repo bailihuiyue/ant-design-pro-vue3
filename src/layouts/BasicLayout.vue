@@ -54,7 +54,7 @@ import { PERMISSION, SET_SIDEBAR_TYPE } from '@/store/mutation-types'
 import cloneDeep from 'lodash.clonedeep'
 import useSiteSettings from '@/store/useSiteSettings'
 import ls from '@/utils/Storage'
-import { useStore } from 'vuex'
+import { systemConfig } from '@/store/reactiveState'
 import { useRouter } from 'vue-router'
 import emitter from '@/utils/eventBus'
 import FastDevelopBall from '@/components/FastDevelopBall/index.vue'
@@ -62,7 +62,6 @@ import FastDevelopBall from '@/components/FastDevelopBall/index.vue'
 const router = useRouter()
 const collapsed = ref(false)
 const menus = ref([])
-const store = useStore()
 const { fixSidebar, sidebarOpened, multiTab, device, layoutMode, contentWidth, fixedHeader, navTheme, isSideMenu } = useSiteSettings()
 
 const contentPaddingLeft = computed(() => {
@@ -106,7 +105,7 @@ onMounted(() => {
 
 const toggle = () => {
   collapsed.value = !collapsed.value
-  store.commit(SET_SIDEBAR_TYPE, !collapsed.value)
+  systemConfig.commit(SET_SIDEBAR_TYPE, !collapsed.value)
   triggerWindowResizeEvent()
 }
 const paddingCalc = () => {

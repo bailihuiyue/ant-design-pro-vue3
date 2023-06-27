@@ -32,27 +32,26 @@
   </SettingItem>
 </template>
 <script lang="ts" setup name="OtherSettings">
-import { useStore } from 'vuex'
+import { systemConfig } from '@/store/reactiveState'
 import { TOGGLE_WEAK, TOGGLE_GRAY, TOGGLE_MULTI_TAB } from '@/store/mutation-types'
 import useSiteSettings from '@/store/useSiteSettings'
 import { updateColorWeak, updateGrayMode } from '../settingConfig'
 import SettingItem from './SettingItem.vue'
 
-const { commit } = useStore()
 const { colorWeak, grayMode, multiTab } = useSiteSettings()
 
 const onColorWeak = (checked) => {
-  commit(TOGGLE_WEAK, checked)
+  systemConfig.commit(TOGGLE_WEAK, checked)
   updateColorWeak(checked)
 }
 
 const onGrayMode = (checked) => {
-  commit(TOGGLE_GRAY, checked)
+  systemConfig.commit(TOGGLE_GRAY, checked)
   updateGrayMode(checked)
 }
 
 const onMultiTab = (checked) => {
-  commit(TOGGLE_MULTI_TAB, checked)
+  systemConfig.commit(TOGGLE_MULTI_TAB, checked)
 }
 </script>
 <style lang="less">

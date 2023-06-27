@@ -54,7 +54,7 @@
 </template>
 <script lang="ts" setup name="LockScreen">
 import { onMounted, ref } from 'vue'
-import { useStore } from 'vuex'
+import { systemConfig } from '@/store/reactiveState'
 import useSiteSettings from '@/store/useSiteSettings'
 import { SET_LOCK_SCREEN } from '@/store/mutation-types'
 import indexdb from '@/utils/indexDB'
@@ -77,7 +77,6 @@ const userinfo = ls.get(USER_INFO)
 const initBg =
   'https://desk-fd.zol-img.com.cn/t_s1920x1080c5/g6/M00/03/0B/ChMkKWECB-OIKeSVAFU590PRoH0AASPhQB7J0oAVToP393.jpg'
 
-const { state, commit } = useStore()
 const isClickedUnlockBtn = ref(false)
 const { lockScreen } = useSiteSettings()
 const onClickUnlockBtn = () => {
@@ -145,7 +144,7 @@ const onUnlockScreen = () => {
       if (res.unlocked) {
         afterUnlock.value = 'afterUnlock'
         setTimeout(() => {
-          commit('SET_LOCK_SCREEN', false)
+          systemConfig.commit('SET_LOCK_SCREEN', false)
           afterUnlock.value = null
           isWrongPwd.value = false
           isClickedUnlockBtn.value = false

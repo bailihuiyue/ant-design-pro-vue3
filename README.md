@@ -175,10 +175,11 @@ yarn build
 10. 全新升级vite4,全部替换为setup写法
 11. 项目报错时的全局路由提示/全局错误提示
 12. 增加两个新页面:动态表单和流程图
+13. 系统设置抽屉中的所有内容已使用reactiveState代替vuex, 减少更改状态管理库(如vuex改pinia等)的工作量
+
 ## TODO
-1. 使用reactiveState部分代替vuex
-2. 详尽的文档
-3. 项目中的import i18n from '@/locales/useI18n' 全部删除掉
+1. 详尽的文档
+2. 项目中的 i18n.global.t 全部删除掉,只在 hooks 中使用 i18n
 ## 浏览器兼容
 
 Edge Chrome 等现代浏览器,目前只测试过Chrome,没有Mac所以Safari没有测试

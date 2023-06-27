@@ -1,6 +1,6 @@
 <template>
   <div class="setting-drawer">
-    <a-drawer width="320" placement="right" @close="onClose" :closable="isMobile" :visible="state.app.showSettings">
+    <a-drawer width="320" placement="right" @close="onClose" :closable="isMobile" :visible="systemConfig.state.showSettings">
       <div class="setting-drawer-index-content">
         <!-- 整体风格设置 -->
         <GlobalStyle />
@@ -34,7 +34,7 @@
       </div>
 
       <template #handle>
-        <div class="setting-drawer-index-handle" v-if="state.app.showSettings" @click="onClose">
+        <div class="setting-drawer-index-handle" v-if="systemConfig.state.showSettings" @click="onClose">
           <CloseOutlined style="color: #fff" />
         </div>
       </template>
@@ -43,7 +43,7 @@
 </template>
 
 <script lang="ts" setup name="SettingDrawer">
-import { useStore } from 'vuex'
+import { systemConfig } from '@/store/reactiveState'
 import { CloseOutlined, CopyOutlined } from '@ant-design/icons-vue'
 import { SET_SETTING_DRAWER } from '@/store/mutation-types'
 import useClipboard from 'vue-clipboard3'
@@ -56,25 +56,24 @@ import LayoutSettings from './components/LayoutSettings.vue'
 import OtherSettings from './components/OtherSettings.vue'
 import { isMobile } from '@/utils/device'
 
-const { state, commit } = useStore()
 const { toClipboard } = useClipboard()
 
 const onClose = () => {
-  commit(SET_SETTING_DRAWER, false)
+  systemConfig.commit([SET_SETTING_DRAWER],false)
 }
 const doCopy = () => {
   // get current settings from mixin or this.$store.state.app, pay attention to the property name
   const text = `export default {
-  primaryColor: '${state.app.primaryColor}', // primary color of ant design
-  navTheme: '${state.app.navTheme}', // theme for nav menu
-  layout: '${state.app.layoutMode}', // nav menu position: sidemenu or topmenu
-  contentWidth: '${state.app.contentWidth}', // layout of content: Fluid or Fixed, only works when layout is topmenu
-  fixedHeader: ${state.app.fixedHeader}, // sticky header
-  fixSiderbar: ${state.app.fixSiderbar}, // sticky siderbar
-  autoHideHeader: ${state.app.autoHideHeader}, //  auto hide header
-  colorWeak: ${state.app.colorWeak},
-  grayMode: ${state.app.grayMode},
-  multiTab: ${state.app.multiTab},
+  primaryColor: '${systemConfig.state.color}', // primary color of ant design
+  navTheme: '${systemConfig.state.theme}', // theme for nav menu
+  layout: '${systemConfig.state.layout}', // nav menu position: sidemenu or topmenu
+  contentWidth: '${systemConfig.state.contentWidth}', // layout of content: Fluid or Fixed, only works when layout is topmenu
+  fixedHeader: ${systemConfig.state.fixedHeader}, // sticky header
+  fixSiderbar: ${systemConfig.state.fixSiderbar}, // sticky siderbar
+  autoHideHeader: ${systemConfig.state.autoHideHeader}, //  auto hide header
+  colorWeak: ${systemConfig.state.weak},
+  grayMode: ${systemConfig.state.gray},
+  multiTab: ${systemConfig.state.multiTab},
   // vue-ls options
   storage: {
     namespace: 'PRO_'

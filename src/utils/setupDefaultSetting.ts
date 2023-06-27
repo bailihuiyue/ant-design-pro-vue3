@@ -1,6 +1,6 @@
 import ls from './Storage';
 import { SITE_SETTINGS, TOGGLE_THEME, SET_DARK_MODE, TOGGLE_COLOR, TOGGLE_GRAY, TOGGLE_WEAK } from '@/store/mutation-types'
-import store from '@/store'
+import { systemConfig } from '@/store/reactiveState'
 import { updateTheme } from '@/components/SettingDrawer/updateTheme'
 import { updateColorWeak, updateGrayMode } from '@/components/SettingDrawer/settingConfig'
 
@@ -25,7 +25,7 @@ export default () => {
       if (s === TOGGLE_WEAK && siteSettings[TOGGLE_WEAK]) {
         updateColorWeak(true)
       }
-      store.commit(s, siteSettings[s])
+      systemConfig.commit(s, siteSettings[s])
     }
   }
 }

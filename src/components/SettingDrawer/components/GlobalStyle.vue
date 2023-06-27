@@ -34,21 +34,20 @@
   </SettingItem>
 </template>
 <script lang="ts" setup name="GlobalStyle">
-import { useStore } from 'vuex'
+import { systemConfig } from '@/store/reactiveState'
 import { TOGGLE_THEME, SET_DARK_MODE } from '@/store/mutation-types'
 import useSiteSettings from '@/store/useSiteSettings'
 import { CheckOutlined } from '@ant-design/icons-vue'
 import SettingItem from './SettingItem.vue'
 
-const { commit } = useStore()
 const { navTheme, darkMode } = useSiteSettings()
 
 const handleMenuTheme = (theme) => {
-  commit(TOGGLE_THEME, theme)
+  systemConfig.commit(TOGGLE_THEME, theme)
 }
 
 const handleDarkMode = (isDark) => {
-  commit(SET_DARK_MODE, isDark)
+  systemConfig.commit(SET_DARK_MODE, isDark)
 }
 </script>
 <style lang="less" scoped>

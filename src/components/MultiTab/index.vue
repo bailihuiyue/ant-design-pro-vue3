@@ -9,7 +9,7 @@
               <span :style="{ userSelect: 'none' }">{{ page.meta.customTitle || $t(page.meta.title) }}</span>
               <template #overlay>
                 <a-menu @click="({ key, item, domEvent }) => {
-                  this.closeMenuClick(key, page.fullPath);
+                  closeMenuClick(key, page.fullPath);
                 }">
                   <a-menu-item key="closeSelf">{{ $t('multiTab.closeCurrent') }}</a-menu-item>
                   <a-menu-item key="closeRight">{{ $t('multiTab.closeRight') }}</a-menu-item>
@@ -37,7 +37,7 @@ const pages = reactive<Array<RouteLocationNormalizedLoaded>>([])
 const activeKey = ref('')
 const router = useRouter()
 const { t } = useI18n()
-const { ctx } = getCurrentInstance()
+const { proxy } = getCurrentInstance()
 
 const selectedLastPath = () => {
   activeKey.value = fullPathList[fullPathList.length - 1]
@@ -64,7 +64,7 @@ const selectedLastPath = () => {
       try {
         const item = pages.find((item) => item.path === key)
         item!.meta.customTitle = name
-        ctx.$forceUpdate()
+        proxy.$forceUpdate()
       } catch (e) {
         console.error(e)
       }
@@ -77,7 +77,8 @@ const selectedLastPath = () => {
   })()
 
 const onEdit = (targetKey, action) => {
-  ctx[action](targetKey)
+    //proxy[action](targetKey)
+    remove(targetKey)
 }
 const remove = (targetKey) => {
   const temp = pages.filter((page) => page.fullPath !== targetKey)
@@ -132,7 +133,8 @@ const closeAll = (e) => {
   })
 }
 const closeMenuClick = (key: string, route) => {
-  ctx[key](route)
+  const allFun = { closeAll, closeRight, closeLeft, closeSelf }
+  allFun[key](route)
 }
 
 watch(
@@ -152,7 +154,7 @@ watch(activeKey, (newPathKey) => {
 </script>
 <style lang="less">
 .tab_style() {
-  .ant-tabs-card-bar {
+  .ant-tabs-card {
     padding-left: 0;
 
     .ant-tabs-nav-container {
@@ -171,16 +173,17 @@ watch(activeKey, (newPathKey) => {
       margin-right: 0;
       border-radius: 0px;
       border-top: 0px;
-      line-height: 40px;
-
+      height: 40px;
       .anticon-close {
-        display: none;
+        // display: none;
       }
     }
 
     .ant-tabs-tab-active {
-      padding-bottom: 0px;
-      background-color: rgba(0, 0, 0, 0.1);
+    //   padding-bottom: 0px;
+    //   background-color: rgba(0, 0, 0, 0.1);
+      height: 38px;
+      border-bottom-color: transparent;
 
       .anticon-close {
         display: inline-block;
@@ -200,6 +203,7 @@ watch(activeKey, (newPathKey) => {
 }
 
 .ant-pro-multi-tab-wrapper {
+  min-height: 42px;
   .tab_style() !important;
 }
 </style>
