@@ -37,5 +37,6 @@ export default {
   'account.trigger': 'Trigger Error',
   'account.logout': 'Logout',
   'dynamicForm': 'Dynamic Form',
-  'logicflow': 'Flow'
+  'logicflow': 'Flow',
+  'makeChart': 'Make Chart'
 }

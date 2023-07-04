@@ -274,6 +274,12 @@ export const example: Router = {
       component: () => import('@/views/logicflow/index.vue'),
       meta: { title: 'menu.logicflow', icon: 'bx-analyse' }
     },
+    {
+        path: '/makeChart',
+        name: 'makeChart',
+        component: () => import('@/views/makeChart/index.vue'),
+        meta: { title: 'menu.makeChart', icon: 'bx-analyse' }
+    },
     // other
     /*
     {

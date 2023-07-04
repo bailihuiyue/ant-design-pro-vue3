@@ -37,5 +37,6 @@ export default {
   'account.trigger': '触发报错',
   'account.logout': '退出登录',
   'dynamicForm': '动态表单',
-  'logicflow': '流程图'
+  'logicflow': '流程图',
+  'makeChart': 'Echart图表设计器'
 }

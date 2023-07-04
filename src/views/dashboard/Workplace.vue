@@ -107,7 +107,7 @@
                 <bar :data="barData" :title="$t('dashboard.analysis.sales-trend')" id="sales" />
               </a-col>
               <a-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <rank-list :title="$t('dashboard.analysis.sales-ranking')" :list="rankList" />
+                <RankList :title="$t('dashboard.analysis.sales-ranking')" :list="rankList" />
               </a-col>
             </a-row>
           </a-tab-pane>
@@ -117,7 +117,7 @@
                 <bar :data="barData2" :title="$t('dashboard.analysis.visits-trend')" id="visits" />
               </a-col>
               <a-col :xl="8" :lg="12" :md="12" :sm="24" :xs="24">
-                <rank-list :title="$t('dashboard.analysis.visits-ranking')" :list="rankList" />
+                <RankList :title="$t('dashboard.analysis.visits-ranking')" :list="rankList" />
               </a-col>
             </a-row>
           </a-tab-pane>
