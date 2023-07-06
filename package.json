@@ -16,7 +16,8 @@
     "clean-dev": "vite --force",
     "v": "ts-node --project config/tsconfig.json config/createModule/index.ts --type=views",
     "c": "ts-node --project config/tsconfig.json config/createModule/index.ts --type=components",
-    "create-module-be": "ts-node --project config/tsconfig.json config/createModule/backend.ts"
+    "create-module-be": "ts-node --project config/tsconfig.json config/createModule/backend.ts",
+    "report": "rimraf dist && cross-env vite build"
   },
   "dependencies": {
     "@aesoper/normal-utils": "^0.1.5",

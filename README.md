@@ -24,7 +24,7 @@ An out-of-box UI solution for enterprise applications as a Vue boilerplate. base
 #### 流程图
 ![dashboard](https://i.imgtg.com/2023/03/22/9tbqK.png)
 
-#### Echarts设计器  
+#### Echarts设计器
 
 ###### 目前有柱状图,折线图,饼图,自定义图,不同的图有不同的setting,代码文件也是分开的,可自行扩展
 ![dashboard](https://i.imgtg.com/2023/07/04/OxWCUY.png)
@@ -188,6 +188,52 @@ yarn build
 ## 浏览器兼容
 
 Edge Chrome 等现代浏览器,目前只测试过Chrome,没有Mac所以Safari没有测试
+
+## 一些小技巧
+
+1.如果想要更换ant的前缀prefixCls,不需要像官方示例中那样编译less文件成css,因为如果编译之后,就变成css了,没有办法再动态改变主题了,一个做法是:
+
+```javascript
+//1.在main.ts中(最重要的一步是,不再引入css,直接引入可定制的less)
+import 'ant-design-vue/dist/antd.variable.less';
+//2.App.vue中(如果不改变主题,这步可以省略)
+import { ConfigProvider } from 'ant-design-vue';
+ConfigProvider.config({
+  prefixCls: 'coseffect',
+  theme: {
+    primaryColor: '#25b864',
+  },
+});
+//3.vite.config.ts中
+export default defineConfig({
+    css: {
+        preprocessorOptions: {
+            less: {
+                // modifyVars: generateModifyVars(),
+                javascriptEnabled: true,
+                // 添加这一句
+                modifyVars: {
+                    '@ant-prefix': 'coseffect',
+                }
+            },
+        },
+    },
+})
+```
+2.volar似乎不能像vetur一样调用各种格式化插件,目前只能用prettier插件凑合
+```javascript
+//1.项目根目录找到.eslintrc.cjs
+rules: {
+   'prettier/prettier': [
+   'warn' //这里设置warn,其他的不要
+  ]
+}
+//2.prettierrc.json文件
+{
+  "printWidth": 200, //加这行
+}
+```
+
 
 ##### 落魄前端,在线要饭
 
