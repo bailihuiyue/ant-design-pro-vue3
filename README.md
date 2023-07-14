@@ -234,7 +234,34 @@ rules: {
 }
 ```
 
+3.根目录 index.html 文件标题添加.colorfulTitle 类名,可以实现刷新页面等到时有彩色文字效果
 
+4.解决使用 vloar 之后 vscode 格式化变慢问题(不一定管用)
+
+```javascript
+// 方法一
+// 1.将 Volar 更新到最新版本
+// 2.禁用内置 TypeScript 扩展 设置为禁用（工作区）
+// 到插件部分搜索框内输入@builtin Typescript
+// 将“JavaScript 和 TypeScript 的语言功能“禁用掉(第一个)
+// 然后另外一个basic的我们保留
+
+// 方法二
+// 1.打开vscode之后，点击文件==>首选项==>设置
+// 搜索设置
+// search.followSymlinks
+// 然后在右侧用户自定义设置中将这个值改为 false
+// search.followSymlinks = false,
+
+// 2.谷歌浏览器的硬件加速更改
+// 解决步骤：打开Chorme -> 设置 -> 高级 -> 【系统】 -> 将【启用硬件加速模式】取消勾选即可
+
+// 参考资料:
+// 1.https://blog.csdn.net/dangbai01_/article/details/128186524
+// 2.https://blog.csdn.net/yw00yw/article/details/87861261
+// 3.https://www.cnblogs.com/hongzhending/p/17336133.html
+```
+5. vscode配置可以参考项目根目录.vscode/settings_backup.json
 ##### 落魄前端,在线要饭
 
 <img src="https://i.imgtg.com/2023/03/22/9tzCN.jpg" width=200/>
