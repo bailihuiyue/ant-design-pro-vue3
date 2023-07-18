@@ -191,7 +191,7 @@ Edge Chrome 等现代浏览器,目前只测试过Chrome,没有Mac所以Safari没
 
 ## 一些小技巧
 
-1.如果想要更换ant的前缀prefixCls,不需要像官方示例中那样编译less文件成css,因为如果编译之后,就变成css了,没有办法再动态改变主题了,一个做法是:
+1.如果想要更换ant3的前缀prefixCls,不需要像官方示例中那样编译less文件成css,因为如果编译之后,就变成css了,没有办法再动态改变主题了,一个做法是:
 
 ```javascript
 //1.在main.ts中(最重要的一步是,不再引入css,直接引入可定制的less)
@@ -211,7 +211,7 @@ export default defineConfig({
             less: {
                 // modifyVars: generateModifyVars(),
                 javascriptEnabled: true,
-                // 添加这一句
+                // 添加这一句(// ant-design-vue 4.x版本不需要了)
                 modifyVars: {
                     '@ant-prefix': 'coseffect',
                 }
@@ -234,7 +234,7 @@ rules: {
 }
 ```
 
-3.根目录 index.html 文件标题添加.colorfulTitle 类名,可以实现刷新页面等到时有彩色文字效果
+3.根目录 index.html 文件标题添加.colorfulTitle 类名,可以实现刷新页面等待时有彩色文字效果
 
 4.解决使用 vloar 之后 vscode 格式化变慢问题(不一定管用)
 
