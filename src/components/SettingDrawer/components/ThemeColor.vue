@@ -22,7 +22,7 @@
 <script lang="ts" setup name="ThemeColor">
 import { computed } from 'vue'
 import { systemConfig } from '@/store/reactiveState'
-import { TOGGLE_COLOR } from '@/store/mutation-types'
+import { THEME_COLOR } from '@/store/mutation-types'
 import { CheckOutlined } from '@ant-design/icons-vue'
 import { colorList } from '../settingConfig'
 import { updateTheme } from '../updateTheme'
@@ -33,8 +33,8 @@ import ColorPicker from '@/components/ColorPicker/index.vue'
 const { primaryColor } = useSiteSettings()
 
 const changeColor = (color) => {
-  systemConfig.commit(TOGGLE_COLOR, color)
-  updateTheme(color)
+    systemConfig.commit(THEME_COLOR, color)
+    updateTheme(color)
 }
 
 const colorArr = colorList.map((item) => item.color)

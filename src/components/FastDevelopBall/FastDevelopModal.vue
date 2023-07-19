@@ -1,5 +1,5 @@
 <template>
-  <a-modal v-model:visible="showModal" title="快速开发面板" :footer="null" @cancel="onCancel" width="60%">
+  <a-modal v-model:open="showModal" title="快速开发面板" :footer="null" @cancel="onCancel" width="60%">
     <a-spin :spinning="loading">
       <section :style="{ height: '400px' }">
         <a-tabs>

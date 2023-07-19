@@ -1,14 +1,10 @@
 import './index.less'
-
-// info:todo:vite plugin 目前不支持vue3 jsx的自动引入
-import "ant-design-vue/lib/menu/style/index.css";
-import "ant-design-vue/lib/dropdown/style/index.css";
 import { Menu, Dropdown } from 'ant-design-vue'
-
-import { defineComponent, getCurrentInstance, ref } from 'vue';
+import { defineComponent, ref } from 'vue';
 import { GlobalOutlined } from '@ant-design/icons-vue';
 import ls from '@/utils/Storage'
 import { setDocumentTitleForLangChange } from '@/utils/domUtil'
+import { useI18n } from 'vue-i18n'
 
 const locales = ['zh-CN', /*'zh-TW',*/ 'en-US', /*'pt-BR'*/]
 const languageLabels = {
@@ -34,12 +30,12 @@ const SelectLang = {
   },
   name: 'SelectLang',
   setup (props) {
-    const { proxy } = getCurrentInstance();
+    const { locale } = useI18n()
 
     const { prefixCls } = props
     const currentLang = ref(ls.get('lang') || 'zh-CN')
     function changeLang ({ key }) {
-      proxy.$i18n.locale = key
+      locale.value  = key
       ls.set('lang', key)
       currentLang.value = key
       setDocumentTitleForLangChange()

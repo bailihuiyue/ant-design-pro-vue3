@@ -21,7 +21,7 @@ export default {
   darkMode: false,
   // #endregion
 
-  primaryColor: '#1890FF', // ant design 默认主颜色(在node_modules/ant-design-vue/style/color/colors.less中@blue-base变量定义,实际上@primary-color = @blue-6 = @blue-base,禁止套娃,手动狗头)
+  primaryColor: '#1677ff', // ant design 默认主颜色(在node_modules/ant-design-vue/style/color/colors.less中@blue-base变量定义,实际上@primary-color = @blue-6 = @blue-base,禁止套娃,手动狗头)
   title: 'Ant Design Pro',
   // pwa: false,
   // iconfontUrl: '',

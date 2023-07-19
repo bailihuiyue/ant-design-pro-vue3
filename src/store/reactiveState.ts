@@ -7,7 +7,7 @@ import {
     TOGGLE_DEVICE,
     TOGGLE_FIXED_HEADER,
     TOGGLE_CONTENT_WIDTH,
-    TOGGLE_COLOR,
+    THEME_COLOR,
     TOGGLE_WEAK,
     TOGGLE_MULTI_TAB,
     SET_SETTING_DRAWER,
@@ -33,7 +33,7 @@ export const systemConfig = {
         fixedHeader: false,
         fixSiderbar: false,
         autoHideHeader: false,
-        color: null, //主题颜色
+        color: '#1677ff', //主题颜色
         weak: false,
         gray: false,
         multiTab: false,
@@ -96,8 +96,8 @@ export const systemConfig = {
                 cache({ [TOGGLE_CONTENT_WIDTH]: type })
                 systemConfig.state.contentWidth = type
             },
-            [TOGGLE_COLOR]: (color) => {
-                cache({ [TOGGLE_COLOR]: color })
+            [THEME_COLOR]: (color) => {
+                cache({ [THEME_COLOR]: color })
                 systemConfig.state.color = color
 
                 // menuIconColorPatch(color)

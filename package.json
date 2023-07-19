@@ -26,7 +26,7 @@
     "@logicflow/core": "^1.2.1",
     "@logicflow/extension": "^1.2.1",
     "@vueuse/core": "^9.13.0",
-    "ant-design-vue": "^3.2.15",
+    "ant-design-vue": "^4.0.0",
     "axios": "^1.3.4",
     "crypto-js": "^4.1.1",
     "echarts": "^5.4.2",

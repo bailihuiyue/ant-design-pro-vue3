@@ -2,7 +2,7 @@
   <!--placement="bottomRight"
     :autoAdjustOverflow="false"
   :arrowPointAtCenter="true"-->
-  <a-popover v-model:visible="visible" trigger="click" :placement="isMobile ? 'bottom' : 'bottomRight'"
+  <a-popover v-model:open="visible" trigger="click" :placement="isMobile ? 'bottom' : 'bottomRight'"
     overlayClassName="header-notice-wrapper" :getPopupContainer="getPopupContainer"
     :overlayStyle="{ width: isMobile ? '250px' : '300px', top: '50px' }">
     <template #content>

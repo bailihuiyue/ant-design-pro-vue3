@@ -1,7 +1,7 @@
 <template>
   <a-modal
     :title="$t('account.selectSkillAndInterst')"
-    :visible="visible"
+    :open="visible"
     :confirm-loading="confirmLoading"
     @ok="onOk"
     :closable="false"

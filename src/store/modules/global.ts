@@ -7,7 +7,7 @@ import {
   TOGGLE_DEVICE,
   TOGGLE_FIXED_HEADER,
   TOGGLE_CONTENT_WIDTH,
-  TOGGLE_COLOR,
+  THEME_COLOR,
   TOGGLE_WEAK,
   TOGGLE_MULTI_TAB,
   SET_SETTING_DRAWER,
@@ -93,8 +93,8 @@ const app = {
       cache({ [TOGGLE_CONTENT_WIDTH]: type })
       state.contentWidth = type
     },
-    [TOGGLE_COLOR]: (state, color) => {
-      cache({ [TOGGLE_COLOR]: color })
+    [THEME_COLOR]: (state, color) => {
+      cache({ [THEME_COLOR]: color })
       state.color = color
 
       // menuIconColorPatch(color)
@@ -117,7 +117,7 @@ const app = {
     [SET_LOCK_SCREEN]: (state, flag) => {
       state.lockScreen = flag
       cache({ [SET_LOCK_SCREEN]: flag })
-      document.getElementById('app')!.style.overflow = flag ? 'hidden' :'visible'
+      document.getElementById('app')!.style.overflow = flag ? 'hidden' : 'visible'
     },
 
   }

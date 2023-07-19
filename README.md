@@ -176,7 +176,7 @@ yarn build
 ( 如果不需要该页面,除了删除dashboard文件夹,也不要忘记删除"@antv/g2plot","@vue/babel-plugin-jsx"这俩库)
 8. 仿win10锁屏页面,动态显示是否联网,是否充电,可自由更换壁纸(存在indexedDB中,建议图片别太大,容易卡),点击右下角锁头按钮出现密码框或换壁纸按钮
 9. 在views文件夹中可以创建 user.store.ts作为vuex的文件,其中文件名.store.ts之前的user将会作为模块名实现,具体实现请看genStore方法
-10. 全新升级vite4,全部替换为setup写法
+10. 全新升级vite4,antv4,全部vue文件替换为setup写法
 11. 项目报错时的全局路由提示/全局错误提示
 12. 增加两个新页面:动态表单和流程图
 13. 系统设置抽屉中的所有内容已使用reactiveState代替vuex, 减少更改状态管理库(如vuex改pinia等)的工作量
@@ -185,6 +185,7 @@ yarn build
 ## TODO
 1. 详尽的文档
 2. 项目中的 i18n.global.t 全部删除掉,只在 hooks 中使用 i18n
+3. antv4.0版本 夜间模式适配
 ## 浏览器兼容
 
 Edge Chrome 等现代浏览器,目前只测试过Chrome,没有Mac所以Safari没有测试

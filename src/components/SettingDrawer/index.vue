@@ -1,6 +1,6 @@
 <template>
   <div class="setting-drawer">
-    <a-drawer width="320" placement="right" @close="onClose" :closable="isMobile" :visible="systemConfig.state.showSettings">
+    <a-drawer width="320" placement="right" @close="onClose" :closable="isMobile" :open="systemConfig.state.showSettings">
       <div class="setting-drawer-index-content">
         <!-- 整体风格设置 -->
         <GlobalStyle />

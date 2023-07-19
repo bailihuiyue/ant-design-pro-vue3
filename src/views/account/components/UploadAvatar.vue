@@ -12,7 +12,7 @@
     </div>
     <a-modal
       title="修改头像"
-      :visible="visible"
+      :open="visible"
       :maskClosable="false"
       :confirmLoading="confirmLoading"
       :width="800"

@@ -1,21 +1,30 @@
 <template>
-  <a-config-provider :locale="lang[proxy.$i18n.locale]">
+  <a-config-provider :locale="lang[locale]" :theme="{
+    token: {
+      colorPrimary: systemConfig.state.color,
+      borderRadius: 2
+    }
+  }">
+    <!-- algorithm: theme.darkAlgorithm,夜间主题 -->
     <router-view />
   </a-config-provider>
   <LockScreen />
 </template>
 
 <script lang="ts" setup name="App">
-import { getCurrentInstance, onErrorCaptured, h } from 'vue'
+import { onErrorCaptured, h } from 'vue'
 import zh_CN from 'ant-design-vue/es/locale/zh_CN'
-import en_US from 'ant-design-vue/lib/locale-provider/en_US'
+import en_US from 'ant-design-vue/es/locale/en_US'
 import { setDeviceType } from '@/utils/device'
 import LockScreen from '@/components/LockScreen/index.vue'
 import emitter from '@/utils/eventBus'
 import { useRouter } from 'vue-router'
 import { Modal } from 'ant-design-vue'
+import { useI18n } from 'vue-i18n'
+import { systemConfig } from '@/store/reactiveState'
+// import { theme } from 'ant-design-vue';
 
-const { proxy } = getCurrentInstance()
+const { locale } = useI18n()
 const lang = { 'en-US': en_US, 'zh-CN': zh_CN }
 
 window.onresize = setDeviceType

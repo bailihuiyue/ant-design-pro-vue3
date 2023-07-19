@@ -1,7 +1,7 @@
 <template>
   <a-layout :class="['layout', device]">
     <!-- SideMenu -->
-    <a-drawer v-if="isMobile" placement="left" :class="`drawer-sider ${navTheme}`" :closable="false" :visible="collapsed"
+    <a-drawer v-if="isMobile" placement="left" :class="`drawer-sider ${navTheme}`" :closable="false" :open="collapsed"
       @close="drawerClose" width="256px">
       <side-menu mode="inline" :menus="menus" :theme="navTheme" :collapsed="false" :collapsible="true"
         @menuSelect="menuSelect"></side-menu>

@@ -33,8 +33,7 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const form = reactive({ json: '', interfaceUrl: '', span: 0 })
-    // @ts-ignore
-    const { proxy } = getCurrentInstance();
+    
     watch(
       () => props.item,
       () => {
@@ -48,7 +47,7 @@ export default defineComponent({
     );
     const onSaveSetting = () => {
       emit('save', (item: Ref<any>) => {
-        proxy.$set(item.value, 'chartOption', eval("(" + _.cloneDeep(form.json) + ")"))
+        item.value.chartOption = eval("(" + _.cloneDeep(form.json) + ")")
         item.value.interfaceUrl = form.interfaceUrl
         // item.value.json = form.json
         item.value.span = form.span
