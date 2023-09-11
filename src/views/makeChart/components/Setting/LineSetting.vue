@@ -18,7 +18,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, reactive, onMounted, Ref, watch, nextTick } from 'vue';
-import _ from 'lodash'
+import cloneDeep from 'lodash.clonedeep'
 import { ChartItem } from '../../types'
 export default defineComponent({
   name: 'LineSetting',
@@ -38,9 +38,9 @@ export default defineComponent({
       () => props.item,
       () => {
         nextTick(() => {
-          form.xAxisData = _.cloneDeep(props.item.chartOption.xAxis.data.join(','))
-          form.interfaceUrl = _.cloneDeep(props.item.interfaceUrl)
-          form.span = _.cloneDeep(props.item.span)
+          form.xAxisData = cloneDeep(props.item.chartOption.xAxis.data.join(','))
+          form.interfaceUrl = cloneDeep(props.item.interfaceUrl)
+          form.span = cloneDeep(props.item.span)
         })
       },
       { deep: true, immediate: true }
@@ -60,6 +60,5 @@ export default defineComponent({
 })
 </script>
 <style lang="scss">
-.LineSetting {
-}
+.LineSetting {}
 </style>

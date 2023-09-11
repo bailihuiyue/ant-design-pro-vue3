@@ -18,7 +18,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive, Ref, watch, nextTick, getCurrentInstance } from 'vue';
-import _ from 'lodash'
+import cloneDeep from 'lodash.clonedeep'
 export default defineComponent({
   name: 'CustomSetting',
   props: {
@@ -33,21 +33,21 @@ export default defineComponent({
   },
   setup(props, { emit }) {
     const form = reactive({ json: '', interfaceUrl: '', span: 0 })
-    
+
     watch(
       () => props.item,
       () => {
         nextTick(() => {
-          form.json = _.cloneDeep(JSON.stringify(props.item.chartOption, null, 2))
-          form.span = _.cloneDeep(props.item.span)
-          form.interfaceUrl = _.cloneDeep(props.item.interfaceUrl)
+          form.json = cloneDeep(JSON.stringify(props.item.chartOption, null, 2))
+          form.span = cloneDeep(props.item.span)
+          form.interfaceUrl = cloneDeep(props.item.interfaceUrl)
         })
       },
       { deep: true, immediate: true }
     );
     const onSaveSetting = () => {
       emit('save', (item: Ref<any>) => {
-        item.value.chartOption = eval("(" + _.cloneDeep(form.json) + ")")
+        item.value.chartOption = eval("(" + cloneDeep(form.json) + ")")
         item.value.interfaceUrl = form.interfaceUrl
         // item.value.json = form.json
         item.value.span = form.span
@@ -61,6 +61,5 @@ export default defineComponent({
 })
 </script>
 <style lang="scss">
-.CustomSetting {
-}
+.CustomSetting {}
 </style>

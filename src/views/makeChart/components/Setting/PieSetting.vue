@@ -24,7 +24,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive, Ref, watch, nextTick } from 'vue';
-import _ from 'lodash'
+import cloneDeep from 'lodash.clonedeep'
 export default defineComponent({
   name: 'PieSetting',
   props: {
@@ -43,11 +43,11 @@ export default defineComponent({
       () => props.item,
       () => {
         nextTick(() => {
-          form.text = _.cloneDeep(props.item.chartOption.title.text)
-          form.subtext = _.cloneDeep(props.item.chartOption.title.subtext)
-          form.interfaceUrl = _.cloneDeep(props.item.interfaceUrl)
-          form.span = _.cloneDeep(props.item.span)
-          form.name = _.cloneDeep(props.item.chartOption.series[0].name)
+          form.text = cloneDeep(props.item.chartOption.title.text)
+          form.subtext = cloneDeep(props.item.chartOption.title.subtext)
+          form.interfaceUrl = cloneDeep(props.item.interfaceUrl)
+          form.span = cloneDeep(props.item.span)
+          form.name = cloneDeep(props.item.chartOption.series[0].name)
         })
       },
       { deep: true, immediate: true }
@@ -69,6 +69,5 @@ export default defineComponent({
 })
 </script>
 <style lang="scss">
-.PieSetting {
-}
+.PieSetting {}
 </style>

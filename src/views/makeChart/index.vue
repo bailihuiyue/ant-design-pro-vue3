@@ -48,7 +48,8 @@ export default defineComponent({
       onShowSetting,
       onSaveSetting,
       onDragged,
-      contentData
+      contentData,
+      console: window.console
     };
   },
 })
