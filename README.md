@@ -164,7 +164,11 @@ yarn build
   warn:todo: 可能有bug
   ques:todo: 疑问
   只有大写的'TODO'才表示未完成的功能,小写的todo只是为了方便搜索而已
-
+  (如果插件在 vue 文件中没有颜色变化可参考 https://blog.csdn.net/weixin_47872719/article/details/126743867
+  具体步骤:
+  1.打开 C:\Users\Admin\\.vscode\extensions\bttter-comments
+  2.打开配置文件 aaron-bond.better-comments-3.0.2/out/parser.js
+  3.setDelimiter(languageCode)方法中 case 的最后)
 ## 已完成
 1. 注册登录vue3 语法
 2. 自动生成国际化(多层级文件夹使用.连接,比如tools.UserMenu)
