@@ -190,8 +190,10 @@ yarn build
 1. 详尽的文档
 2. 项目中的 i18n.global.t 全部删除掉,只在 hooks 中使用 i18n
 3. antv4.0版本 夜间模式适配
-## 浏览器兼容
+4. 升级vite到最新版本
+5. 优化图表生成器(合成一个组件而不是两个)
 
+## 浏览器兼容
 Edge Chrome 等现代浏览器,目前只测试过Chrome,没有Mac所以Safari没有测试
 
 ## 一些小技巧
@@ -204,7 +206,7 @@ import 'ant-design-vue/dist/antd.variable.less';
 //2.App.vue中(如果不改变主题,这步可以省略)
 import { ConfigProvider } from 'ant-design-vue';
 ConfigProvider.config({
-  prefixCls: 'coseffect',
+  prefixCls: 'test',
   theme: {
     primaryColor: '#25b864',
   },

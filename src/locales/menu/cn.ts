@@ -38,5 +38,6 @@ export default {
   'account.logout': '退出登录',
   'dynamicForm': '动态表单',
   'logicflow': '流程图',
-  'makeChart': 'Echart图表设计器'
+  'makeChart': '图表设计器(拖拽)',
+  'dragChart': '图表设计器(缩放)'
 }

@@ -170,3 +170,33 @@ export const createFormData = (formDatas, file) => {
   }
   return formData
 }
+
+// 获取两个对象之间的差异不同
+export function deepDiffKeys(obj1, obj2) {
+  const diffKeys = []
+
+  function deepCompare(o1, o2, key) {
+    if (o1 === o2) return
+    if (typeof o1 !== 'object' || o1 === null || typeof o2 !== 'object' || o2 === null) {
+      diffKeys.push(key)
+      return
+    }
+
+    for (const k in o1) {
+      if (o2[k] === undefined) {
+        diffKeys.push(key + '.' + k)
+      } else {
+        deepCompare(o1[k], o2[k], key + '.' + k)
+      }
+    }
+
+    for (const k in o2) {
+      if (o1[k] === undefined) {
+        diffKeys.push(key + '.' + k)
+      }
+    }
+  }
+
+  deepCompare(obj1, obj2, 'root')
+  return diffKeys
+}

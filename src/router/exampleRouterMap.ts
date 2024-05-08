@@ -275,10 +275,16 @@ export const example: Router = {
       meta: { title: 'menu.logicflow', icon: 'bx-analyse' }
     },
     {
-        path: '/makeChart',
-        name: 'makeChart',
-        component: () => import('@/views/makeChart/index.vue'),
-        meta: { title: 'menu.makeChart', icon: 'bx-analyse' }
+      path: '/dragChart',
+      name: 'dragChart',
+      component: () => import('@/views/chart/drag.vue'),
+      meta: { title: 'menu.dragChart', icon: 'bx-analyse' }
+    },
+    {
+      path: '/makeChart',
+      name: 'makeChart',
+      component: () => import('@/views/chart/index.vue'),
+      meta: { title: 'menu.makeChart', icon: 'bx-analyse' }
     },
     // other
     /*

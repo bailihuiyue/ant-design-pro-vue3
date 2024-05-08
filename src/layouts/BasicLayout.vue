@@ -16,7 +16,7 @@
         @toggle="toggle" @refresh="onRefresh" />
 
       <!-- layout content -->
-      <a-layout-content :style="{
+      <a-layout-content id="layoutContent" :style="{
         height: '100%',
         margin: '24px 24px 0',
         paddingTop: fixedHeader ? '64px' : '0',

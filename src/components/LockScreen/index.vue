@@ -59,6 +59,8 @@ import useSiteSettings from '@/store/useSiteSettings'
 import { SET_LOCK_SCREEN } from '@/store/mutation-types'
 import indexdb from '@/utils/indexDB'
 import dayjs from 'dayjs';
+import weekday from "dayjs/plugin/weekday";
+import "dayjs/locale/zh-cn";
 import { getWeek } from '@/utils/util'
 import { useBattery, useNetwork } from '@vueuse/core'
 import SvgIcon from '@/components/SvgIcon/index.vue'
@@ -73,6 +75,7 @@ import { USER_INFO } from '@/store/mutation-types'
 import ls from '@/utils/Storage'
 import * as api from './service'
 
+dayjs.extend(weekday);
 const userinfo = ls.get(USER_INFO)
 const initBg =
   'https://desk-fd.zol-img.com.cn/t_s1920x1080c5/g6/M00/03/0B/ChMkKWECB-OIKeSVAFU590PRoH0AASPhQB7J0oAVToP393.jpg'

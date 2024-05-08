@@ -288,5 +288,10 @@
   "[vue]": {
     "editor.defaultFormatter": "Vue.volar"
   },
+  "workbench.colorCustomizations": {
+    "activityBar.background": "#1B3316",
+    "titleBar.activeBackground": "#25481F",
+    "titleBar.activeForeground": "#F8FBF7"
+  },
   // "better-comments.highlightPlainText": true
 }

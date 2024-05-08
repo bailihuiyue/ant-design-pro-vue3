@@ -38,5 +38,5 @@ export default {
   'account.logout': 'Logout',
   'dynamicForm': 'Dynamic Form',
   'logicflow': 'Flow',
-  'makeChart': 'Make Chart'
+  'dragChart': 'Make Chart'
 }
