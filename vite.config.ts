@@ -14,6 +14,7 @@ import OptimizationPersist from 'vite-plugin-optimize-persist'
 import PkgConfig from 'vite-plugin-package-config'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 import { visualizer } from 'rollup-plugin-visualizer'
+import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
 
 const lifecycle = process.env.npm_lifecycle_event;
 
@@ -87,7 +88,8 @@ export default defineConfig({
     PkgConfig(),
     OptimizationPersist(),
     vueSetupExtend(),
-    lifecycle === 'report' ? visualizer({ gzipSize: true, open: true, brotliSize: true, filename: 'report.html' }) : null
+    lifecycle === 'report' ? visualizer({ gzipSize: true, open: true, brotliSize: true, filename: 'report.html' }) : null,
+    viteCommonjs()
   ],
   resolve: {
     alias: [

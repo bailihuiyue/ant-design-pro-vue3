@@ -269,8 +269,20 @@ rules: {
 // 3.https://www.cnblogs.com/hongzhending/p/17336133.html
 ```
 5. vscode配置可以参考项目根目录.vscode/settings_backup.json
-##### 落魄前端,在线要饭
 
+6.页面无法渲染(vue3+ts+vite)，报错jsoneditor does not provide an export named 'default'
+
+```javascript
+这是因为vite对commonjs兼容性太差，导致无法引入jsoneditor，可以使用@originjs/vite-plugin-commonjs插件解决。
+
+// vite.config.js
+import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
+export default defineConfig({
+  plugins: [vue(),viteCommonjs()],
+})
+```
+
+##### 请我炫个饼
 <img src="https://i.imgtg.com/2023/03/22/9tzCN.jpg" width=200/>
 
 下次一定?给个Star也行啊
