@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import pull from 'lodash.pull'
+import { pull } from 'lodash-es'
 import { ref } from 'vue'
 
 export default {

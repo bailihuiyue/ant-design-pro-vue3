@@ -1,4 +1,4 @@
-import store from '@/store'
+import { systemConfig } from '@/store/reactiveState'
 import { TOGGLE_DEVICE, DEVICE_TYPE } from '@/store/mutation-types';
 import { useBreakpoints, breakpointsAntDesign } from '@vueuse/core';
 // { "xs": 480, "sm": 576, "md": 768, "lg": 992, "xl": 1200, "xxl": 1600 }
@@ -25,13 +25,13 @@ export const setDeviceType = () => {
   }
   clear = setTimeout(function () {
     if (isMobile.value) {
-      store.commit(TOGGLE_DEVICE, DEVICE_TYPE.MOBILE);
+      systemConfig.commit(TOGGLE_DEVICE, DEVICE_TYPE.MOBILE);
     }
     if (isTablet.value) {
-      store.commit(TOGGLE_DEVICE, DEVICE_TYPE.TABLET);
+      systemConfig.commit(TOGGLE_DEVICE, DEVICE_TYPE.TABLET);
     }
     if (isDesktop.value) {
-      store.commit(TOGGLE_DEVICE, DEVICE_TYPE.DESKTOP);
+      systemConfig.commit(TOGGLE_DEVICE, DEVICE_TYPE.DESKTOP);
     }
   });
 }

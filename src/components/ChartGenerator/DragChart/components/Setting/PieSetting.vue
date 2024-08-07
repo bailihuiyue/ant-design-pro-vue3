@@ -24,7 +24,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive, Ref, watch, nextTick } from 'vue';
-import cloneDeep from 'lodash.clonedeep'
+import { cloneDeep } from 'lodash-es'
 export default defineComponent({
   name: 'PieSetting',
   props: {
@@ -68,6 +68,6 @@ export default defineComponent({
   },
 })
 </script>
-<style lang="scss">
+<style lang="less">
 .PieSetting {}
 </style>

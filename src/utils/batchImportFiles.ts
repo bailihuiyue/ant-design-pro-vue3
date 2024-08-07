@@ -1,4 +1,4 @@
-import { LangFile, I18nMsg, StoreFile } from './types'
+import { type LangFile, type I18nMsg, type StoreFile } from './types'
 import { firstLetterIsUpperCase } from './util'
 
 export function genLangs(module: Record<string, any>, include: Array<string> | null, exclude?: string) {

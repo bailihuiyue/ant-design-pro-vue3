@@ -1,4 +1,4 @@
-const { api, delay, mock, resp } = require("apite");
+
 
 api.get("/member/user/personDetail", {
   id: 22,

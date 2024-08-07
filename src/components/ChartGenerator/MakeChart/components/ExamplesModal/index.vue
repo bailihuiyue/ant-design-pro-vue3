@@ -16,7 +16,7 @@ import data from './data'
 import { customAlphabet } from 'nanoid'
 import chartList from '@/components/ChartGenerator/MakeChart/chartList'
 import echartTemplateData from '@/components/ChartGenerator/MakeChart/components/Echarts/data'
-import cloneDeep from 'lodash.clonedeep'
+import { cloneDeep } from 'lodash-es'
 
 const nanoid = customAlphabet('1234567890abcdef', 25)
 const props = defineProps({

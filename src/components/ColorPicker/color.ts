@@ -1,6 +1,6 @@
 import tinycolor, { Instance } from "tinycolor2";
 import { isDef, isNull } from "@aesoper/normal-utils";
-import debounce from "lodash.debounce";
+import { debounce } from "lodash-es";
 
 export interface Alpha {
   a: number;

@@ -29,7 +29,7 @@ const onClickRecord = (color: string) => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .bee-colorPicker__record {
   display: flex;
   align-items: center;

@@ -180,7 +180,7 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .small-hue-slider {
   height: 10px !important;
 

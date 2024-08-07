@@ -23,12 +23,12 @@
     ],
     "resolveJsonModule": true,
     "types": [
-      "vite/client",
+      // "vite/client",
       "node"
     ],
-    "strict": true,
+    "strict": false,
     "noUnusedLocals": false,
-    "noImplicitReturns": true,
+    "noImplicitReturns": false,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "noImplicitAny": false,
@@ -52,16 +52,4 @@
       ]
     }
   },
-  // "files": [],
-  // "references": [
-  //   {
-  //     "path": "./tsconfig.node.json"
-  //   },
-  //   {
-  //     "path": "./tsconfig.app.json"
-  //   },
-  //   {
-  //     "path": "./tsconfig.vitest.json"
-  //   }
-  // ]
 }

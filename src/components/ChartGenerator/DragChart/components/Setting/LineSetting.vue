@@ -18,7 +18,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, ref, reactive, onMounted, Ref, watch, nextTick } from 'vue';
-import cloneDeep from 'lodash.clonedeep'
+import { cloneDeep } from 'lodash-es'
 import { ChartItem } from '../../types'
 export default defineComponent({
   name: 'LineSetting',
@@ -59,6 +59,6 @@ export default defineComponent({
   },
 })
 </script>
-<style lang="scss">
+<style lang="less">
 .LineSetting {}
 </style>

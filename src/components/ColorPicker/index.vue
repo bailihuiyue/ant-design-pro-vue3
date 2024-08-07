@@ -154,7 +154,7 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .bee-ele-colorPicker {
   position: relative;
   box-sizing: border-box;

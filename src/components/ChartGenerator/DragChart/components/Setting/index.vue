@@ -58,7 +58,7 @@ export default defineComponent({
   },
 })
 </script>
-<style lang="scss">
+<style lang="less">
 .Settings {
   padding-left: 5px;
 }

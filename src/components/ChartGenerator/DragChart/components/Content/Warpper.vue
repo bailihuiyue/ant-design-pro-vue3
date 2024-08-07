@@ -38,7 +38,7 @@ export default defineComponent({
   },
 })
 </script>
-<style lang="scss">
+<style lang="less">
 .Warpper {
   width: 100%;
 //   height: 200px;

@@ -12,9 +12,9 @@
 </template>
 
 <script>
-import pull from 'lodash.pull'
+import { pull } from 'lodash-es'
 import Tag from './Tag.vue'
-import cloneDeep from 'lodash.clonedeep'
+import { cloneDeep } from 'lodash-es'
 
 export default {
   props: ['tags', 'defaultValue', 'type', 'size'],

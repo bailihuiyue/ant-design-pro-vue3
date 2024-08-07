@@ -54,7 +54,7 @@ export default defineComponent({
   },
 })
 </script>
-<style lang="scss">
+<style lang="less">
 .DragChart {
   width: 100%;
   height: 95vh;
@@ -67,8 +67,6 @@ export default defineComponent({
     font-size: 12px;
     margin-left: 8px;
   }
-
-  $lr-width: 360px;
 
   .layout-left {
     width: 255px;
@@ -85,7 +83,7 @@ export default defineComponent({
   }
 
   .layout-right {
-    width: $lr-width;
+    width: 360px;
     height: 100%;
     overflow-y: scroll;
     box-shadow: -5px 0px 5px -2px #0000001a;

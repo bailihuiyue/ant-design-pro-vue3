@@ -1,4 +1,4 @@
-import cloneDeep from 'lodash.clonedeep'
+import { cloneDeep } from 'lodash-es'
 import i18n from '@/locales/useI18n'
 import ls from '@/utils/Storage'
 import { BasicLayout, RouteView, BlankLayout } from '@/layouts'//, BlankLayout, PageView, RouteView

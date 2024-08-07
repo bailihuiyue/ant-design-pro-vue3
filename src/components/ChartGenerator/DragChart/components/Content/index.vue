@@ -48,7 +48,7 @@ export default defineComponent({
   },
 })
 </script>
-<style lang="scss">
+<style lang="less">
 .Content {
   .Draggable {
     width: 100%;

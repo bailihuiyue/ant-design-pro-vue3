@@ -12,7 +12,7 @@ import customBezierEdge from "./edge/customBezierEdge";
 import { selectedNodeStyle, nodeStyle, edgeStyle, selectedEdgeStyle, colors } from './utils/config'
 import LogicFlow from '@logicflow/core'
 import { Menu, DndPanel } from '@logicflow/extension';
-import "@logicflow/core/dist/style/index.css";
+import "@logicflow/core/dist/index.css";
 import '@logicflow/extension/lib/style/index.css'
 let lfRef = null
 let selectedNode = { type: '', id: '' }

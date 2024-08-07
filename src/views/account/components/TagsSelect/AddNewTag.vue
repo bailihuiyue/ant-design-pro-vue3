@@ -19,7 +19,7 @@
 
 <script>
 import { ref, reactive, nextTick, onMounted } from 'vue'
-import pull from 'lodash.pull'
+import { pull } from 'lodash-es'
 import { PlusOutlined } from '@ant-design/icons-vue'
 
 export default {

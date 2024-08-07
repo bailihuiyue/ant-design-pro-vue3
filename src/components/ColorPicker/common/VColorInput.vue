@@ -146,7 +146,7 @@ const onInputChange = (source: string) => {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .inputs-controls {
   display: flex;
   font-size: 16px;

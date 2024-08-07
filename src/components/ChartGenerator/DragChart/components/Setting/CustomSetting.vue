@@ -18,7 +18,7 @@
 </template>
 <script lang="ts">
 import { defineComponent, reactive, Ref, watch, nextTick, getCurrentInstance } from 'vue';
-import cloneDeep from 'lodash.clonedeep'
+import { cloneDeep } from 'lodash-es'
 export default defineComponent({
   name: 'CustomSetting',
   props: {
@@ -60,6 +60,6 @@ export default defineComponent({
   },
 })
 </script>
-<style lang="scss">
+<style lang="less">
 .CustomSetting {}
 </style>

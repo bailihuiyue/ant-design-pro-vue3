@@ -152,7 +152,7 @@ watch(
 );
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .bee-saturation {
   position: relative;
   margin-bottom: 15px;

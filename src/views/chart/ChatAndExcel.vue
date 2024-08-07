@@ -14,7 +14,7 @@ import emitter from '@/utils/eventBus'
 import MakeChart from '@/components/ChartGenerator/MakeChart/index.vue'
 import chartList from '@/components/ChartGenerator/MakeChart/chartList'
 import data from '@/components/ChartGenerator/MakeChart/components/Echarts/data'
-import cloneDeep from 'lodash.clonedeep'
+import { cloneDeep } from 'lodash-es'
 
 const cellSize = ref({ height: 25, width: 100, indexWidth: 60 })
 

@@ -11,7 +11,7 @@
 <script lang="ts" setup name="ChartGenerator">
 import { onMounted, ref, watch, nextTick } from 'vue'
 import * as echarts from 'echarts'
-import cloneDeep from 'lodash.clonedeep'
+import { cloneDeep } from 'lodash-es'
 import VueDraggableResizable from '../vue-draggable-resizable-gorkys-vue3/components/vue-draggable-resizable.vue'
 import DraggerToolBar from './DraggerToolBar.vue'
 // 可选择导入默认样式

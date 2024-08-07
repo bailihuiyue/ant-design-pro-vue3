@@ -26,7 +26,7 @@ export default defineComponent({
   },
 })
 </script>
-<style lang="scss">
+<style lang="less">
 .ChartExample {
   width: 90%;
   height: 220px;

@@ -13,7 +13,7 @@ import { defineComponent, ref, watch, reactive } from 'vue';
 import Draggable from 'vuedraggable'
 import ChartGenerator from '../Echarts/ChartGenerator.vue'
 import chartData from '../Echarts/data'
-import cloneDeep from 'lodash.clonedeep';
+import { cloneDeep } from 'lodash-es';
 import { ChartItem } from '../../types'
 import ChartExample from './ChartExample.vue'
 
@@ -34,7 +34,7 @@ export default defineComponent({
   },
 })
 </script>
-<style lang="scss">
+<style lang="less">
 .Items {
   text-align: center;
 

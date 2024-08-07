@@ -6,8 +6,7 @@ import { defineComponent, onMounted, ref, watch, nextTick } from 'vue';
 import { customAlphabet } from 'nanoid'
 import * as echarts from 'echarts'
 import { getCharData } from '../../service'
-import cloneDeep from 'lodash.clonedeep'
-import { log } from 'console';
+import { cloneDeep } from 'lodash-es'
 // import { ChartItem } from '../../types'
 
 const nanoid = customAlphabet('1234567890abcdef', 25)
@@ -73,7 +72,7 @@ export default defineComponent({
   },
 })
 </script>
-<style lang="scss">
+<style lang="less">
 .ChartGenerator {
   width: 100%;
   min-height: 200px;

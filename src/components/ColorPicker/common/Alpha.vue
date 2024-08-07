@@ -185,7 +185,7 @@ onMounted(() => {
 });
 </script>
 
-<style lang="scss" scoped>
+<style lang="less" scoped>
 .small-alpha-slider {
   height: 10px !important;
 

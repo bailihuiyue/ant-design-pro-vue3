@@ -1,6 +1,6 @@
 // import Mock from 'mockjs'
-const { builder, userNav } = require('./mockUtils')
-const { api, delay, mock, resp } = require("apite");
+import { builder, userNav } from './mockUtils'
+
 
 // id: "@id",
 // number: "@int(5,9)",
