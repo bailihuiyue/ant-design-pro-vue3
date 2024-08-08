@@ -76,7 +76,7 @@ export default defineConfig(({ mode }) => {
         symbolId: 'icon-[dir]-[name]'
       }),
       viteMockServe({
-        mockPath: 'mock', //mock文件地址
+        mockPath: './mock/', //mock文件地址
         watchFiles: true,
         logger: true, //是否在控制台显示请求日志
         enable: mode === 'localhost'

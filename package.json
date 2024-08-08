@@ -2,6 +2,7 @@
   "name": "ant-design-pro-vue3",
   "version": "3.0.0",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "cross-env vite --mode localhost",
     "debug-vite": "cross-env vite --mode localhost --debug",
