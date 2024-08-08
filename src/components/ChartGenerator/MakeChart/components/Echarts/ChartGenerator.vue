@@ -1,11 +1,28 @@
 <template>
-  <VueDraggableResizable class="dragger" :parent="true" @resizing="onResize" :w="options.w" :h="options.h" :x="options.x"
-    :y="options.y" style="pointer-events: auto" :draggable="!locked" :resizable="!locked" @activated="onActivated"
-    @deactivated="onDeactivated" :class="locked ? 'lockedClass' : ''" :min-width="50" :min-height="50" :snap="true"
-    :snapTolerance="10" :active="isActivated" parentElementCannotClick @dragstop="onDragStop">
+  <VueDraggableResizable
+    class="dragger"
+    :parent="true"
+    @resizing="onResize"
+    :w="options.w"
+    :h="options.h"
+    :x="options.x"
+    :y="options.y"
+    style="pointer-events: auto"
+    :draggable="!locked"
+    :resizable="!locked"
+    @activated="onActivated"
+    @deactivated="onDeactivated"
+    :class="locked ? 'lockedClass' : ''"
+    :min-width="50"
+    :min-height="50"
+    :snap="true"
+    :snapTolerance="10"
+    :active="isActivated"
+    parentElementCannotClick
+    @dragstop="onDragStop"
+  >
     <DraggerToolBar @lock="onLock" :locked="locked" v-show="isActivated" @del="onDelChart" />
-    <div class="ChartGenerator" :id="options.id" ref="chartRef"
-      :style="{ width: options.w + 'px', height: options.h + 'px' }"></div>
+    <div class="ChartGenerator" :id="options.id" ref="chartRef" :style="{ width: options.w + 'px', height: options.h + 'px' }"></div>
   </VueDraggableResizable>
 </template>
 <script lang="ts" setup name="ChartGenerator">
@@ -68,19 +85,20 @@ const refreshChart = (option, notMerge = false) => {
   // TODO:上面算法暂时废弃,目前发现只要判断有变化的字段即可,当设置完formatter之后再cloneDeep就可以避免deepDiffKeys检测到formatter的变化
   // 尝试直接查看变量值的变化而不是用deepDiffKeys计算
   if (diff.length) {
-    option.yAxis?.forEach((item) => {
-      const customY = item?.axisLabel?.customLabel
-      if (customY?.open) {
-        const scale = customY.scale
-        const unit = customY.unit
-        if (customY.prevUpdated !== customY.scale + customY.unit) {
-          item.axisLabel.formatter = (value: number, index: number) => {
-            return value !== 0 ? parseInt(value / scale + '') + unit : 0
+    Array.isArray(option.yAxis) &&
+      option.yAxis?.forEach((item) => {
+        const customY = item?.axisLabel?.customLabel
+        if (customY?.open) {
+          const scale = customY.scale
+          const unit = customY.unit
+          if (customY.prevUpdated !== customY.scale + customY.unit) {
+            item.axisLabel.formatter = (value: number, index: number) => {
+              return value !== 0 ? parseInt(value / scale + '') + unit : 0
+            }
           }
+          customY.prevUpdated = customY.scale + customY.unit
         }
-        customY.prevUpdated = customY.scale + customY.unit
-      }
-    })
+      })
     chartInstance.setOption(option, notMerge)
   }
   oldChartOption = cloneDeep(option)

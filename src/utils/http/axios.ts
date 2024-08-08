@@ -24,7 +24,7 @@ const baseService = axios.create({
 
 // request interceptor
 baseService.interceptors.request.use(
-  config => {
+  (config) => {
     globalLoading.value = true
     const token = ls.get(ACCESS_TOKEN)
     const userinfo = ls.get(USER_INFO)
@@ -37,7 +37,7 @@ baseService.interceptors.request.use(
     config.headers['Content-Type'] = ContentType[config.data instanceof FormData ? 'formData' : 'json']
     return config
   },
-  error => {
+  (error) => {
     globalLoading.value = false
     return Promise.reject(error)
   }
@@ -48,34 +48,26 @@ baseService.interceptors.response.use(
     globalLoading.value = false
     if (res.status === 200) {
       return res.data
-    } else if (res.status === 401 || res.status === 403) {
-      message.error('登录过期或权限不足, 请重新登陆!')
-      return false
-    } else if (res.status === 500) {
-      message.error('请求数据失败, 请重试!')
-      return false
-    } else if (res.status === 406) {
-      message.error('登陆超时请重新登录!')
-      emitter.emit('axios_goto_login')
-      return false
-    } else {
-      if (window.localStorage.getItem('lang') === 'en') {
-        message.error(res.data.enMsg)
-      } else {
-        message.error(res.data.zhMsg)
-      }
-      return false
     }
-    // return res
+    return res
   },
-  error => {
+  (error) => {
     console.log(error)
     globalLoading.value = false
     const msg = error.message
     const result = error.response
     if (result) {
-      const { data } = result
-      message.error(data.msg || data.enMsg || data.message)
+      const { data, status } = result
+      if (data.message) {
+        message.error(data.message)
+      } else if (status === 401 || status === 403) {
+        message.error('登录过期或权限不足, 请重新登陆!')
+      } else if (status === 500) {
+        message.error('请求数据失败, 请重试!')
+      } else if (status === 406) {
+        message.error('登陆超时请重新登录!')
+        emitter.emit('axios_goto_login')
+      }
     } else if (msg) {
       if (msg === 'Network Error') {
         message.error('网络错误,请检查网络!')

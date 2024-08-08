@@ -6,10 +6,10 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 // import vueDevTools from 'vite-plugin-vue-devtools'
 
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import { viteMockServe } from "vite-plugin-mock";
+import mockDevServerPlugin from 'vite-plugin-mock-dev-server'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 import { visualizer } from 'rollup-plugin-visualizer'
-import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
+// import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
 
 const lifecycle = process.env.npm_lifecycle_event
 const target = process.env.BUILD_TARGET === 'cloud-release' ? 'com' : process.env.BUILD_TARGET
@@ -17,7 +17,7 @@ const target = process.env.BUILD_TARGET === 'cloud-release' ? 'com' : process.en
 export default defineConfig(({ mode }) => {
   return {
     server: {
-      port: 666,
+      port: 666
     },
     // 向import.meta.env注入变量,无法注入全局windows,只能注入import.meta.env中
     // 'import.meta.env.ENV_VARIABLE': JSON.stringify(process.env.ENV_VARIABLE)
@@ -75,21 +75,18 @@ export default defineConfig(({ mode }) => {
         // 指定symbolId格式
         symbolId: 'icon-[dir]-[name]'
       }),
-      viteMockServe({
-        mockPath: './mock/', //mock文件地址
-        watchFiles: true,
-        logger: true, //是否在控制台显示请求日志
-        enable: mode === 'localhost'
-      }) as any,
+      mockDevServerPlugin({
+        prefix: '/',
+        include: 'mock/*.ts',
+        log: false
+      }),
       // Components({
       //   dts: true,
       //   resolvers: [AntDesignVueResolver()],
       //   include: [/\.vue$/, /\.tsx$/],
       // }),
       vueSetupExtend(),
-      lifecycle === 'report'
-        ? visualizer({ gzipSize: true, open: true, brotliSize: true, filename: 'report.html' })
-        : null,
+      lifecycle === 'report' ? visualizer({ gzipSize: true, open: true, brotliSize: true, filename: 'report.html' }) : null,
       // viteCommonjs()
     ],
     resolve: {

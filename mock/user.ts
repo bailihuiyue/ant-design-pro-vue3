@@ -1,6 +1,6 @@
 // import Mock from 'mockjs'
 import { builder, userNav } from './mockUtils'
-
+import { defineMock } from 'vite-plugin-mock-dev-server'
 // id: "@id",
 // number: "@int(5,9)",
 // name: "@name",
@@ -18,28 +18,29 @@ const userApi = {
   UserMenu: '/user/nav'
 }
 
-export default [
+export default defineMock([
   {
-    pattern: '/json',
+    url: '/json',
     method: 'GET',
-    handle: (req, res) => {
-      res.end({
+    body({ params }) {
+      return {
         msg: 'json2'
-      })
+      }
     }
   },
   {
-    pattern: '/auth/login',
+    url: '/auth/login',
     method: 'POST',
-    handle: (req, res) => {
+    response(req, res, next) {
+      const { query, body, params, headers } = req
       let permission = ''
-      if (req.params.username === 'admin') {
+      if (body.username === 'admin') {
         permission = 'admin'
-      } else if (req.params.username === 'ant.design') {
+      } else if (body.username === 'ant.design') {
         permission = 'user'
       } else {
         res.statusCode = 403
-        res.end('用户名错误,只有admin和ant.design')
+        res.end(JSON.stringify({ message: '用户名错误,只有admin和ant.design' }))
         return
       }
       const data = {
@@ -60,35 +61,35 @@ export default [
         token: '12312312',
         menu: userNav
       }
-      res.end(data)
+      res.end(JSON.stringify(data))
     }
   },
   {
-    pattern: '/auth/2step-code',
+    url: '/auth/2step-code',
     method: 'GET',
-    handle: (req, res) => {
-      res.end(builder({ stepCode: '@int(0, 1)' }))
+    body() {
+      return builder({ stepCode: '1' })
     }
   },
   {
-    pattern: '/account/sms',
+    url: '/account/sms',
     method: 'POST',
-    handle: (req, res) => {
-      res.end(builder({ captcha: '@int(10000, 99999)' }))
+    body() {
+      return builder({ captcha: '123456' })
     }
   },
   {
-    pattern: '/auth/logout',
+    url: '/auth/logout',
     method: 'GET',
-    handle: (req, res) => {
-      res.end(builder({}, '[测试接口] 注销成功1'))
+    body() {
+      return builder({}, '[测试接口] 注销成功1')
     }
   },
   {
-    pattern: '/auth/unlock',
+    url: '/auth/unlock',
     method: 'POST',
-    handle: (req, res) => {
-      res.end({ unlocked: true })
+    body() {
+      return { unlocked: true }
     }
   }
-]
+])

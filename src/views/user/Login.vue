@@ -218,7 +218,7 @@ const handleSubmit = (e: Event) => {
         loginSuccess(res, router)
         isLoginError.value = false
       } else {
-        requestFailed(res)
+        // requestFailed(res)
         isLoginError.value = true
         formRef.password = ''
       }

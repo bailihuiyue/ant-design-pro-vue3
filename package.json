@@ -41,14 +41,14 @@
     "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.77.8",
     "tinycolor2": "^1.6.0",
-    "vite-plugin-mock": "^3.0.2",
+    "vite-plugin-mock-dev-server": "^1.6.1",
     "vite-plugin-svg-icons": "^2.0.1",
     "vite-plugin-vue-setup-extend": "^0.4.0",
     "vue": "^3.4.29",
     "vue-clipboard3": "^2.0.0",
     "vue-i18n": "^9.13.1",
     "vue-router": "^4.3.3",
-    "vuedraggable": "^2.24.3",
+    "vuedraggable": "^4.1.0",
     "xe-utils": "^3.5.29"
   },
   "devDependencies": {
