@@ -36,6 +36,8 @@ An out-of-box UI solution for enterprise applications as a Vue boilerplate. base
 ----
 
 ```bash
+开发时 node 版本 :v18.17.1,不要低于此版本,否则可能项目无法运行
+
 #拉取项目代码
 git clone https://github.com/bailihuiyue/ant-design-pro-vue3.git
 cd ant-design-pro-vue3
