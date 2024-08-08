@@ -40,12 +40,12 @@ An out-of-box UI solution for enterprise applications as a Vue boilerplate. base
 git clone https://github.com/bailihuiyue/ant-design-pro-vue3.git
 cd ant-design-pro-vue3
 #安装依赖
-yarn install
+pnpm install
 #开发模式运行
-yarn dev 不带开发球
-yarn dev-ui 带开发球
+pnpm dev 不带开发球
+pnpm dev-ui 带开发球
 #编译项目
-yarn build
+pnpm run build-only
 ```
 
 路由和菜单
@@ -133,7 +133,9 @@ yarn build
         - 猜测原理,根据该插件说明和代码运行现象猜测,是以主颜色生成几个临近颜色然后对应找到整个项目中包含这些颜色的css样式然后对比替换比如原来是[a,b,c,d],现在是[1,2,3,4],那么a变成1,b变成2这样对应着替换,然后把提换完成的css写入到body底部,完成主题切换,不需要根据@primary-color这种定义去查找,这样靠颜色替换比较完整
 ***黑夜模式目前使用了antv官网的黑夜css,采用动态添加link完成,不能适配所有页面,因此在darkModePatch.less写下一些兼容样式***
 
-**3.本项目使用了第三种方案: 使用官方antv V3版本的css变量进行主题修改,达到了性能和体积的最优解**
+~~**3.本项目使用了第三种方案: 使用官方antv V3版本的css变量进行主题修改,达到了性能和体积的最优解**~~(antv 4.0之后使用css in js, 无需再修改less变量,直接在a-config-provider组件中设置颜色即可,详情参见官网教程)
+
+
 
 
 权限管理
@@ -185,20 +187,21 @@ yarn build
 12. 增加两个新页面:动态表单和流程图
 13. 系统设置抽屉中的所有内容已使用reactiveState代替vuex, 减少更改状态管理库(如vuex改pinia等)的工作量
 14. Echarts图表设计器
+15. vite版本已升级到5.0,更快更强,mock插件也已更换最新
 
 ## TODO
 1. 详尽的文档
 2. 项目中的 i18n.global.t 全部删除掉,只在 hooks 中使用 i18n
 3. antv4.0版本 夜间模式适配
-4. 升级vite到最新版本
 5. 优化图表生成器(合成一个组件而不是两个)
+5. 使用alova替换axios
 
 ## 浏览器兼容
 Edge Chrome 等现代浏览器,目前只测试过Chrome,没有Mac所以Safari没有测试
 
 ## 一些小技巧
 
-1.如果想要更换ant3的前缀prefixCls,不需要像官方示例中那样编译less文件成css,因为如果编译之后,就变成css了,没有办法再动态改变主题了,一个做法是:
+1.如果想要更换antv 3的前缀prefixCls,不需要像官方示例中那样编译less文件成css,因为如果编译之后,就变成css了,没有办法再动态改变主题了,一个做法是:
 
 ```javascript
 //1.在main.ts中(最重要的一步是,不再引入css,直接引入可定制的less)
@@ -268,12 +271,12 @@ rules: {
 // 2.https://blog.csdn.net/yw00yw/article/details/87861261
 // 3.https://www.cnblogs.com/hongzhending/p/17336133.html
 ```
-5. vscode配置可以参考项目根目录.vscode/settings_backup.json
+5. vscode配置可以参考项目根目录.vscode/settings.json
 
 6.页面无法渲染(vue3+ts+vite)，报错jsoneditor does not provide an export named 'default'
 
 ```javascript
-这是因为vite对commonjs兼容性太差，导致无法引入jsoneditor，可以使用@originjs/vite-plugin-commonjs插件解决。
+这是因为vite 4对commonjs兼容性太差，导致无法引入jsoneditor，可以使用@originjs/vite-plugin-commonjs插件解决。
 
 // vite.config.js
 import { viteCommonjs } from '@originjs/vite-plugin-commonjs'

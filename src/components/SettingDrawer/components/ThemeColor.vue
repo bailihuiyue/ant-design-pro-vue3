@@ -25,7 +25,6 @@ import { systemConfig } from '@/store/reactiveState'
 import { THEME_COLOR } from '@/store/mutation-types'
 import { CheckOutlined } from '@ant-design/icons-vue'
 import { colorList } from '../settingConfig'
-import { updateTheme } from '../updateTheme'
 import useSiteSettings from '@/store/useSiteSettings'
 import SettingItem from './SettingItem.vue'
 import ColorPicker from '@/components/ColorPicker/index.vue'
@@ -34,7 +33,6 @@ const { primaryColor } = useSiteSettings()
 
 const changeColor = (color) => {
     systemConfig.commit(THEME_COLOR, color)
-    updateTheme(color)
 }
 
 const colorArr = colorList.map((item) => item.color)

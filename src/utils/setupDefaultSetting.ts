@@ -1,7 +1,6 @@
 import ls from './Storage';
 import { SITE_SETTINGS, TOGGLE_THEME, SET_DARK_MODE, THEME_COLOR, TOGGLE_GRAY, TOGGLE_WEAK } from '@/store/mutation-types'
 import { systemConfig } from '@/store/reactiveState'
-import { updateTheme } from '@/components/SettingDrawer/updateTheme'
 import { updateColorWeak, updateGrayMode } from '@/components/SettingDrawer/settingConfig'
 
 export default () => {
@@ -12,10 +11,6 @@ export default () => {
       // 只要设置了黑暗主题,就不设置亮暗颜色了,统一默认暗色
       if (s === TOGGLE_THEME && siteSettings[SET_DARK_MODE]) {
         continue;
-      }
-      // 有主题色就设置主题色
-      if (s === THEME_COLOR && siteSettings[THEME_COLOR]) {
-        updateTheme(siteSettings[THEME_COLOR])
       }
       // 黑白模式
       if (s === TOGGLE_GRAY && siteSettings[TOGGLE_GRAY]) {
