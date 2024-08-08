@@ -1,5 +1,5 @@
-const express = require('express');
-const shelljs = require('shelljs');
+import express from 'express';
+import shelljs from 'shelljs';
 const server = express();
 const rootPath = process.cwd()
 

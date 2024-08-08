@@ -1,8 +1,9 @@
-import { moduleTypes } from './type'
-import { copyFolder, log, templatePath, disPath, deleteFolder, modifyIndexVue, firstLetterUpperCase } from './utils'
+import { moduleTypes } from './type.js'
+import { copyFolder, log, templatePath, disPath, deleteFolder, modifyIndexVue, firstLetterUpperCase } from './utils.js'
+import minimist from 'minimist'
 
 function run() {
-  const argv = require('minimist')(process.argv.slice(2));
+  const argv = minimist(process.argv.slice(2))
   const { type, moduleName } = argv
   if (!moduleName) {
     log.error('请输入组件/页面名称!')
