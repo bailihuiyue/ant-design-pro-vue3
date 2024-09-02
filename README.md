@@ -10,27 +10,27 @@ An out-of-box UI solution for enterprise applications as a Vue boilerplate. base
 预览图
 ----
 #### 首页
-![dashboard](https://i.imgtg.com/2023/03/22/9tUVs.png)
+![dashboard](https://ooo.0x0.ooo/2023/03/22/9tUVs.png)
 个人中心
-![dashboard](https://i.imgtg.com/2023/03/22/9tBbg.png)
+![dashboard](https://ooo.0x0.ooo/2023/03/22/9tBbg.png)
 
 #### 夜间模式
-![dashboard](https://i.imgtg.com/2023/03/22/9tTmB.png)
+![dashboard](https://ooo.0x0.ooo/2023/03/22/9tTmB.png)
 
 #### 锁屏界面
 可点击右下角锁头按钮进行解锁
-![dashboard](https://i.imgtg.com/2023/03/22/9thiC.png)
+![dashboard](https://ooo.0x0.ooo/2023/03/22/9thiC.png)
 
 #### 流程图
-![dashboard](https://i.imgtg.com/2023/03/22/9tbqK.png)
+![dashboard](https://ooo.0x0.ooo/2023/03/22/9tbqK.png)
 
 #### Echarts设计器
 
 ###### 目前有柱状图,折线图,饼图,自定义图,不同的图有不同的setting,代码文件也是分开的,可自行扩展
-![dashboard](https://i.imgtg.com/2023/07/04/OxWCUY.png)
+![dashboard](https://ooo.0x0.ooo/2023/07/04/OxWCUY.png)
 
 #### 手机预览(最低支持iphone4)
-<img src="https://i.imgtg.com/2023/03/22/9tq2l.png"  width=250 /><img src="https://i.imgtg.com/2023/03/22/9taiP.png"  width=250/><img src="https://i.imgtg.com/2023/03/22/9to4b.png"  width=250 />
+<img src="https://ooo.0x0.ooo/2023/03/22/9tq2l.png"  width=250 /><img src="https://ooo.0x0.ooo/2023/03/22/9taiP.png"  width=250/><img src="https://ooo.0x0.ooo/2023/03/22/9to4b.png"  width=250 />
 
 项目下载和运行
 ----
@@ -288,6 +288,6 @@ export default defineConfig({
 ```
 
 ##### 请我炫个饼
-<img src="https://i.imgtg.com/2023/03/22/9tzCN.jpg" width=200/>
+<img src="https://ooo.0x0.ooo/2023/03/22/9tzCN.jpg" width=200/>
 
 下次一定?给个Star也行啊
