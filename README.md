@@ -225,7 +225,7 @@ export default defineConfig({
                 javascriptEnabled: true,
                 // 添加这一句(// ant-design-vue 4.x版本不需要了)
                 modifyVars: {
-                    '@ant-prefix': 'coseffect',
+                    '@ant-prefix': 'xxx',
                 }
             },
         },
