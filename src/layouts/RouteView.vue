@@ -7,7 +7,7 @@
   <router-view v-else />
 </template>
 <script lang="ts" setup name="RouteView">
-import { ref, watch } from 'vue';
+import { ref, watch, onMounted } from 'vue';
 import { systemConfig } from '@/store/reactiveState'
 import { useRouter } from 'vue-router';
 
@@ -20,6 +20,10 @@ const props = defineProps({
 const router = useRouter();
 const isKeep = ref(false);
 
+/*
+组件是否缓存的逻辑不太正常,理论上,是否缓存标签应该完全由路由的 meta.keepAlive 判断,不需要额外判断
+并且如果有多个RouteView组件存在,会有很多的watch监控,有性能问题
+因此改为onMounted时进行判断,如果新逻辑(onMounted)不正确,可以仍然使用已注释的watch方法
 watch(
   () => router.currentRoute.value,
   (newVal) => {
@@ -37,4 +41,10 @@ watch(
     immediate: true,
   },
 );
+*/
+
+onMounted(() => {
+  const routeKeepAlive = router.currentRoute.value.meta?.keepAlive
+  isKeep.value = !!routeKeepAlive
+})
 </script>

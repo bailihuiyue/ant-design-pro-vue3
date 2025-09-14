@@ -6,7 +6,7 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 // import vueDevTools from 'vite-plugin-vue-devtools'
 
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons'
-import mockDevServerPlugin from 'vite-plugin-mock-dev-server'
+import { mockDevServerPlugin } from 'vite-plugin-mock-dev-server'
 import vueSetupExtend from 'vite-plugin-vue-setup-extend'
 import { visualizer } from 'rollup-plugin-visualizer'
 // import { viteCommonjs } from '@originjs/vite-plugin-commonjs'
