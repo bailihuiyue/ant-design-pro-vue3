@@ -7,7 +7,7 @@
   <router-view v-else />
 </template>
 <script lang="ts" setup name="RouteView">
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onBeforeMount } from 'vue';
 import { systemConfig } from '@/store/reactiveState'
 import { useRouter } from 'vue-router';
 
@@ -43,7 +43,8 @@ watch(
 );
 */
 
-onMounted(() => {
+// 这里使用onMounted会导致子组件的onMounted被执行两次猜测是由于组件完全挂载后先加载了isKeep是false(默认值)的路由,然后又被设置为true,再次执行了一个路由Component,因此导致组件挂载了两次
+onBeforeMount(() => {
   const routeKeepAlive = router.currentRoute.value.meta?.keepAlive
   isKeep.value = !!routeKeepAlive
 })
